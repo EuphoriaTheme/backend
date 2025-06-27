@@ -1,0 +1,146 @@
+# Licensed Addons/Themes/Web Applications
+- Name: Euphoria Paste
+  Identifier: EuphoriaPaste
+  InternalId:
+  Price: 6.99
+  URLs:
+    - https://example.com/euphoria-paste
+  Logo: /public/logos/EuphoriaPaste.png
+  Screenshots: /public/screenshots/EuphoriaPaste/
+
+- Name: Euphoria Theme
+  Identifier: EuphoriaTheme
+  InternalId:
+  Price: 12.99
+  URLs:
+    - https://example.com/euphoria-theme
+  Logo: /public/logos/EuphoriaTheme.png
+  Screenshots: /public/screenshots/EuphoriaTheme/
+
+- Name: Euphoria Drive
+  Identifier: EuphoriaDrive
+  InternalId:
+  Price: 12.99
+  URLs:
+    - https://example.com/euphoria-drive
+  Logo: /public/logos/EuphoriaDrive.png
+  Screenshots: /public/screenshots/EuphoriaDrive/
+
+- Name: Euphoria Gallery
+  Identifier: EuphoriaGallery
+  InternalId:
+  Price: 6.99
+  URLs:
+    - https://example.com/euphoria-gallery
+  Logo: /public/logos/EuphoriaGallery.png
+  Screenshots: /public/screenshots/EuphoriaGallery/
+
+- Name: Euphoria License
+  Identifier: EuphoriaLicense
+  InternalId:
+  Price: 6.99
+  URLs:
+    - https://example.com/euphoria-license
+  Logo: /public/logos/EuphoriaLicense.png
+  Screenshots: /public/screenshots/EuphoriaLicense/
+
+- Name: Ascension Desktop
+  Identifier: AscensionDesktop
+  InternalId: 
+  Price: 4.99
+  URLs:
+    - https://example.com/ascension-desktop
+  Logo: /public/logos/AscensionDesktop.png
+  Screenshots: /public/screenshots/AscensionDesktop/
+
+# Free Addons/Themes/Web Applications
+- Name: Euphoria Paste Free
+  Identifier: EuphoriaPasteFree
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/euphoria-paste-free
+  Logo: /public/logos/EuphoriaPasteFree.png
+  Screenshots: /public/screenshots/EuphoriaPasteFree/
+
+- Name: Refresh Theme
+  Identifier: RefreshTheme
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/refresh-theme
+  Logo: /public/logos/RefreshTheme.png
+  Screenshots: /public/screenshots/RefreshTheme/
+
+- Name: Player Listing
+  Identifier: PlayerListing
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/player-listing
+  Logo: /public/logos/PlayerListing.png
+  Screenshots: /public/screenshots/PlayerListing/
+
+- Name: MC Logs
+  Identifier: MCLogs
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/mc-logs
+  Logo: /public/logos/MCLogs.png
+  Screenshots: /public/screenshots/MCLogs/
+
+- Name: Server Backgrounds
+  Identifier: ServerBackgrounds
+  InternalId: 
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/server-backgrounds
+  Logo: /public/logos/ServerBackgrounds.png
+  Screenshots: /public/screenshots/ServerBackgrounds/
+
+- Name: Resource Alerts
+  Identifier: ResourceAlerts
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/resource-alerts
+  Logo: /public/logos/ResourceAlerts.png
+  Screenshots: /public/screenshots/ResourceAlerts/
+
+- Name: Translations
+  Identifier: Translations
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/translations
+  Logo: /public/logos/Translations.png
+  Screenshots: /public/screenshots/Translations/
+
+- Name: Laravel Logs
+  Identifier: LaravelLogs
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/laravel-logs
+  Logo: /public/logos/LaravelLogs.png
+  Screenshots: /public/screenshots/LaravelLogs/
+
+- Name: Resource Manager
+  Identifier: ResourceManager
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/resource-manager
+  Logo: /public/logos/ResourceManager.png
+  Screenshots: /public/screenshots/ResourceManager/
+
+- Name: Console Logs
+  Identifier: ConsoleLogs
+  InternalId: 
+  Price: 0
+  URLs:
+    - https://example.com/console-logs
+  Logo: /public/logos/ConsoleLogs.png
+  Screenshots: /public/screenshots/ConsoleLogs/
