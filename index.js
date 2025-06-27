@@ -4,9 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import licenseRoutes from './routes/license.js';
-import gameApiRoutes from './routes/gameapi.js';
-import translationApiRoutes from './routes/translations.js';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -17,6 +15,41 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// --- Logging and Stats Middleware ---
+const statsFile = path.join(__dirname, 'api_stats.json');
+function incrementApiCounter() {
+  let stats = { count: 0 };
+  if (fs.existsSync(statsFile)) {
+    try { stats = JSON.parse(fs.readFileSync(statsFile, 'utf8')); } catch {}
+  }
+  stats.count = (stats.count || 0) + 1;
+  fs.writeFileSync(statsFile, JSON.stringify(stats));
+}
+
+function logApiCall(req) {
+  const now = new Date();
+  const logDir = path.join(__dirname, 'logs');
+  if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
+  const logFile = path.join(logDir, `${now.toISOString().slice(0,10)}.log`);
+  const sourceDomain = req.headers['origin'] || req.headers['referer'] || '';
+  const sourceIp = req.ip || req.connection?.remoteAddress || '';
+  const target = req.originalUrl;
+  const body = req.body && Object.keys(req.body).length ? JSON.stringify(req.body) : null;
+  const logEntry = {
+    time: now.toISOString(),
+    source: { domain: sourceDomain, ip: sourceIp },
+    target,
+    body
+  };
+  fs.appendFileSync(logFile, JSON.stringify(logEntry) + '\n');
+}
+
+app.use((req, res, next) => {
+  incrementApiCounter();
+  logApiCall(req);
+  next();
+});
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'secret',
   resave: false,
@@ -25,6 +58,10 @@ app.use(session({
 
 // Serve static files from /public
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+import licenseRoutes from './routes/license.js';
+import gameApiRoutes from './routes/gameapi.js';
+import translationApiRoutes from './routes/translations.js';
 
 app.use('/license', licenseRoutes);
 app.use('/gameapi', gameApiRoutes);

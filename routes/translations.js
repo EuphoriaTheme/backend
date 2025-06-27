@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
           de: 'German',
           it: 'Italian',
           ja: 'Japanese',
-		  ko: 'Korean',
+		      ko: 'Korean',
           pt: 'Portuguese',
           ru: 'Russian',
           es: 'Spanish',
