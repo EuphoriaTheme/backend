@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function authenticateLicense(req, res, next) {
   const { auth: licenseKey, productId, hwid } = req.query;
 
@@ -17,6 +19,7 @@ export async function authenticateLicense(req, res, next) {
     return next(); // Proceed to serve the requested file
 
   } catch (error) {
+    console.error(error.response?.data || error.message || error);
     return res.status(500).json({ error: "Error verifying License Key." });
   }
 }

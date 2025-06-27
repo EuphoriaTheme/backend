@@ -1,0 +1,10 @@
+# Versions Template
+- ProductName: Euphoria Paste
+  InternalId: EuphoriaPaste
+  Version: 1.2.3
+
+- ProductName: Euphoria Theme
+  InternalId: EuphoriaTheme
+  Version: 2.0.0
+
+# Add more products below following the same structure
