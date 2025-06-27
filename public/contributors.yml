@@ -1,0 +1,10 @@
+# Contributors Template
+- Name: Example Contributor
+  Image: /public/contributors/ExampleContributor.png
+  Link: https://example.com/contributor-profile
+  Contribution: Developed core API features
+
+- Name: Documentation Helper
+  Image: /public/contributors/DocHelper.png
+  Link: https://example.com/doc-helper
+  Contribution: Wrote and improved documentation

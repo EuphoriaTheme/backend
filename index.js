@@ -59,13 +59,17 @@ app.use(session({
 // Serve static files from /public
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-import licenseRoutes from './routes/license.js';
 import gameApiRoutes from './routes/gameapi.js';
 import translationApiRoutes from './routes/translations.js';
+import productsRoutes from './routes/products.js';
+import donatorsRoutes from './routes/donators.js';
+import contributorsRoutes from './routes/contributors.js';
 
-app.use('/license', licenseRoutes);
 app.use('/gameapi', gameApiRoutes);
 app.use('/translations', translationApiRoutes);
+app.use('/products', productsRoutes);
+app.use('/donators', donatorsRoutes);
+app.use('/contributors', contributorsRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 

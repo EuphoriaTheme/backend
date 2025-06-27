@@ -1,0 +1,10 @@
+# Donators Template
+- Name: Example Donator
+  Image: /public/donators/ExampleDonator.png
+  Link: https://example.com/donator-profile
+  Donation: $50
+
+- Name: Service Donator
+  Image: /public/donators/ServiceDonator.png
+  Link: https://example.com/service-donator
+  Donation: Provided server hosting
