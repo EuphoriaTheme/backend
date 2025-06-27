@@ -7,7 +7,7 @@ const API_KEY = '475935e9d35926c5acdf0d87f3c07db4';
 const GAMES_YML = path.resolve('public/games.yml');
 const IMAGES_DIR = path.resolve('public/games');
 const SEARCH_URL = 'https://www.steamgriddb.com/api/v2/search/autocomplete/';
-const ICONS_URL = 'https://www.steamgriddb.com/api/v2/icons/game/';
+const GRIDS_URL = 'https://www.steamgriddb.com/api/v2/grids/game/';
 
 if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
 
@@ -60,14 +60,14 @@ async function main() {
       const searchRes = await fetchJSON(searchUrl, { 'Authorization': `Bearer ${API_KEY}` });
       if (!searchRes.success || !searchRes.data.length) throw new Error('No SGDB match');
       const gameId = searchRes.data[0].id;
-      // 2. Get icons for the game
-      const iconsRes = await fetchJSON(`${ICONS_URL}${gameId}`, { 'Authorization': `Bearer ${API_KEY}` });
-      if (!iconsRes.success || !iconsRes.data.length) throw new Error('No icon found');
-      // 3. Download the first icon
-      await downloadImage(iconsRes.data[0].url, imagePath);
-      console.log(`Downloaded icon for ${name} (${id})`);
+      // 2. Get grids (cover art) for the game, prefer 600x900 portrait
+      const gridsRes = await fetchJSON(`${GRIDS_URL}${gameId}?dimensions=600x900`, { 'Authorization': `Bearer ${API_KEY}` });
+      if (!gridsRes.success || !gridsRes.data.length) throw new Error('No cover art found');
+      // 3. Download the first grid (cover art)
+      await downloadImage(gridsRes.data[0].url, imagePath);
+      console.log(`Downloaded cover art for ${name} (${id})`);
     } catch (e) {
-      console.log(`No icon for ${name} (${id}): ${e.message}`);
+      console.log(`No cover art for ${name} (${id}): ${e.message}`);
     }
   }
 }
