@@ -5,8 +5,8 @@
   Price: 6.99
   URLs:
     - https://example.com/euphoria-paste
-  Logo: /public/logos/EuphoriaPaste.png
-  Screenshots: /public/screenshots/EuphoriaPaste/
+  Logo: /logos/EuphoriaPaste.png
+  Screenshots: /screenshots/EuphoriaPaste/
 
 - Name: Euphoria Theme
   Identifier: EuphoriaTheme
@@ -14,8 +14,8 @@
   Price: 12.99
   URLs:
     - https://example.com/euphoria-theme
-  Logo: /public/logos/EuphoriaTheme.png
-  Screenshots: /public/screenshots/EuphoriaTheme/
+  Logo: /logos/EuphoriaTheme.png
+  Screenshots: /screenshots/EuphoriaTheme/
 
 - Name: Euphoria Drive
   Identifier: EuphoriaDrive
@@ -23,8 +23,8 @@
   Price: 12.99
   URLs:
     - https://example.com/euphoria-drive
-  Logo: /public/logos/EuphoriaDrive.png
-  Screenshots: /public/screenshots/EuphoriaDrive/
+  Logo: /logos/EuphoriaDrive.png
+  Screenshots: /screenshots/EuphoriaDrive/
 
 - Name: Euphoria Gallery
   Identifier: EuphoriaGallery
@@ -32,8 +32,8 @@
   Price: 6.99
   URLs:
     - https://example.com/euphoria-gallery
-  Logo: /public/logos/EuphoriaGallery.png
-  Screenshots: /public/screenshots/EuphoriaGallery/
+  Logo: /logos/EuphoriaGallery.png
+  Screenshots: /screenshots/EuphoriaGallery/
 
 - Name: Euphoria License
   Identifier: EuphoriaLicense
@@ -41,8 +41,8 @@
   Price: 6.99
   URLs:
     - https://example.com/euphoria-license
-  Logo: /public/logos/EuphoriaLicense.png
-  Screenshots: /public/screenshots/EuphoriaLicense/
+  Logo: /logos/EuphoriaLicense.png
+  Screenshots: /screenshots/EuphoriaLicense/
 
 # Free Addons/Themes/Web Applications
 - Name: Euphoria Paste Free
@@ -51,8 +51,8 @@
   Price: 0
   URLs:
     - https://example.com/euphoria-paste-free
-  Logo: /public/logos/EuphoriaPasteFree.png
-  Screenshots: /public/screenshots/EuphoriaPasteFree/
+  Logo: /logos/EuphoriaPasteFree.png
+  Screenshots: /screenshots/EuphoriaPasteFree/
 
 - Name: Refresh Theme
   Identifier: RefreshTheme
@@ -60,8 +60,8 @@
   Price: 0
   URLs:
     - https://example.com/refresh-theme
-  Logo: /public/logos/RefreshTheme.png
-  Screenshots: /public/screenshots/RefreshTheme/
+  Logo: /logos/RefreshTheme.png
+  Screenshots: /screenshots/RefreshTheme/
 
 - Name: Player Listing
   Identifier: PlayerListing
@@ -69,8 +69,8 @@
   Price: 0
   URLs:
     - https://example.com/player-listing
-  Logo: /public/logos/PlayerListing.png
-  Screenshots: /public/screenshots/PlayerListing/
+  Logo: /logos/PlayerListing.png
+  Screenshots: /screenshots/PlayerListing/
 
 - Name: MC Logs
   Identifier: MCLogs
@@ -78,8 +78,8 @@
   Price: 0
   URLs:
     - https://example.com/mc-logs
-  Logo: /public/logos/MCLogs.png
-  Screenshots: /public/screenshots/MCLogs/
+  Logo: /logos/MCLogs.png
+  Screenshots: /screenshots/MCLogs/
 
 - Name: Server Backgrounds
   Identifier: ServerBackgrounds
@@ -87,8 +87,8 @@
   Price: 0
   URLs:
     - https://example.com/server-backgrounds
-  Logo: /public/logos/ServerBackgrounds.png
-  Screenshots: /public/screenshots/ServerBackgrounds/
+  Logo: /logos/ServerBackgrounds.png
+  Screenshots: /screenshots/ServerBackgrounds/
 
 - Name: Resource Alerts
   Identifier: ResourceAlerts
@@ -96,8 +96,8 @@
   Price: 0
   URLs:
     - https://example.com/resource-alerts
-  Logo: /public/logos/ResourceAlerts.png
-  Screenshots: /public/screenshots/ResourceAlerts/
+  Logo: /logos/ResourceAlerts.png
+  Screenshots: /screenshots/ResourceAlerts/
 
 - Name: Translations
   Identifier: Translations
@@ -105,8 +105,8 @@
   Price: 0
   URLs:
     - https://example.com/translations
-  Logo: /public/logos/Translations.png
-  Screenshots: /public/screenshots/Translations/
+  Logo: /logos/Translations.png
+  Screenshots: /screenshots/Translations/
 
 - Name: Laravel Logs
   Identifier: LaravelLogs
@@ -114,8 +114,8 @@
   Price: 0
   URLs:
     - https://example.com/laravel-logs
-  Logo: /public/logos/LaravelLogs.png
-  Screenshots: /public/screenshots/LaravelLogs/
+  Logo: /logos/LaravelLogs.png
+  Screenshots: /screenshots/LaravelLogs/
 
 - Name: Resource Manager
   Identifier: ResourceManager
@@ -123,8 +123,8 @@
   Price: 0
   URLs:
     - https://example.com/resource-manager
-  Logo: /public/logos/ResourceManager.png
-  Screenshots: /public/screenshots/ResourceManager/
+  Logo: /logos/ResourceManager.png
+  Screenshots: /screenshots/ResourceManager/
 
 - Name: Console Logs
   Identifier: ConsoleLogs
@@ -132,5 +132,5 @@
   Price: 0
   URLs:
     - https://example.com/console-logs
-  Logo: /public/logos/ConsoleLogs.png
-  Screenshots: /public/screenshots/ConsoleLogs/
+  Logo: /logos/ConsoleLogs.png
+  Screenshots: /screenshots/ConsoleLogs/
