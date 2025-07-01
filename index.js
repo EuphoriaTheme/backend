@@ -65,6 +65,7 @@ import productsRoutes from './routes/products.js';
 import donatorsRoutes from './routes/donators.js';
 import contributorsRoutes from './routes/contributors.js';
 import versionsRoutes from './routes/versions.js';
+import statsRoutes from './routes/stats.js';
 
 app.use('/gameapi', gameApiRoutes);
 app.use('/translations', translationApiRoutes);
@@ -72,6 +73,7 @@ app.use('/products', productsRoutes);
 app.use('/donators', donatorsRoutes);
 app.use('/contributors', contributorsRoutes);
 app.use('/versions', versionsRoutes);
+app.use('/stats', statsRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 

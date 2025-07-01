@@ -1,10 +1,45 @@
 # Contributors Template
-- Name: Example Contributor
-  Image: /public/contributors/ExampleContributor.png
-  Link: https://example.com/contributor-profile
-  Contribution: Developed core API features
+- Name: Emma
+  Image: /public/contributors/Emma.jpg
+  Link: https://blueprint.zip
+  Contribution: Creator of Blueprint Framework & Helped with Dutch Translation
 
-- Name: Documentation Helper
-  Image: /public/contributors/DocHelper.png
-  Link: https://example.com/doc-helper
-  Contribution: Wrote and improved documentation
+- Name: Carson
+  Image: /public/contributors/Carson.png
+  Link: https://carson.dist.tw/
+  Contribution: Helped with Traditonal Chinese Translation
+
+- Name: zeyroz
+  Image: /public/contributors/Zeyroz.jpg
+  Link: https://cyl-hosting.com/
+  Contribution: Helped with French Translation, Ticket Support and Development
+
+- Name: davidkormos2003
+  Image: /public/contributors/davidKormos2003.png
+  Link: https://github.com/davidkormos2003
+  Contribution: Helped with Hungarian Translation
+
+- Name: Mihai 
+  Image: /public/contributors/Mihai.jpg
+  Link: https://github.com/assasin007-24
+  Contribution: Helped with Romanian Translation
+
+- Name: kochanhyun
+  Image: /public/contributors/KochanHyun.png
+  Link: https://github.com/kochanhyun
+  Contribution: Helped with Korean Translation
+
+- Name: 0fcs
+  Image: /public/contributors/0fcs.jpg
+  Link: https://github.com/0fcs
+  Contribution: Helped with Vietnamese Translation
+
+- Name: aquageprek
+  Image: /public/contributors/Aquageprek.png
+  Link: https://github.com/aquageprek
+  Contribution: Helped with Indonesian Translation
+
+- Name: RBLKtenarios
+  Image: /public/contributors/RBLKtenarios.png
+  Link: https://github.com/RBLKtenarios
+  Contribution: Helped with Greek Translation

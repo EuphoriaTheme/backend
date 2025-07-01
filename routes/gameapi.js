@@ -7,6 +7,9 @@ import queryFiveMServer from '../handlers/queryFiveMServer.js';
 import queryBeamMPServer from '../handlers/queryBeamMPServer.js';
 import queryMinecraftServer from '../handlers/queryMinecraftServer.js';
 import handleDefaultGame from '../handlers/defaultGameHandler.js';
+import querySourceRconPlayers from '../handlers/querySourceRconPlayers.js';
+import queryRustLikeRconPlayers from '../handlers/queryRustLikeRconPlayers.js';
+import queryArmaRconPlayers from '../handlers/queryArmaRconPlayers.js';
 
 const router = express.Router();
 
@@ -50,16 +53,38 @@ router.get('/:game/ip=:ip&port=:port', async (req, res) => {
   const { game, ip, port } = req.params;
   const normalizedGame = game.toLowerCase();
   try {
-    if (['fivem', 'gta5f'].includes(normalizedGame)) {
+    if (["fivem", "gta5f"].includes(normalizedGame)) {
       const result = await queryFiveMServer(ip, port);
       return res.json(result);
     }
-    if (normalizedGame === 'beammp') {
+    if (normalizedGame === "beammp") {
       const result = await queryBeamMPServer(ip, port);
       return res.json({ success: true, data: result });
     }
-    if (normalizedGame === 'minecraft') {
+    if (normalizedGame === "minecraft") {
       const result = await queryMinecraftServer(ip, port);
+      return res.json(result);
+    }
+    // Source/GoldSrc RCON games
+    //if (["csgo", "css", "cscz", "garrysmod", "tf2", "dod", "dods", "hl2d", "hlds", "l4d", "l4d2", "insurgency", "insurgencysandstorm"].includes(normalizedGame)) {
+      // You may want to get password from query/body/env
+    //  const { password } = req.query;
+    //  if (!password) return res.status(400).json({ success: false, error: 'RCON password required' });
+    //  const result = await querySourceRconPlayers({ host: ip, port, password });
+    //  return res.json(result);
+    //}
+    // Rust/ARK/7DTD/Unturned RCON games
+    if (["rust", "ark", "7dtd", "unturned"].includes(normalizedGame)) {
+      const { password } = req.query;
+      if (!password) return res.status(400).json({ success: false, error: 'RCON password required' });
+      const result = await queryRustLikeRconPlayers({ host: ip, port, password });
+      return res.json(result);
+    }
+    // ARMA RCON
+    if (["arma2", "arma3", "armaresistance", "arma2oa", "arma"].includes(normalizedGame)) {
+      const { password } = req.query;
+      if (!password) return res.status(400).json({ success: false, error: 'RCON password required' });
+      const result = await queryArmaRconPlayers({ host: ip, port, password });
       return res.json(result);
     }
     // Default handler for all other games

@@ -6,6 +6,7 @@
   "author": "Rep Graphics <charliebeckingham@hotmail.com>",
   "license": "MIT",
   "dependencies": {
+    "arma-rcon": "^1.0.2",
     "axios": "^1.9.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -17,6 +18,8 @@
     "multer": "^2.0.1",
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
+    "rcon-client": "^4.2.5",
+    "rcon-srcds": "^2.1.0",
     "telnet-client": "^2.2.5"
   },
   "devDependencies": {

@@ -1,10 +1,10 @@
 # Donators Template
-- Name: Example Donator
-  Image: /public/donators/ExampleDonator.png
-  Link: https://example.com/donator-profile
-  Donation: $50
+- Name: Veltrix Studio
+  Image: /public/donators/VeltrixStudio.png
+  Link: https://veltrixstudio.uk/
+  Donation: Donator +
 
-- Name: Service Donator
-  Image: /public/donators/ServiceDonator.png
-  Link: https://example.com/service-donator
-  Donation: Provided server hosting
+- Name: Mythical Systems
+  Image: /public/donators/MythicalSystems.png
+  Link: https://www.mythical.systems/
+  Donation: Provided Web Hosting

@@ -44,15 +44,6 @@
   Logo: /public/logos/EuphoriaLicense.png
   Screenshots: /public/screenshots/EuphoriaLicense/
 
-- Name: Ascension Desktop
-  Identifier: AscensionDesktop
-  InternalId: 
-  Price: 4.99
-  URLs:
-    - https://example.com/ascension-desktop
-  Logo: /public/logos/AscensionDesktop.png
-  Screenshots: /public/screenshots/AscensionDesktop/
-
 # Free Addons/Themes/Web Applications
 - Name: Euphoria Paste Free
   Identifier: EuphoriaPasteFree
