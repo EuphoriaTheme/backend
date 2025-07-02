@@ -31,7 +31,7 @@ function getGamesList() {
 router.get('/', (req, res) => {
   const games = getGamesList();
   const gamesWithImages = {};
-  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const baseUrl = `https://${req.get('host')}`;
   for (const [name, id] of Object.entries(games)) {
     const imageExtensions = ['png', 'jpg', 'jpeg', 'webp'];
     let imagePath = null;
@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
       const possiblePath = path.join('public', 'games', `${id}.${ext}`);
       if (fs.existsSync(possiblePath)) {
         // Remove 'public' from the path and prepend the domain
-        imagePath = `${baseUrl}/games/${id}.${ext}`;
+        imagePath = `${baseUrl}/public/games/${id}.${ext}`;
         break;
       }
     }
