@@ -17,33 +17,6 @@
   Logo: /logos/EuphoriaTheme.png
   Screenshots: /screenshots/EuphoriaTheme/
 
-- Name: Euphoria Drive
-  Identifier: EuphoriaDrive
-  InternalId:
-  Price: 12.99
-  URLs:
-    - https://example.com/euphoria-drive
-  Logo: /logos/EuphoriaDrive.png
-  Screenshots: /screenshots/EuphoriaDrive/
-
-- Name: Euphoria Gallery
-  Identifier: EuphoriaGallery
-  InternalId:
-  Price: 6.99
-  URLs:
-    - https://example.com/euphoria-gallery
-  Logo: /logos/EuphoriaGallery.png
-  Screenshots: /screenshots/EuphoriaGallery/
-
-- Name: Euphoria License
-  Identifier: EuphoriaLicense
-  InternalId:
-  Price: 6.99
-  URLs:
-    - https://example.com/euphoria-license
-  Logo: /logos/EuphoriaLicense.png
-  Screenshots: /screenshots/EuphoriaLicense/
-
 # Free Addons/Themes/Web Applications
 - Name: Euphoria Paste Free
   Identifier: EuphoriaPasteFree

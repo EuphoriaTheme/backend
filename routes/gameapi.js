@@ -30,16 +30,16 @@ function getGamesList() {
 // List all games from games.yml
 router.get('/', (req, res) => {
   const games = getGamesList();
-  // Attach image path for each game if it exists in public/games
   const gamesWithImages = {};
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
   for (const [name, id] of Object.entries(games)) {
-    // Build the expected image path (png, jpg, jpeg, webp)
     const imageExtensions = ['png', 'jpg', 'jpeg', 'webp'];
     let imagePath = null;
     for (const ext of imageExtensions) {
       const possiblePath = path.join('public', 'games', `${id}.${ext}`);
       if (fs.existsSync(possiblePath)) {
-        imagePath = `/public/games/${id}.${ext}`;
+        // Remove 'public' from the path and prepend the domain
+        imagePath = `${baseUrl}/games/${id}.${ext}`;
         break;
       }
     }
@@ -48,9 +48,21 @@ router.get('/', (req, res) => {
   res.json(gamesWithImages);
 });
 
+// List of games that require RCON for player querying
+const sourceRconGames = [
+  "csgo", "css", "cscz", "garrysmod", "tf2", "dod", "dods", "hl2d", "hlds", "l4d", "l4d2", "insurgency", "insurgencysandstorm"
+];
+const rustLikeRconGames = [
+  "rust", "ark", "7dtd", "unturned"
+];
+const armaRconGames = [
+  "arma2", "arma3", "armaresistance", "arma2oa", "arma"
+];
+
 // General Game server query (auth required)
 router.get('/:game/ip=:ip&port=:port', async (req, res) => {
   const { game, ip, port } = req.params;
+  const { password } = req.query;
   const normalizedGame = game.toLowerCase();
   try {
     if (["fivem", "gta5f"].includes(normalizedGame)) {
@@ -65,28 +77,40 @@ router.get('/:game/ip=:ip&port=:port', async (req, res) => {
       const result = await queryMinecraftServer(ip, port);
       return res.json(result);
     }
+
     // Source/GoldSrc RCON games
-    //if (["csgo", "css", "cscz", "garrysmod", "tf2", "dod", "dods", "hl2d", "hlds", "l4d", "l4d2", "insurgency", "insurgencysandstorm"].includes(normalizedGame)) {
-      // You may want to get password from query/body/env
-    //  const { password } = req.query;
-    //  if (!password) return res.status(400).json({ success: false, error: 'RCON password required' });
-    //  const result = await querySourceRconPlayers({ host: ip, port, password });
-    //  return res.json(result);
-    //}
+    if (sourceRconGames.includes(normalizedGame)) {
+      if (password) {
+        const result = await querySourceRconPlayers({ host: ip, port, password });
+        return res.json(result);
+      }
+      // If no password, fallback to GameDig
+      const result = await handleDefaultGame(normalizedGame, ip, port);
+      return res.json(result);
+    }
+
     // Rust/ARK/7DTD/Unturned RCON games
-    if (["rust", "ark", "7dtd", "unturned"].includes(normalizedGame)) {
-      const { password } = req.query;
-      if (!password) return res.status(400).json({ success: false, error: 'RCON password required' });
-      const result = await queryRustLikeRconPlayers({ host: ip, port, password });
+    if (rustLikeRconGames.includes(normalizedGame)) {
+      if (password) {
+        const result = await queryRustLikeRconPlayers({ host: ip, port, password });
+        return res.json(result);
+      }
+      // If no password, fallback to GameDig
+      const result = await handleDefaultGame(normalizedGame, ip, port);
       return res.json(result);
     }
-    // ARMA RCON
-    if (["arma2", "arma3", "armaresistance", "arma2oa", "arma"].includes(normalizedGame)) {
-      const { password } = req.query;
-      if (!password) return res.status(400).json({ success: false, error: 'RCON password required' });
-      const result = await queryArmaRconPlayers({ host: ip, port, password });
+
+    // ARMA RCON games
+    if (armaRconGames.includes(normalizedGame)) {
+      if (password) {
+        const result = await queryArmaRconPlayers({ host: ip, port, password });
+        return res.json(result);
+      }
+      // If no password, fallback to GameDig
+      const result = await handleDefaultGame(normalizedGame, ip, port);
       return res.json(result);
     }
+
     // Default handler for all other games
     const result = await handleDefaultGame(normalizedGame, ip, port);
     return res.json(result);
