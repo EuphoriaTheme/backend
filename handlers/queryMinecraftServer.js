@@ -1,4 +1,4 @@
-import * as GameDig from 'gamedig';
+import { GameDig } from 'gamedig';
 
 export default async function queryMinecraftServer(ip, port) {
   try {
