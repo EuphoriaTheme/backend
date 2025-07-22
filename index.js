@@ -13,7 +13,6 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
 // --- Logging and Stats Middleware ---
 const statsFile = path.join(__dirname, 'api_stats.json');
