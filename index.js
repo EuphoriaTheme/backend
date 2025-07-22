@@ -59,6 +59,7 @@ app.use(session({
 // Serve static files from /public
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+import licenseRoutes from './routes/license.js';
 import gameApiRoutes from './routes/gameapi.js';
 import translationApiRoutes from './routes/translations.js';
 import productsRoutes from './routes/products.js';
@@ -67,6 +68,7 @@ import contributorsRoutes from './routes/contributors.js';
 import versionsRoutes from './routes/versions.js';
 import statsRoutes from './routes/stats.js';
 
+app.use('/license', licenseRoutes);
 app.use('/gameapi', gameApiRoutes);
 app.use('/translations', translationApiRoutes);
 app.use('/products', productsRoutes);
