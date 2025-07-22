@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const compression = require('compression'); // For response compression
 const authenticateLicense = require('../middleware/authenticateLicense');
 require('dotenv').config();
-
-// Middleware for response compression
-router.use(compression());
 
 router.post('/verify-license', async (req, res, next) => {
   const { licenseKey, productId, hwid, source } = req.body;
@@ -22,4 +18,4 @@ router.post('/verify-license', async (req, res, next) => {
   });
 });
 
-module.exports = router;
+export default router;
