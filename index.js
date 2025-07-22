@@ -1,7 +1,6 @@
 import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
