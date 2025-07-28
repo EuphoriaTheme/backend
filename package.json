@@ -1,6 +1,7 @@
 {
   "name": "ED-api",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "repository": "https://github.com/EuphoriaTheme/ED-API.git",
   "author": "Rep Graphics <charliebeckingham@hotmail.com>",

@@ -7,9 +7,6 @@ import queryFiveMServer from '../handlers/queryFiveMServer.js';
 import queryBeamMPServer from '../handlers/queryBeamMPServer.js';
 import queryMinecraftServer from '../handlers/queryMinecraftServer.js';
 import handleDefaultGame from '../handlers/defaultGameHandler.js';
-import querySourceRconPlayers from '../handlers/querySourceRconPlayers.js';
-import queryRustLikeRconPlayers from '../handlers/queryRustLikeRconPlayers.js';
-import queryArmaRconPlayers from '../handlers/queryArmaRconPlayers.js';
 
 const router = express.Router();
 
@@ -48,21 +45,9 @@ router.get('/', (req, res) => {
   res.json(gamesWithImages);
 });
 
-// List of games that require RCON for player querying
-const sourceRconGames = [
-  "csgo", "css", "cscz", "garrysmod", "tf2", "dod", "dods", "hl2d", "hlds", "l4d", "l4d2", "insurgency", "insurgencysandstorm"
-];
-const rustLikeRconGames = [
-  "rust", "ark", "7dtd", "unturned"
-];
-const armaRconGames = [
-  "arma2", "arma3", "armaresistance", "arma2oa", "arma"
-];
-
 // General Game server query (auth required)
 router.get('/:game/ip=:ip&port=:port', async (req, res) => {
   const { game, ip, port } = req.params;
-  const { password } = req.query;
   const normalizedGame = game.toLowerCase();
   try {
     if (["fivem", "gta5f"].includes(normalizedGame)) {
@@ -75,39 +60,6 @@ router.get('/:game/ip=:ip&port=:port', async (req, res) => {
     }
     if (normalizedGame === "minecraft") {
       const result = await queryMinecraftServer(ip, port);
-      return res.json(result);
-    }
-
-    // Source/GoldSrc RCON games
-    if (sourceRconGames.includes(normalizedGame)) {
-      if (password) {
-        const result = await querySourceRconPlayers({ host: ip, port, password });
-        return res.json(result);
-      }
-      // If no password, fallback to GameDig
-      const result = await handleDefaultGame(normalizedGame, ip, port);
-      return res.json(result);
-    }
-
-    // Rust/ARK/7DTD/Unturned RCON games
-    if (rustLikeRconGames.includes(normalizedGame)) {
-      if (password) {
-        const result = await queryRustLikeRconPlayers({ host: ip, port, password });
-        return res.json(result);
-      }
-      // If no password, fallback to GameDig
-      const result = await handleDefaultGame(normalizedGame, ip, port);
-      return res.json(result);
-    }
-
-    // ARMA RCON games
-    if (armaRconGames.includes(normalizedGame)) {
-      if (password) {
-        const result = await queryArmaRconPlayers({ host: ip, port, password });
-        return res.json(result);
-      }
-      // If no password, fallback to GameDig
-      const result = await handleDefaultGame(normalizedGame, ip, port);
       return res.json(result);
     }
 
