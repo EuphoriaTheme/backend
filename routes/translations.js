@@ -18,7 +18,18 @@ router.post('/translate/bulk', validateTranslationBody, async (req, res) => {
       return res.status(400).json({ success: false, error: `Translations for language "${targetLang}" are not available.` });
     }
 
-    const translations = JSON.parse(fs.readFileSync(translationsPath, 'utf8'));
+    let translations;
+    try {
+      const fileContent = fs.readFileSync(translationsPath, 'utf8');
+      translations = JSON.parse(fileContent);
+    } catch (parseError) {
+      console.error(`Error parsing translation file ${targetLang}.json:`, parseError);
+      return res.status(500).json({ 
+        success: false, 
+        error: `Invalid JSON in translation file "${targetLang}.json". Please check the file for syntax errors.`,
+        details: parseError.message 
+      });
+    }
 
     // Translate each text in the array
     const translationsResult = {};
@@ -82,7 +93,7 @@ router.get('/', async (req, res) => {
           uwunese: 'Uwunese',
           vn: 'Vietnamese',
           zh: 'Chinese',
-          zh_tw: 'Chinese (Traditional)',
+          zh_tw: 'Chinese (Traditional)'
         };
         return { code, name: readableNames[code] || code }; // Default to code if name is not found
       });
