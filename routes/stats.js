@@ -3,7 +3,6 @@ import path from 'path';
 import fs from 'fs';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import axios from 'axios';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
@@ -19,9 +18,10 @@ router.get('/', async (req, res) => {
     } catch {}
   }
 
-  // External API stats
+  // Blueprint stats from local file
   try {
-    const { data } = await axios.get('https://api.blueprintframe.work/api/extensions');
+    const blueprintPath = path.join(__dirname, '../public/blueprint.json');
+    const data = JSON.parse(fs.readFileSync(blueprintPath, 'utf8'));
     // Filter by author.name === 'repgraphics'
     const filtered = Array.isArray(data) ? data.filter(item => item.author?.name === 'repgraphics') : [];
     // Sum up stats.panels for all filtered extensions
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
       totalApiCalls: count,
       blueprintExtensions: [],
       totalInstalls: 0,
-      error: 'Failed to fetch external stats.'
+      error: 'Failed to fetch Blueprint stats.'
     });
   }
 });
