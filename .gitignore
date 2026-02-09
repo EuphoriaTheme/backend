@@ -27,3 +27,4 @@ node_modules
 yarn.lock
 api_stats.json
 logs
+package-lock.json
