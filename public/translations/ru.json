@@ -98,7 +98,6 @@
 
     "SFTP Details": "Детали SFTP",
     "Server Address": "Адрес сервера",
-    "Username": "Имя пользователя",
     "Your SFTP password is the same as the password you use to access this panel.": "Ваш пароль SFTP совпадает с паролем, используемым для входа в панель.",
     "Launch SFTP": "Запустить SFTP",
     "Debug Information": "Отладочная информация",
@@ -192,7 +191,7 @@
     "A descriptive name for your database instance.": "Описание для вашей базы данных.",
     "Connections From": "Подключения с",
     "Where connections should be allowed from. Leave blank to allow connections from anywhere.": "Откуда должны разрешаться подключения. Оставьте пустым, чтобы разрешить подключения с любого места.",
-    "Create Database": "Создать базу данных"
+    "Create Database": "Создать базу данных",
     
     "Create new schedule": "Создать новое расписание",
     "Schedule name": "Название расписания",
@@ -219,7 +218,7 @@
     "any value": "любое значение",
     "value list separator": "разделитель списка значений",
     "range values": "диапазон значений",
-    "step values": "шаговые значения"
+    "step values": "шаговые значения",
 
     "Create new subuser": "Создать нового подпользователя",
     "User Email": "Email пользователя",
@@ -227,7 +226,7 @@
     "create": "создание",
     "read": "чтение",
     "update": "обновление",
-    "delete": "удаление"
+    "delete": "удаление",
     "Enter the email address of the user you wish to invite as a subuser for this server.": "Введите email-адрес пользователя, которого вы хотите пригласить как подпользователя для этого сервера.",  
     "control": "управление",
     "Permissions that control a user's ability to control the power state of a server, or send commands.": "Права, которые контролируют способность пользователя управлять состоянием питания сервера или отправлять команды.",
