@@ -79,6 +79,13 @@ app.use('/stats', statsRoutes);
 app.use('/rcon', rconRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
+app.get('/health', (req, res) => {
+  res.json({
+    ok: true,
+    service: 'backend',
+    time: new Date().toISOString(),
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
