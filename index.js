@@ -66,6 +66,7 @@ import donatorsRoutes from './routes/donators.js';
 import contributorsRoutes from './routes/contributors.js';
 import versionsRoutes from './routes/versions.js';
 import statsRoutes from './routes/stats.js';
+import rconRoutes from './routes/rcon.js';
 
 app.use('/license', licenseRoutes);
 app.use('/gameapi', gameApiRoutes);
@@ -75,6 +76,7 @@ app.use('/donators', donatorsRoutes);
 app.use('/contributors', contributorsRoutes);
 app.use('/versions', versionsRoutes);
 app.use('/stats', statsRoutes);
+app.use('/rcon', rconRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 
