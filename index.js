@@ -150,6 +150,7 @@ import contributorsRoutes from './routes/contributors.js';
 import versionsRoutes from './routes/versions.js';
 import statsRoutes from './routes/stats.js';
 import rconRoutes from './routes/rcon.js';
+import { startTranslationSyncJob } from './scripts/syncTranslations.js';
 
 app.use('/license', licenseRoutes);
 app.use('/gameapi', gameApiRoutes);
@@ -173,5 +174,6 @@ app.get('/health', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  startTranslationSyncJob();
   startBlueprintSyncJob();
 });

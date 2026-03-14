@@ -9,6 +9,7 @@ Backend API
 ## Scripts Included
 - Update GameDig List: "node ./scripts/updateGamesYml.js",
 - Fetch Game Icons: "node ./scripts/fetchGameIcons.js"
+- Sync Translations: "node ./scripts/syncTranslations.js"
 
 ## Setup
 1. Install dependencies:
@@ -33,6 +34,24 @@ BLUEPRINT_SYNC_COOKIE=cf_clearance=...; __cf_bm=...
 BLUEPRINT_SYNC_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
 BLUEPRINT_SYNC_ORIGIN=https://blueprintframe.work
 BLUEPRINT_SYNC_REFERER=https://blueprintframe.work/
+```
+
+### Translation sync (every 24h)
+The server syncs JSON files in `public/translations` from `EuphoriaTheme/blueprint-translations` on startup and every 24 hours.
+
+Manual run:
+```sh
+yarn sync:translations
+```
+
+Optional `.env` overrides:
+```env
+TRANSLATIONS_REPO_OWNER=EuphoriaTheme
+TRANSLATIONS_REPO_NAME=blueprint-translations
+TRANSLATIONS_REPO_REF=main
+TRANSLATIONS_SYNC_INTERVAL_MS=86400000
+TRANSLATIONS_SYNC_TIMEOUT_MS=20000
+TRANSLATIONS_SYNC_GITHUB_TOKEN=
 ```
 
 ## Endpoints (to be implemented)

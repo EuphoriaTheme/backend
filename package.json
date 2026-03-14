@@ -28,6 +28,7 @@
   },
   "scripts": {
     "update:games": "node ./scripts/updateGamesYml.js",
-    "fetch:gameicons": "node ./scripts/fetchGameIcons.js"
+    "fetch:gameicons": "node ./scripts/fetchGameIcons.js",
+    "sync:translations": "node ./scripts/syncTranslations.js"
   }
 }
