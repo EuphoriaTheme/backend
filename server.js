@@ -32,6 +32,12 @@ const API_STATS_FLUSH_INTERVAL_MS = Number.parseInt(process.env.API_STATS_FLUSH_
 const REQUEST_LOGGING_ENABLED = process.env.REQUEST_LOGGING_ENABLED === 'true';
 const FASTIFY_LOG_LEVEL = process.env.FASTIFY_LOG_LEVEL || 'info';
 const FASTIFY_DISABLE_REQUEST_LOGGING = process.env.FASTIFY_DISABLE_REQUEST_LOGGING !== 'false';
+const CORS_ENABLED = process.env.CORS_ENABLED !== 'false';
+const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
+const CORS_METHODS = String(process.env.CORS_METHODS || 'GET,POST,PUT,PATCH,DELETE,OPTIONS,HEAD')
+  .split(',')
+  .map((method) => method.trim().toUpperCase())
+  .filter(Boolean);
 const PROXY_MODE = String(process.env.PROXY_MODE || 'direct').toLowerCase();
 const TRUST_PROXY_HOPS = Number.parseInt(process.env.TRUST_PROXY_HOPS || '1', 10);
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true' || PROXY_MODE !== 'direct';
@@ -77,10 +83,12 @@ const app = Fastify({
   },
 });
 
-await app.register(fastifyCors, {
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
-});
+if (CORS_ENABLED) {
+  await app.register(fastifyCors, {
+    origin: CORS_ORIGIN,
+    methods: CORS_METHODS,
+  });
+}
 
 await app.register(fastifyStatic, {
   root: path.join(__dirname, 'public'),
