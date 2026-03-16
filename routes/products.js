@@ -1,4 +1,3 @@
-import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import yaml from 'js-yaml';
@@ -6,17 +5,30 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const router = express.Router();
+let productsCache = null;
+let productsCacheMtimeMs = 0;
 
-router.get('/', (req, res) => {
+function loadProducts() {
   const productsPath = path.join(__dirname, '../public/products.yml');
-  try {
-    const file = fs.readFileSync(productsPath, 'utf8');
-    const products = yaml.load(file) || [];
-    res.json(products);
-  } catch (e) {
-    res.status(500).json({ error: 'Failed to load products.' });
-  }
-});
+  const stat = fs.statSync(productsPath);
 
-export default router;
+  if (productsCache && productsCacheMtimeMs === stat.mtimeMs) {
+    return productsCache;
+  }
+
+  const file = fs.readFileSync(productsPath, 'utf8');
+  const parsed = yaml.load(file) || [];
+  productsCache = parsed;
+  productsCacheMtimeMs = stat.mtimeMs;
+  return parsed;
+}
+
+export default async function registerProductsRoutes(app) {
+  app.get('/', async (request, reply) => {
+    try {
+      return loadProducts();
+    } catch {
+      return reply.code(500).send({ error: 'Failed to load products.' });
+    }
+  });
+}

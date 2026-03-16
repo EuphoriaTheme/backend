@@ -2,33 +2,31 @@
   "name": "ED-api",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "fastify-server.js",
   "repository": "https://github.com/EuphoriaTheme/ED-API.git",
-  "author": "Rep Graphics <charliebeckingham@hotmail.com>",
+  "author": "Rep Graphics <support@euphoriadevelopment.uk>",
   "license": "MIT",
   "dependencies": {
-    "arma-rcon": "^1.0.2",
+    "@fastify/cors": "^11.1.0",
+    "@fastify/static": "^9.0.0",
     "axios": "^1.10.0",
-    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "express-session": "^1.18.1",
+    "fastify": "^5.6.1",
     "gamedig": "^5.3.1",
     "js-yaml": "^4.1.0",
-    "mongoose": "^8.15.1",
-    "multer": "^2.0.1",
-    "passport": "^0.7.0",
-    "passport-discord": "^0.1.4",
     "rcon-client": "^4.2.5",
-    "rcon-srcds": "^2.1.0",
-    "telnet-client": "^2.2.5"
+    "rcon-srcds": "^2.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
   },
   "scripts": {
+    "dev": "nodemon --watch . --ext js,json,yml,yaml --exec \"node fastify-server.js\"",
+    "build": "echo \"No build step required for Fastify runtime\"",
+    "start": "node fastify-server.js",
     "update:games": "node ./scripts/updateGamesYml.js",
     "fetch:gameicons": "node ./scripts/fetchGameIcons.js",
-    "sync:translations": "node ./scripts/syncTranslations.js"
+    "sync:translations": "node ./scripts/syncTranslations.js",
+    "sync:blueprint": "node ./scripts/syncBlueprintExtensions.js"
   }
 }

@@ -7,4 +7,6 @@
   InternalId: EuphoriaTheme
   Version: 1.7.1
 
-# Add more products below following the same structure
+- ProductName: Euphoria Licensing
+  InternalId: EuphoriaLicensing
+  Version: 0.5.0
