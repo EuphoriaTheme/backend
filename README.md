@@ -136,6 +136,7 @@ Optional `.env` overrides:
 ```env
 LICENSE_API_V1_URL=https://license.euphoriadevelopment.uk/api/v1/validate
 LICENSE_API_V2_URL=https://licensing.euphoriadevelopment.uk/api/licenses/validate
+LICENSE_API_V2_TOKEN=optional-bearer-token-for-v2
 ```
 
 `POST /license/v2/verify-license` body example:

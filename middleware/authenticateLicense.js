@@ -4,8 +4,13 @@ import https from 'https';
 
 const LICENSE_API_V1_URL = process.env.LICENSE_API_V1_URL || 'https://license.euphoriadevelopment.uk/api/v1/validate';
 const LICENSE_API_V2_URL = process.env.LICENSE_API_V2_URL || 'https://licensing.euphoriadevelopment.uk/api/licenses/validate';
+const LICENSE_API_V2_TOKEN = String(process.env.LICENSE_API_V2_TOKEN || '').trim();
 const LICENSE_API_TIMEOUT_MS = Number.parseInt(process.env.LICENSE_API_TIMEOUT_MS || '10000', 10);
 const LICENSE_API_MAX_RETRIES = Number.parseInt(process.env.LICENSE_API_MAX_RETRIES || '1', 10);
+const LICENSE_KEY_MAX_LENGTH = 191;
+const PRODUCT_ID_MAX_LENGTH = 128;
+const HWID_MAX_LENGTH = 191;
+const IP_MAX_LENGTH = 191;
 
 const licenseHttpClient = axios.create({
   timeout: LICENSE_API_TIMEOUT_MS,
@@ -33,9 +38,9 @@ function shouldRetryNetworkError(error) {
 export async function validateLicense({ auth, productId, hwid, ip, version = 'v1' }) {
   const normalizedVersion = version === 'v2' ? 'v2' : 'v1';
   const endpoint = normalizedVersion === 'v2' ? LICENSE_API_V2_URL : LICENSE_API_V1_URL;
-  const normalizedAuth = sanitizeField(auth, 128);
-  const normalizedProductId = sanitizeField(productId, 64);
-  const normalizedHwid = sanitizeField(hwid, 128);
+  const normalizedAuth = sanitizeField(auth, LICENSE_KEY_MAX_LENGTH);
+  const normalizedProductId = sanitizeField(productId, PRODUCT_ID_MAX_LENGTH);
+  const normalizedHwid = sanitizeField(hwid, HWID_MAX_LENGTH);
 
   if (!normalizedAuth || !normalizedProductId || !normalizedHwid) {
     throw new Error('license payload is missing required fields');
@@ -48,12 +53,21 @@ export async function validateLicense({ auth, productId, hwid, ip, version = 'v1
   };
 
   if (normalizedVersion === 'v2' && ip) {
-    payload.ip = sanitizeField(ip, 64);
+    payload.ip = sanitizeField(ip, IP_MAX_LENGTH);
   }
+
+  const requestConfig =
+    normalizedVersion === 'v2' && LICENSE_API_V2_TOKEN
+      ? {
+          headers: {
+            Authorization: `Bearer ${LICENSE_API_V2_TOKEN}`,
+          },
+        }
+      : undefined;
 
   for (let attempt = 0; attempt <= LICENSE_API_MAX_RETRIES; attempt += 1) {
     try {
-      return await licenseHttpClient.post(endpoint, payload);
+      return await licenseHttpClient.post(endpoint, payload, requestConfig);
     } catch (error) {
       if (attempt < LICENSE_API_MAX_RETRIES && shouldRetryNetworkError(error)) {
         continue;

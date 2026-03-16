@@ -1,6 +1,9 @@
 import { validateLicense } from '../middleware/authenticateLicense.js';
 
-const LICENSE_KEY_REGEX = /^[A-Z0-9-]{8,64}$/;
+const LICENSE_KEY_MIN_LENGTH = 8;
+const LICENSE_KEY_MAX_LENGTH = 191;
+const PRODUCT_ID_MAX_LENGTH = 128;
+const HWID_MAX_LENGTH = 191;
 
 function isValidIp(value) {
   if (typeof value !== 'string' || !value.trim()) {
@@ -47,17 +50,22 @@ function validateV2Payload(body, effectiveIp) {
 
   const { licenseKey, productId, hwid } = body;
 
-  if (typeof licenseKey !== 'string' || !LICENSE_KEY_REGEX.test(licenseKey.trim().toUpperCase())) {
-    return 'licenseKey must be a string in key format (letters, numbers, dashes).';
+  const normalizedLicenseKey = String(licenseKey ?? '').trim();
+  if (
+    !normalizedLicenseKey
+    || normalizedLicenseKey.length < LICENSE_KEY_MIN_LENGTH
+    || normalizedLicenseKey.length > LICENSE_KEY_MAX_LENGTH
+  ) {
+    return `licenseKey is required and must be between ${LICENSE_KEY_MIN_LENGTH} and ${LICENSE_KEY_MAX_LENGTH} characters.`;
   }
 
   const normalizedProductId = String(productId ?? '').trim();
-  if (!normalizedProductId || normalizedProductId.length > 64) {
-    return 'productId is required and must be 64 characters or fewer.';
+  if (!normalizedProductId || normalizedProductId.length > PRODUCT_ID_MAX_LENGTH) {
+    return `productId is required and must be ${PRODUCT_ID_MAX_LENGTH} characters or fewer.`;
   }
 
-  if (typeof hwid !== 'string' || !hwid.trim() || hwid.trim().length > 128) {
-    return 'hwid is required and must be 128 characters or fewer.';
+  if (typeof hwid !== 'string' || !hwid.trim() || hwid.trim().length > HWID_MAX_LENGTH) {
+    return `hwid is required and must be ${HWID_MAX_LENGTH} characters or fewer.`;
   }
 
   if (!effectiveIp || !isValidIp(String(effectiveIp))) {
@@ -74,17 +82,22 @@ function validateV1Payload(body) {
 
   const { licenseKey, productId, hwid } = body;
 
-  if (typeof licenseKey !== 'string' || !LICENSE_KEY_REGEX.test(licenseKey.trim().toUpperCase())) {
-    return 'licenseKey must be a string in key format (letters, numbers, dashes).';
+  const normalizedLicenseKey = String(licenseKey ?? '').trim();
+  if (
+    !normalizedLicenseKey
+    || normalizedLicenseKey.length < LICENSE_KEY_MIN_LENGTH
+    || normalizedLicenseKey.length > LICENSE_KEY_MAX_LENGTH
+  ) {
+    return `licenseKey is required and must be between ${LICENSE_KEY_MIN_LENGTH} and ${LICENSE_KEY_MAX_LENGTH} characters.`;
   }
 
   const normalizedProductId = String(productId ?? '').trim();
-  if (!normalizedProductId || normalizedProductId.length > 64) {
-    return 'productId is required and must be 64 characters or fewer.';
+  if (!normalizedProductId || normalizedProductId.length > PRODUCT_ID_MAX_LENGTH) {
+    return `productId is required and must be ${PRODUCT_ID_MAX_LENGTH} characters or fewer.`;
   }
 
-  if (typeof hwid !== 'string' || !hwid.trim() || hwid.trim().length > 128) {
-    return 'hwid is required and must be 128 characters or fewer.';
+  if (typeof hwid !== 'string' || !hwid.trim() || hwid.trim().length > HWID_MAX_LENGTH) {
+    return `hwid is required and must be ${HWID_MAX_LENGTH} characters or fewer.`;
   }
 
   return null;

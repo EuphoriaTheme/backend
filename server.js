@@ -78,8 +78,8 @@ const app = Fastify({
 });
 
 await app.register(fastifyCors, {
-  origin: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
 });
 
 await app.register(fastifyStatic, {

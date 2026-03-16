@@ -7,6 +7,15 @@ import queryBeamMPServer from '../handlers/queryBeamMPServer.js';
 import queryMinecraftServer from '../handlers/queryMinecraftServer.js';
 import handleDefaultGame from '../handlers/defaultGameHandler.js';
 
+function parseAndValidatePort(value) {
+  const parsed = Number.parseInt(String(value ?? ''), 10);
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 65535) {
+    return null;
+  }
+
+  return parsed;
+}
+
 // Helper to get games list from YAML
 function getGamesList() {
   const __filename = fileURLToPath(import.meta.url);
@@ -49,22 +58,38 @@ export default async function registerGameApiRoutes(app) {
   app.get('/:game/ip=:ip&port=:port', async (request, reply) => {
     const { game, ip, port } = request.params;
     const normalizedGame = String(game || '').toLowerCase();
+    const normalizedIp = String(ip || '').trim();
+    const normalizedPort = parseAndValidatePort(port);
+
+    if (!normalizedIp) {
+      return reply.code(400).send({
+        success: false,
+        error: 'Invalid ip parameter. Expected a non-empty host/IP value.',
+      });
+    }
+
+    if (normalizedPort === null) {
+      return reply.code(400).send({
+        success: false,
+        error: 'Invalid port parameter. Expected an integer between 1 and 65535.',
+      });
+    }
 
     try {
       if (['fivem', 'gta5f'].includes(normalizedGame)) {
-        return await queryFiveMServer(ip, port);
+        return await queryFiveMServer(normalizedIp, normalizedPort);
       }
 
       if (normalizedGame === 'beammp') {
-        const result = await queryBeamMPServer(ip, port);
+        const result = await queryBeamMPServer(normalizedIp, normalizedPort);
         return { success: true, data: result };
       }
 
       if (normalizedGame === 'minecraft') {
-        return await queryMinecraftServer(ip, port);
+        return await queryMinecraftServer(normalizedIp, normalizedPort);
       }
 
-      return await handleDefaultGame(normalizedGame, ip, port);
+      return await handleDefaultGame(normalizedGame, normalizedIp, normalizedPort);
     } catch (error) {
       console.error(`Error processing request: ${error.message}`);
       return reply.code(500).send({ success: false, error: error.message });
