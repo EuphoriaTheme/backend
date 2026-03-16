@@ -25,7 +25,7 @@ function loadVersions() {
 }
 
 export default async function registerVersionsRoutes(app) {
-  app.get('/', async (request, reply) => {
+  const handleVersionsRequest = async (request, reply) => {
     const auth = String(request.query?.auth || '').trim();
     const productId = String(request.query?.productId || '').trim();
     const hwid = String(request.query?.hwid || '').trim();
@@ -48,5 +48,8 @@ export default async function registerVersionsRoutes(app) {
     } catch {
       return reply.code(500).send({ error: 'Failed to load versions.' });
     }
-  });
+  };
+
+  app.get('/', handleVersionsRequest);
+  app.get('/index', handleVersionsRequest);
 }

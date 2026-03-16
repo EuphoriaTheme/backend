@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function registerDonatorsRoutes(app) {
-  app.get('/', async (request, reply) => {
+  const handleDonatorsRequest = async (request, reply) => {
     const donatorsPath = path.join(__dirname, '../public/donators.yml');
     const donatorsDir = path.join(__dirname, '../public/donators');
     const baseUrl = `https://${request.headers.host || ''}`;
@@ -34,5 +34,8 @@ export default async function registerDonatorsRoutes(app) {
     } catch {
       return reply.code(500).send({ error: 'Failed to load donators.' });
     }
-  });
+  };
+
+  app.get('/', handleDonatorsRequest);
+  app.get('/index', handleDonatorsRequest);
 }

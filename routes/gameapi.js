@@ -22,7 +22,7 @@ function getGamesList() {
 }
 
 export default async function registerGameApiRoutes(app) {
-  app.get('/', async (request) => {
+  const handleGameListRequest = async (request) => {
     const games = getGamesList();
     const gamesWithImages = {};
     const baseUrl = `https://${request.headers.host || ''}`;
@@ -41,7 +41,10 @@ export default async function registerGameApiRoutes(app) {
     }
 
     return gamesWithImages;
-  });
+  };
+
+  app.get('/', handleGameListRequest);
+  app.get('/index', handleGameListRequest);
 
   app.get('/:game/ip=:ip&port=:port', async (request, reply) => {
     const { game, ip, port } = request.params;

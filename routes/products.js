@@ -24,11 +24,14 @@ function loadProducts() {
 }
 
 export default async function registerProductsRoutes(app) {
-  app.get('/', async (request, reply) => {
+  const handleProductsRequest = async (request, reply) => {
     try {
       return loadProducts();
     } catch {
       return reply.code(500).send({ error: 'Failed to load products.' });
     }
-  });
+  };
+
+  app.get('/', handleProductsRequest);
+  app.get('/index', handleProductsRequest);
 }

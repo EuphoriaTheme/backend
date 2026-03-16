@@ -30,6 +30,8 @@ const CONNECTION_TIMEOUT_MS = Number.parseInt(process.env.CONNECTION_TIMEOUT_MS 
 const KEEP_ALIVE_TIMEOUT_MS = Number.parseInt(process.env.KEEP_ALIVE_TIMEOUT_MS || '5000', 10);
 const API_STATS_FLUSH_INTERVAL_MS = Number.parseInt(process.env.API_STATS_FLUSH_INTERVAL_MS || '5000', 10);
 const REQUEST_LOGGING_ENABLED = process.env.REQUEST_LOGGING_ENABLED === 'true';
+const FASTIFY_LOG_LEVEL = process.env.FASTIFY_LOG_LEVEL || 'info';
+const FASTIFY_DISABLE_REQUEST_LOGGING = process.env.FASTIFY_DISABLE_REQUEST_LOGGING !== 'false';
 const PROXY_MODE = String(process.env.PROXY_MODE || 'direct').toLowerCase();
 const TRUST_PROXY_HOPS = Number.parseInt(process.env.TRUST_PROXY_HOPS || '1', 10);
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true' || PROXY_MODE !== 'direct';
@@ -63,7 +65,8 @@ function resolveClientIp(request) {
 }
 
 const app = Fastify({
-  logger: true,
+  logger: { level: FASTIFY_LOG_LEVEL },
+  disableRequestLogging: FASTIFY_DISABLE_REQUEST_LOGGING,
   trustProxy: TRUST_PROXY ? TRUST_PROXY_HOPS : false,
   bodyLimit: REQUEST_BODY_LIMIT_BYTES,
   requestTimeout: REQUEST_TIMEOUT_MS,

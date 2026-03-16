@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function registerContributorsRoutes(app) {
-  app.get('/', async (request, reply) => {
+  const handleContributorsRequest = async (request, reply) => {
     const contributorsPath = path.join(__dirname, '../public/contributors.yml');
     const contributorsDir = path.join(__dirname, '../public/contributors');
     const baseUrl = `https://${request.headers.host || ''}`;
@@ -34,5 +34,8 @@ export default async function registerContributorsRoutes(app) {
     } catch {
       return reply.code(500).send({ error: 'Failed to load contributors.' });
     }
-  });
+  };
+
+  app.get('/', handleContributorsRequest);
+  app.get('/index', handleContributorsRequest);
 }

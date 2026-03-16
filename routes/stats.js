@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function registerStatsRoutes(app) {
-  app.get('/', async () => {
+  const handleStatsRequest = async () => {
     const statsPath = path.join(__dirname, '../api_stats.json');
     let count = 0;
     if (fs.existsSync(statsPath)) {
@@ -36,5 +36,8 @@ export default async function registerStatsRoutes(app) {
         error: 'Failed to fetch Blueprint stats.',
       };
     }
-  });
+  };
+
+  app.get('/', handleStatsRequest);
+  app.get('/index', handleStatsRequest);
 }

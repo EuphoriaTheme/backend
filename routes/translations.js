@@ -159,7 +159,7 @@ export default async function registerTranslationsRoutes(app) {
     }
   });
 
-  app.get('/', async (request, reply) => {
+  const handleLanguagesRequest = async (request, reply) => {
     try {
       const availableTranslations = getCachedLanguagesList();
 
@@ -168,5 +168,8 @@ export default async function registerTranslationsRoutes(app) {
       console.error('Error fetching available translations:', error);
       return reply.code(500).send({ success: false, error: 'Failed to fetch available translations.' });
     }
-  });
+  };
+
+  app.get('/', handleLanguagesRequest);
+  app.get('/index', handleLanguagesRequest);
 }

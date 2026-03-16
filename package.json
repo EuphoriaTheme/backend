@@ -2,7 +2,7 @@
   "name": "ED-api",
   "version": "1.0.0",
   "type": "module",
-  "main": "fastify-server.js",
+  "main": "server.js",
   "repository": "https://github.com/EuphoriaTheme/ED-API.git",
   "author": "Rep Graphics <support@euphoriadevelopment.uk>",
   "license": "MIT",
@@ -21,9 +21,9 @@
     "nodemon": "^3.1.10"
   },
   "scripts": {
-    "dev": "nodemon --watch . --ext js,json,yml,yaml --exec \"node fastify-server.js\"",
+    "dev": "nodemon --watch . --ext js,json,yml,yaml --exec \"node server.js\"",
     "build": "echo \"No build step required for Fastify runtime\"",
-    "start": "node fastify-server.js",
+    "start": "node server.js",
     "update:games": "node ./scripts/updateGamesYml.js",
     "fetch:gameicons": "node ./scripts/fetchGameIcons.js",
     "sync:translations": "node ./scripts/syncTranslations.js",
