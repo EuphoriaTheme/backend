@@ -1,10 +1,12 @@
 import Fastify from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
+import fastifyRateLimit from '@fastify/rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { createOpenApiDocument, renderScalarHtml } from './config/apiDocs.js';
 import { startTranslationSyncJob } from './scripts/syncTranslations.js';
 import { startBlueprintSyncJob } from './scripts/syncBlueprintExtensions.js';
 import licenseRoutes from './routes/license.js';
@@ -38,6 +40,16 @@ const CORS_METHODS = String(process.env.CORS_METHODS || 'GET,POST,PUT,PATCH,DELE
   .split(',')
   .map((method) => method.trim().toUpperCase())
   .filter(Boolean);
+const RATE_LIMIT_ENABLED = process.env.RATE_LIMIT_ENABLED !== 'false';
+const RATE_LIMIT_MAX = Number.parseInt(process.env.RATE_LIMIT_MAX || '120', 10);
+const RATE_LIMIT_TIME_WINDOW = process.env.RATE_LIMIT_TIME_WINDOW || '1 minute';
+const RATE_LIMIT_ALLOW_LIST = String(process.env.RATE_LIMIT_ALLOW_LIST || '')
+  .split(',')
+  .map((ip) => ip.trim())
+  .filter(Boolean);
+const API_DOCS_ENABLED = process.env.API_DOCS_ENABLED !== 'false';
+const API_DOCS_PATH = process.env.API_DOCS_PATH || '/docs';
+const OPENAPI_JSON_PATH = process.env.OPENAPI_JSON_PATH || '/openapi.json';
 const PROXY_MODE = String(process.env.PROXY_MODE || 'direct').toLowerCase();
 const TRUST_PROXY_HOPS = Number.parseInt(process.env.TRUST_PROXY_HOPS || '1', 10);
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true' || PROXY_MODE !== 'direct';
@@ -70,6 +82,19 @@ function resolveClientIp(request) {
   return fastifyIp || socketIp;
 }
 
+function resolvePublicBaseUrl(request) {
+  const protoHeader = String(request.headers['x-forwarded-proto'] || '').split(',')[0].trim().toLowerCase();
+  const protocol = protoHeader || request.protocol || 'http';
+  const forwardedHost = String(request.headers['x-forwarded-host'] || '').split(',')[0].trim();
+  const host = forwardedHost || String(request.headers.host || '').trim();
+
+  if (!host) {
+    return `${protocol}://localhost`;
+  }
+
+  return `${protocol}://${host}`;
+}
+
 const app = Fastify({
   logger: { level: FASTIFY_LOG_LEVEL },
   disableRequestLogging: FASTIFY_DISABLE_REQUEST_LOGGING,
@@ -87,6 +112,16 @@ if (CORS_ENABLED) {
   await app.register(fastifyCors, {
     origin: CORS_ORIGIN,
     methods: CORS_METHODS,
+  });
+}
+
+if (RATE_LIMIT_ENABLED) {
+  await app.register(fastifyRateLimit, {
+    global: true,
+    max: RATE_LIMIT_MAX,
+    timeWindow: RATE_LIMIT_TIME_WINDOW,
+    allowList: RATE_LIMIT_ALLOW_LIST,
+    keyGenerator: (request) => request.clientIp || request.ip,
   });
 }
 
@@ -224,6 +259,28 @@ app.setNotFoundHandler((request, reply) => {
   });
 });
 
+if (API_DOCS_ENABLED) {
+  app.get(OPENAPI_JSON_PATH, {
+    config: {
+      rateLimit: false,
+    },
+  }, async (request, reply) => {
+    const baseUrl = resolvePublicBaseUrl(request);
+    return reply.send(createOpenApiDocument(baseUrl));
+  });
+
+  app.get(API_DOCS_PATH, {
+    config: {
+      rateLimit: false,
+    },
+  }, async (request, reply) => {
+    const baseUrl = resolvePublicBaseUrl(request);
+    const openApiUrl = `${baseUrl}${OPENAPI_JSON_PATH}`;
+    reply.type('text/html; charset=utf-8');
+    return reply.send(renderScalarHtml({ specUrl: openApiUrl }));
+  });
+}
+
 await app.register(licenseRoutes, { prefix: '/license' });
 await app.register(gameApiRoutes, { prefix: '/gameapi' });
 await app.register(translationApiRoutes, { prefix: '/translations' });
@@ -234,7 +291,14 @@ await app.register(versionsRoutes, { prefix: '/versions' });
 await app.register(statsRoutes, { prefix: '/stats' });
 await app.register(rconRoutes, { prefix: '/rcon' });
 
-app.get('/', async () => 'API Running');
+app.get('/', async (request) => ({
+  ok: true,
+  service: 'backend',
+  docs: API_DOCS_ENABLED ? `${resolvePublicBaseUrl(request)}${API_DOCS_PATH}` : null,
+  openapi: API_DOCS_ENABLED ? `${resolvePublicBaseUrl(request)}${OPENAPI_JSON_PATH}` : null,
+  health: `${resolvePublicBaseUrl(request)}/health`,
+  time: new Date().toISOString(),
+}));
 app.get('/health', async () => ({
   ok: true,
   service: 'backend',

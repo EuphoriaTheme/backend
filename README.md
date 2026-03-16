@@ -113,6 +113,8 @@ TRANSLATIONS_SYNC_GITHUB_TOKEN=
 
 - `GET /`
 - `GET /health`
+- `GET /openapi.json`
+- `GET /docs`
 - `GET /public/*`
 - `GET /stats`
 - `GET /products`
@@ -128,6 +130,40 @@ TRANSLATIONS_SYNC_GITHUB_TOKEN=
 - `GET /rcon/health`
 - `POST /rcon/variables`
 - `POST /rcon/players`
+
+## API Docs (Scalar)
+
+This API now exposes generated OpenAPI docs for public consumers:
+
+- OpenAPI JSON: `GET /openapi.json`
+- Scalar UI: `GET /docs`
+
+Optional `.env` settings:
+
+```env
+API_DOCS_ENABLED=true
+API_DOCS_PATH=/docs
+OPENAPI_JSON_PATH=/openapi.json
+API_TITLE=ED API
+API_DESCRIPTION=Public API for licensing, game server querying, translations, metadata, and RCON utilities.
+API_VERSION=1.0.0
+API_CONTACT_EMAIL=support@euphoriadevelopment.uk
+```
+
+## Rate Limiting (Recommended For Public APIs)
+
+Global request throttling is enabled by default.
+
+Optional `.env` settings:
+
+```env
+RATE_LIMIT_ENABLED=true
+RATE_LIMIT_MAX=120
+RATE_LIMIT_TIME_WINDOW=1 minute
+RATE_LIMIT_ALLOW_LIST=
+```
+
+`RATE_LIMIT_ALLOW_LIST` accepts a comma-separated list of client IPs to bypass limits.
 
 ## License API Configuration
 
