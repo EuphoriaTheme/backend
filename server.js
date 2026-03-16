@@ -138,7 +138,8 @@ function readInitialApiCount() {
   try {
     const stats = JSON.parse(fs.readFileSync(statsFile, 'utf8'));
     return Number(stats.count) || 0;
-  } catch {
+  } catch (error) {
+    app.log.error({ err: error }, 'failed to read initial api stats');
     return 0;
   }
 }
@@ -149,6 +150,22 @@ let statsFlushInFlight = false;
 let activeLogDate = '';
 let activeLogStream = null;
 let isShuttingDown = false;
+
+// Serialize access log stream rotation across concurrent requests.
+let accessLogMutex = Promise.resolve();
+function withAccessLogLock(fn) {
+  const run = accessLogMutex.then(() => fn()).catch((err) => {
+    app.log.error({ err }, 'access log rotation failed');
+    return null;
+  });
+
+  accessLogMutex = run.then(
+    () => undefined,
+    () => undefined,
+  );
+
+  return run;
+}
 
 async function flushApiStats() {
   if (!statsDirty || statsFlushInFlight) {
@@ -172,40 +189,51 @@ function incrementApiCounter() {
 }
 
 function getAccessLogStreamFor(dateKey) {
-  if (activeLogStream && activeLogDate === dateKey) {
-    return activeLogStream;
-  }
-
-  if (!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir, { recursive: true });
-  }
-
-  if (activeLogStream) {
-    activeLogStream.end();
-  }
-
-  activeLogDate = dateKey;
-  activeLogStream = fs.createWriteStream(path.join(logsDir, `${dateKey}.log`), { flags: 'a' });
-  activeLogStream.on('error', (error) => {
-    app.log.error({ err: error }, 'request access log stream failed');
-    try {
-      activeLogStream?.end();
-    } catch {
-      // no-op
+  return withAccessLogLock(() => {
+    if (activeLogStream && activeLogDate === dateKey) {
+      return activeLogStream;
     }
-    activeLogStream = null;
+
+    if (!fs.existsSync(logsDir)) {
+      fs.mkdirSync(logsDir, { recursive: true });
+    }
+
+    if (activeLogStream) {
+      try {
+        activeLogStream.end();
+      } catch {
+        // no-op
+      }
+    }
+
+    activeLogDate = dateKey;
+    activeLogStream = fs.createWriteStream(path.join(logsDir, `${dateKey}.log`), { flags: 'a' });
+    activeLogStream.on('error', (error) => {
+      app.log.error({ err: error }, 'request access log stream failed');
+      try {
+        activeLogStream?.end();
+      } catch {
+        // no-op
+      }
+      activeLogStream = null;
+    });
+
+    return activeLogStream;
   });
-  return activeLogStream;
 }
 
-function logApiCall(request) {
+async function logApiCall(request) {
   if (!REQUEST_LOGGING_ENABLED) {
     return;
   }
 
   const now = new Date();
   const dateKey = now.toISOString().slice(0, 10);
-  const stream = getAccessLogStreamFor(dateKey);
+  const stream = await getAccessLogStreamFor(dateKey);
+
+  if (!stream || typeof stream.write !== 'function') {
+    return;
+  }
 
   const sourceDomain = request.headers.origin || request.headers.referer || '';
   const sourceIp = request.clientIp || request.ip || request.raw?.socket?.remoteAddress || '';
@@ -224,7 +252,7 @@ function logApiCall(request) {
 app.addHook('onRequest', async (request) => {
   request.clientIp = resolveClientIp(request);
   incrementApiCounter();
-  logApiCall(request);
+  await logApiCall(request);
 });
 
 app.addHook('onSend', async (request, reply, payload) => {
@@ -380,10 +408,10 @@ process.on('SIGTERM', () => {
 
 process.on('unhandledRejection', (reason) => {
   app.log.error({ err: reason }, 'unhandled promise rejection');
-  shutdown('unhandledRejection');
+  process.exit(1);
 });
 
 process.on('uncaughtException', (error) => {
   app.log.error({ err: error }, 'uncaught exception');
-  shutdown('uncaughtException');
+  process.exit(1);
 });
