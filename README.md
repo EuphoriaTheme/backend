@@ -165,6 +165,37 @@ RATE_LIMIT_ALLOW_LIST=
 
 `RATE_LIMIT_ALLOW_LIST` accepts a comma-separated list of client IPs to bypass limits.
 
+## Game API Abuse Controls
+
+`GET /gameapi/:game/ip=:ip&port=:port` now has additional protections:
+
+- Route-specific rate limits (independent from global API limits)
+- Host/IP validation with private/reserved target blocking by default
+- Request deduplication and short-lived response caching
+- Max in-flight query cap to prevent backend exhaustion
+- Outbound query timeout/retry caps for FiveM and GameDig lookups
+
+Optional `.env` settings:
+
+```env
+GAMEAPI_RATE_LIMIT_MAX=30
+GAMEAPI_RATE_LIMIT_TIME_WINDOW=1 minute
+GAMEAPI_MAX_CONCURRENT_REQUESTS=50
+GAMEAPI_CACHE_TTL_MS=5000
+GAMEAPI_GAMES_CACHE_TTL_MS=60000
+GAMEAPI_BLOCK_PRIVATE_TARGETS=true
+GAMEAPI_MAX_HOST_LENGTH=253
+GAMEAPI_DNS_LOOKUP_TIMEOUT_MS=2500
+GAMEAPI_BLOCKED_HOSTNAMES=localhost,localhost.localdomain,ip6-localhost,broadcasthost
+GAMEAPI_SPECIAL_GAME_IDS=fivem,gta5f,beammp,minecraft
+
+GAMEQUERY_SOCKET_TIMEOUT_MS=5000
+GAMEQUERY_ATTEMPT_TIMEOUT_MS=7000
+GAMEQUERY_MAX_RETRIES=0
+FIVEM_HTTP_TIMEOUT_MS=5000
+FIVEM_MAX_RESPONSE_BYTES=1048576
+```
+
 ## License API Configuration
 
 Optional `.env` overrides:

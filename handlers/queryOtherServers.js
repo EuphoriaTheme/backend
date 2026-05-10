@@ -1,4 +1,9 @@
 import { GameDig } from 'gamedig';
+import {
+  GAMEQUERY_ATTEMPT_TIMEOUT_MS,
+  GAMEQUERY_MAX_RETRIES,
+  GAMEQUERY_SOCKET_TIMEOUT_MS,
+} from '../config/gameQueryLimits.js';
 
 function normalizePlayers(players) {
   if (!Array.isArray(players)) {
@@ -28,7 +33,14 @@ function normalizePlayers(players) {
 
 export default async function queryOtherServers(game, ip, port) {
   try {
-    const data = await GameDig.query({ type: game, host: ip, port: parseInt(port, 10) });
+    const data = await GameDig.query({
+      type: game,
+      host: ip,
+      port: parseInt(port, 10),
+      maxRetries: GAMEQUERY_MAX_RETRIES,
+      socketTimeout: GAMEQUERY_SOCKET_TIMEOUT_MS,
+      attemptTimeout: GAMEQUERY_ATTEMPT_TIMEOUT_MS,
+    });
     // Extract players, numplayers, maxplayers, and ping from the response
     const players = normalizePlayers(data.players);
     const numplayers = typeof data.numplayers === 'number' ? data.numplayers : (players ? players.length : 0);
