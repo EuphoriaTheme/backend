@@ -546,7 +546,7 @@
     "versions": [
       {
         "name": "1.0.1",
-        "downloads": 4089,
+        "downloads": 4091,
         "created": "2023-12-07T18:26:43"
       }
     ],
@@ -556,7 +556,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/simplefavicons.jpeg"
     },
     "stats": {
-      "panels": 382
+      "panels": 381
     },
     "created": "2023-12-08T00:00:00Z"
   },
@@ -679,7 +679,7 @@
     "versions": [
       {
         "name": "2.0.3",
-        "downloads": 931,
+        "downloads": 934,
         "created": "2026-01-17T19:33:30"
       },
       {
@@ -2028,7 +2028,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/versionchanger.jpeg"
     },
     "stats": {
-      "panels": 608
+      "panels": 607
     },
     "created": "2024-06-15T12:06:40Z"
   },
@@ -2117,7 +2117,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecraftplayermanager.jpeg"
     },
     "stats": {
-      "panels": 355
+      "panels": 354
     },
     "created": "2024-06-26T17:07:22Z"
   },
@@ -2545,7 +2545,7 @@
     "versions": [
       {
         "name": "2.0",
-        "downloads": 231,
+        "downloads": 232,
         "created": "2026-02-07T18:33:01"
       },
       {
@@ -2570,7 +2570,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcplugins-PYOZtJRh.jpeg"
     },
     "stats": {
-      "panels": 459
+      "panels": 458
     },
     "created": "2024-10-01T05:30:11Z"
   },
@@ -2609,7 +2609,7 @@
     "versions": [
       {
         "name": "2.0",
-        "downloads": 122,
+        "downloads": 123,
         "created": "2026-02-07T18:41:45"
       },
       {
@@ -2634,7 +2634,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcmods-cnUBl3sp.jpeg"
     },
     "stats": {
-      "panels": 160
+      "panels": 159
     },
     "created": "2024-10-04T16:36:55Z"
   },
@@ -2730,7 +2730,7 @@
     "versions": [
       {
         "name": "1.1.0",
-        "downloads": 258,
+        "downloads": 259,
         "created": "2024-12-04T12:21:13"
       },
       {
@@ -2809,7 +2809,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecrafticonchanger.jpeg"
     },
     "stats": {
-      "panels": 59
+      "panels": 58
     },
     "created": "2024-10-19T09:44:53Z"
   },
@@ -3240,7 +3240,7 @@
     "versions": [
       {
         "name": "1.5.0",
-        "downloads": 156,
+        "downloads": 157,
         "created": "2026-02-08T20:52:03"
       },
       {
@@ -3364,7 +3364,7 @@
       },
       {
         "name": "1.4.2",
-        "downloads": 233,
+        "downloads": 234,
         "created": "2024-12-18T09:28:29"
       },
       {
@@ -3414,7 +3414,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/playerlisting.jpeg"
     },
     "stats": {
-      "panels": 461
+      "panels": 460
     },
     "created": "2024-11-09T13:47:36Z"
   },
@@ -3453,7 +3453,7 @@
     "versions": [
       {
         "name": "1.1",
-        "downloads": 188,
+        "downloads": 190,
         "created": "2026-02-08T20:05:47"
       },
       {
@@ -3468,7 +3468,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/consolelogs.jpeg"
     },
     "stats": {
-      "panels": 202
+      "panels": 201
     },
     "created": "2024-11-09T13:48:43Z"
   },
@@ -3685,7 +3685,7 @@
     "versions": [
       {
         "name": "1.6",
-        "downloads": 189,
+        "downloads": 190,
         "created": "2026-02-08T20:10:11"
       },
       {
@@ -3725,7 +3725,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mclogs.jpeg"
     },
     "stats": {
-      "panels": 275
+      "panels": 274
     },
     "created": "2024-11-17T08:46:56Z"
   },
@@ -4302,7 +4302,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 191,
+        "downloads": 192,
         "created": "2026-02-08T19:24:06"
       },
       {
@@ -4429,7 +4429,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/translations.jpeg"
     },
     "stats": {
-      "panels": 196
+      "panels": 195
     },
     "created": "2025-03-27T13:40:46.577025Z"
   },
@@ -4524,7 +4524,7 @@
     "versions": [
       {
         "name": "1.1.0",
-        "downloads": 252,
+        "downloads": 253,
         "created": "2026-02-17T20:54:00"
       },
       {
@@ -4615,7 +4615,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/resourcemanager.jpeg"
     },
     "stats": {
-      "panels": 188
+      "panels": 187
     },
     "created": "2025-05-05T14:28:15.237499Z"
   },
@@ -4721,7 +4721,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mctools.jpeg"
     },
     "stats": {
-      "panels": 262
+      "panels": 261
     },
     "created": "2025-05-31T13:11:53.682322Z"
   },
@@ -5020,7 +5020,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 1244,
+        "downloads": 1245,
         "created": "2025-08-06T23:43:28"
       },
       {
@@ -5040,7 +5040,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/pteromonaco.jpeg"
     },
     "stats": {
-      "panels": 336
+      "panels": 335
     },
     "created": "2025-07-17T16:10:02.650764Z"
   },

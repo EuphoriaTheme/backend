@@ -132,6 +132,62 @@ function parseLegacyInlineTargetParam(value) {
   return { ip, port };
 }
 
+function createErrorWithStatus(message, statusCode) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
+
+function isDnsNotFoundError(error) {
+  const code = String(error?.code || '').toUpperCase();
+  return code === 'ENOTFOUND' || code === 'ENODATA' || code === 'ENOENT' || code === 'ENXIO' || code === 'NXDOMAIN';
+}
+
+function isDnsTemporaryError(error) {
+  const code = String(error?.code || '').toUpperCase();
+  return code === 'EAI_AGAIN' || code === 'ETIMEOUT' || code === 'ESERVFAIL' || code === 'ECONNREFUSED';
+}
+
+function toHostResolutionError(error, host) {
+  const code = String(error?.code || '').toUpperCase();
+
+  if (isDnsNotFoundError(error)) {
+    const notFoundError = createErrorWithStatus(`Could not resolve target host: ${host}`, 400);
+    notFoundError.code = code || 'ENOTFOUND';
+    return notFoundError;
+  }
+
+  if (isDnsTemporaryError(error)) {
+    const temporaryError = createErrorWithStatus(`DNS resolution for "${host}" failed temporarily. Please retry.`, 503);
+    temporaryError.code = code || 'EAI_AGAIN';
+    return temporaryError;
+  }
+
+  const genericError = createErrorWithStatus('Host resolution failed.', 502);
+  genericError.code = code || 'DNS_ERROR';
+  return genericError;
+}
+
+function selectPreferredSrvRecord(records) {
+  if (!Array.isArray(records) || records.length === 0) {
+    return null;
+  }
+
+  return records
+    .slice()
+    .sort((left, right) => {
+      const leftPriority = Number.isFinite(left?.priority) ? left.priority : Number.MAX_SAFE_INTEGER;
+      const rightPriority = Number.isFinite(right?.priority) ? right.priority : Number.MAX_SAFE_INTEGER;
+      if (leftPriority !== rightPriority) {
+        return leftPriority - rightPriority;
+      }
+
+      const leftWeight = Number.isFinite(left?.weight) ? left.weight : 0;
+      const rightWeight = Number.isFinite(right?.weight) ? right.weight : 0;
+      return rightWeight - leftWeight;
+    })[0];
+}
+
 function withTimeout(promise, timeoutMs, timeoutMessage) {
   if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
     return promise;
@@ -318,7 +374,7 @@ async function withQueryConcurrencyLimit(fn) {
   }
 }
 
-async function resolveQueryTarget(host) {
+async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } = {}) {
   const ipFamily = net.isIP(host);
   if (ipFamily !== 0) {
     if (GAMEAPI_BLOCK_PRIVATE_TARGETS && isBlockedIpAddress(host)) {
@@ -343,35 +399,89 @@ async function resolveQueryTarget(host) {
     throw error;
   }
 
-  const lookupResults = await withTimeout(
-    dns.lookup(loweredHost, { all: true, verbatim: true }),
-    GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
-    'Host resolution timed out.',
-  );
+  const resolveFromLookupResults = (lookupResults) => {
+    if (!Array.isArray(lookupResults) || lookupResults.length === 0) {
+      throw createErrorWithStatus(`Could not resolve target host: ${loweredHost}`, 400);
+    }
 
-  if (!Array.isArray(lookupResults) || lookupResults.length === 0) {
-    const error = new Error('Could not resolve target host.');
-    error.statusCode = 400;
-    throw error;
-  }
+    let selectedAddress = lookupResults[0].address;
 
-  let selectedAddress = lookupResults[0].address;
+    if (GAMEAPI_BLOCK_PRIVATE_TARGETS) {
+      const publicAddress = lookupResults.find((result) => !isBlockedIpAddress(result.address));
+      if (!publicAddress) {
+        throw createErrorWithStatus(
+          'Blocked target host. DNS only resolves to private or reserved IP addresses.',
+          400,
+        );
+      }
 
-  if (GAMEAPI_BLOCK_PRIVATE_TARGETS) {
-    const publicAddress = lookupResults.find((result) => !isBlockedIpAddress(result.address));
-    if (!publicAddress) {
-      const error = new Error('Blocked target host. DNS only resolves to private or reserved IP addresses.');
-      error.statusCode = 400;
+      selectedAddress = publicAddress.address;
+    }
+
+    return {
+      queryHost: selectedAddress,
+      resolvedAddress: selectedAddress,
+      resolvedPort: null,
+    };
+  };
+
+  const resolveFromHostname = async (hostname) => {
+    try {
+      const lookupResults = await withTimeout(
+        dns.lookup(hostname, { all: true, verbatim: true }),
+        GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
+        'Host resolution timed out.',
+      );
+
+      return resolveFromLookupResults(lookupResults);
+    } catch (error) {
+      throw toHostResolutionError(error, hostname);
+    }
+  };
+
+  try {
+    return await resolveFromHostname(loweredHost);
+  } catch (error) {
+    const canTryMinecraftSrvFallback = enableMinecraftSrvFallback && isDnsNotFoundError(error);
+    if (!canTryMinecraftSrvFallback) {
       throw error;
     }
 
-    selectedAddress = publicAddress.address;
-  }
+    const srvHostname = `_minecraft._tcp.${loweredHost}`;
 
-  return {
-    queryHost: selectedAddress,
-    resolvedAddress: selectedAddress,
-  };
+    let srvRecords = null;
+    try {
+      srvRecords = await withTimeout(
+        dns.resolveSrv(srvHostname),
+        GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
+        'Host SRV resolution timed out.',
+      );
+    } catch (srvError) {
+      throw toHostResolutionError(srvError, loweredHost);
+    }
+
+    const selectedSrvRecord = selectPreferredSrvRecord(srvRecords);
+    if (!selectedSrvRecord || !selectedSrvRecord.name) {
+      throw createErrorWithStatus(`Could not resolve target host: ${loweredHost}`, 400);
+    }
+
+    const srvTargetHost = toLowerHost(String(selectedSrvRecord.name || '').trim());
+    if (!srvTargetHost || !DNS_HOSTNAME_PATTERN.test(srvTargetHost) || srvTargetHost.length > GAMEAPI_MAX_HOST_LENGTH) {
+      throw createErrorWithStatus(`Could not resolve target host: ${loweredHost}`, 400);
+    }
+
+    if (GAMEAPI_BLOCKED_HOSTNAMES.has(srvTargetHost)) {
+      throw createErrorWithStatus('Blocked target host. Hostname is not allowed.', 400);
+    }
+
+    const srvPort = parseAndValidatePort(selectedSrvRecord.port);
+    const resolvedTarget = await resolveFromHostname(srvTargetHost);
+    return {
+      queryHost: resolvedTarget.queryHost,
+      resolvedAddress: resolvedTarget.resolvedAddress,
+      resolvedPort: srvPort,
+    };
+  }
 }
 
 export default async function registerGameApiRoutes(app) {
@@ -458,8 +568,11 @@ export default async function registerGameApiRoutes(app) {
     }
 
     try {
-      const { queryHost, resolvedAddress } = await resolveQueryTarget(normalizedHost);
-      cacheKey = `${normalizedGame}|${resolvedAddress}|${normalizedPort}`;
+      const { queryHost, resolvedAddress, resolvedPort } = await resolveQueryTarget(normalizedHost, {
+        enableMinecraftSrvFallback: normalizedGame === 'minecraft',
+      });
+      const effectivePort = resolvedPort ?? normalizedPort;
+      cacheKey = `${normalizedGame}|${resolvedAddress}|${effectivePort}`;
 
       const cachedPayload = getQueryCacheEntry(cacheKey);
       if (cachedPayload) {
@@ -472,19 +585,19 @@ export default async function registerGameApiRoutes(app) {
 
       const queryPromise = withQueryConcurrencyLimit(async () => {
         if (['fivem', 'gta5f'].includes(normalizedGame)) {
-          return await queryFiveMServer(queryHost, normalizedPort);
+          return await queryFiveMServer(queryHost, effectivePort);
         }
 
         if (normalizedGame === 'beammp') {
-          const result = await queryBeamMPServer(queryHost, normalizedPort);
+          const result = await queryBeamMPServer(queryHost, effectivePort);
           return { success: true, data: result };
         }
 
         if (normalizedGame === 'minecraft') {
-          return await queryMinecraftServer(queryHost, normalizedPort);
+          return await queryMinecraftServer(queryHost, effectivePort);
         }
 
-        return await handleDefaultGame(normalizedGame, queryHost, normalizedPort);
+        return await handleDefaultGame(normalizedGame, queryHost, effectivePort);
       });
 
       pendingQueryByTarget.set(cacheKey, queryPromise);
@@ -503,7 +616,7 @@ export default async function registerGameApiRoutes(app) {
 
       return reply.code(statusCode).send({
         success: false,
-        error: statusCode >= 500 ? 'Failed to query game server.' : error.message,
+        error: statusCode >= 500 && statusCode !== 503 ? 'Failed to query game server.' : error.message,
       });
     } finally {
       if (pendingOwnedByRequest && cacheKey) {
