@@ -113,6 +113,25 @@ function parseAndValidatePort(value) {
   return parsed;
 }
 
+function parseLegacyInlineTargetParam(value) {
+  const raw = String(value ?? '');
+  const marker = '&port=';
+  const markerIndex = raw.toLowerCase().lastIndexOf(marker);
+
+  if (markerIndex <= 0) {
+    return null;
+  }
+
+  const ip = raw.slice(0, markerIndex).trim();
+  const port = raw.slice(markerIndex + marker.length).trim();
+
+  if (!ip || !port) {
+    return null;
+  }
+
+  return { ip, port };
+}
+
 function withTimeout(promise, timeoutMs, timeoutMessage) {
   if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
     return promise;
@@ -386,16 +405,30 @@ export default async function registerGameApiRoutes(app) {
     schema: {
       params: {
         type: 'object',
-        required: ['game', 'ip', 'port'],
+        required: ['game'],
         properties: {
           game: { type: 'string', minLength: 1, maxLength: 64 },
-          ip: { type: 'string', minLength: 1, maxLength: GAMEAPI_MAX_HOST_LENGTH },
+          ip: { type: 'string', minLength: 1, maxLength: GAMEAPI_MAX_HOST_LENGTH + 16 },
           port: { type: 'string', pattern: '^[0-9]{1,5}$' },
+          'ip&port=:port': { type: 'string', minLength: 1, maxLength: GAMEAPI_MAX_HOST_LENGTH + 16 },
         },
       },
     },
   }, async (request, reply) => {
-    const { game, ip, port } = request.params;
+    const params = request.params || {};
+    const { game } = params;
+    let ip = params.ip;
+    let port = params.port;
+    const inlineLegacyTarget = params['ip&port=:port'];
+
+    if ((!ip || !port) && typeof inlineLegacyTarget === 'string') {
+      const parsedInlineTarget = parseLegacyInlineTargetParam(inlineLegacyTarget);
+      if (parsedInlineTarget) {
+        ip = parsedInlineTarget.ip;
+        port = parsedInlineTarget.port;
+      }
+    }
+
     const normalizedGame = String(game || '').trim().toLowerCase();
     const normalizedPort = parseAndValidatePort(port);
     const normalizedHost = normalizeHost(ip);

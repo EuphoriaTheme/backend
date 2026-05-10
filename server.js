@@ -269,12 +269,27 @@ app.addHook('onSend', async (request, reply, payload) => {
   return payload;
 });
 
+function resolvePublicErrorMessage(error, statusCode) {
+  if (error?.code === 'FST_ERR_VALIDATION' && Array.isArray(error.validation) && error.validation.length > 0) {
+    const firstValidationError = error.validation[0];
+    const validationContext = String(error.validationContext || 'request');
+    return `Invalid ${validationContext}: ${firstValidationError.message}`;
+  }
+
+  if (statusCode >= 400 && statusCode < 500 && typeof error?.message === 'string' && error.message.trim()) {
+    return error.message;
+  }
+
+  return 'Internal server error';
+}
+
 app.setErrorHandler((error, request, reply) => {
   request.log.error({ err: error }, 'unhandled request error');
   if (!reply.sent) {
-    reply.code(error.statusCode && error.statusCode >= 400 ? error.statusCode : 500).send({
+    const statusCode = error.statusCode && error.statusCode >= 400 ? error.statusCode : 500;
+    reply.code(statusCode).send({
       success: false,
-      error: 'Internal server error',
+      error: resolvePublicErrorMessage(error, statusCode),
     });
   }
 });

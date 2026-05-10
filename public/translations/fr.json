@@ -135,7 +135,7 @@
   "This directory will be created as": "Ce dossier sera créé sous",
   "Cancel": "Annuler",
   "A valid directory name must be provided.": "Un nom de dossier valide doit être fourni.",
-  "CPU Load": "Charge CPU",
+  "CPU Load": "Charge CPU (100 % = 1 cœur)",
   "Memory": "Mémoire",
   "Inbound": "Entrant",
   "Outbound": "Sortant",
