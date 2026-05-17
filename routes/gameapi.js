@@ -359,7 +359,7 @@ function loadGamesCache() {
     return cachedGames;
   }
 
-  let games = {};
+  let games;
   let loadedSuccessfully = false;
   try {
     const file = fs.readFileSync(gamesPath, "utf8");
@@ -542,53 +542,51 @@ async function resolveQueryTarget(
 
     const srvHostname = `_minecraft._tcp.${loweredHost}`;
 
-    let srvRecords = null;
     try {
-      srvRecords = await withTimeout(
+      const srvRecords = await withTimeout(
         dns.resolveSrv(srvHostname),
         GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
         "Host SRV resolution timed out.",
       );
+      const selectedSrvRecord = selectPreferredSrvRecord(srvRecords);
+      if (!selectedSrvRecord || !selectedSrvRecord.name) {
+        throw createErrorWithStatus(
+          `Could not resolve target host: ${loweredHost}`,
+          400,
+        );
+      }
+
+      const srvTargetHost = toLowerHost(
+        String(selectedSrvRecord.name || "").trim(),
+      );
+      if (
+        !srvTargetHost ||
+        !DNS_HOSTNAME_PATTERN.test(srvTargetHost) ||
+        srvTargetHost.length > GAMEAPI_MAX_HOST_LENGTH
+      ) {
+        throw createErrorWithStatus(
+          `Could not resolve target host: ${loweredHost}`,
+          400,
+        );
+      }
+
+      if (GAMEAPI_BLOCKED_HOSTNAMES.has(srvTargetHost)) {
+        throw createErrorWithStatus(
+          "Blocked target host. Hostname is not allowed.",
+          400,
+        );
+      }
+
+      const srvPort = parseAndValidatePort(selectedSrvRecord.port);
+      const resolvedTarget = await resolveFromHostname(srvTargetHost);
+      return {
+        queryHost: resolvedTarget.queryHost,
+        resolvedAddress: resolvedTarget.resolvedAddress,
+        resolvedPort: srvPort,
+      };
     } catch (srvError) {
       throw toHostResolutionError(srvError, loweredHost);
     }
-
-    const selectedSrvRecord = selectPreferredSrvRecord(srvRecords);
-    if (!selectedSrvRecord || !selectedSrvRecord.name) {
-      throw createErrorWithStatus(
-        `Could not resolve target host: ${loweredHost}`,
-        400,
-      );
-    }
-
-    const srvTargetHost = toLowerHost(
-      String(selectedSrvRecord.name || "").trim(),
-    );
-    if (
-      !srvTargetHost ||
-      !DNS_HOSTNAME_PATTERN.test(srvTargetHost) ||
-      srvTargetHost.length > GAMEAPI_MAX_HOST_LENGTH
-    ) {
-      throw createErrorWithStatus(
-        `Could not resolve target host: ${loweredHost}`,
-        400,
-      );
-    }
-
-    if (GAMEAPI_BLOCKED_HOSTNAMES.has(srvTargetHost)) {
-      throw createErrorWithStatus(
-        "Blocked target host. Hostname is not allowed.",
-        400,
-      );
-    }
-
-    const srvPort = parseAndValidatePort(selectedSrvRecord.port);
-    const resolvedTarget = await resolveFromHostname(srvTargetHost);
-    return {
-      queryHost: resolvedTarget.queryHost,
-      resolvedAddress: resolvedTarget.resolvedAddress,
-      resolvedPort: srvPort,
-    };
   }
 }
 

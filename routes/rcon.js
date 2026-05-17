@@ -19,7 +19,7 @@ const isValidHost = (host) => {
   if (!host || host.length > MAX_RCON_HOST_LENGTH) return false;
   // Allow hostnames, IPv4 and IPv6 literals while rejecting obvious invalid whitespace/control chars.
   if (/\s/.test(host)) return false;
-  return /^[a-zA-Z0-9.:\-]+$/.test(host);
+  return /^[a-zA-Z0-9.:-]+$/.test(host);
 };
 
 const isValidType = (type) => ["source", "minecraft"].includes(type);
@@ -216,7 +216,7 @@ const parseIntegerFromValue = (value) => {
 };
 
 const parseRatioFromValue = (value) => {
-  const match = String(value ?? "").match(/(\d+)\s*[\/|]\s*(\d+)/);
+  const match = String(value ?? "").match(/(\d+)\s*[/|]\s*(\d+)/);
   if (!match) return null;
 
   const current = Number.parseInt(match[1], 10);
@@ -296,7 +296,7 @@ const deriveCountsFromVariables = (variables, rawOutput = "") => {
 
   for (const line of lines) {
     const connectedRatio = line.match(
-      /connected\s+players?\D+(\d+)\s*[\/|]\s*(\d+)/i,
+      /connected\s+players?\D+(\d+)\s*[/|]\s*(\d+)/i,
     );
     if (connectedRatio) {
       return {
@@ -305,7 +305,7 @@ const deriveCountsFromVariables = (variables, rawOutput = "") => {
       };
     }
 
-    const playersRatio = line.match(/players?\D+(\d+)\s*[\/|]\s*(\d+)/i);
+    const playersRatio = line.match(/players?\D+(\d+)\s*[/|]\s*(\d+)/i);
     if (playersRatio) {
       return {
         numplayers: Number.parseInt(playersRatio[1], 10),

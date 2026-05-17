@@ -51,7 +51,9 @@ function normalizeJson(rawContent, fileName) {
     const parsed = JSON.parse(rawContent);
     return `${JSON.stringify(parsed, null, 2)}\n`;
   } catch (error) {
-    throw new Error(`Invalid JSON received for ${fileName}: ${error.message}`);
+    throw new Error(`Invalid JSON received for ${fileName}: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
