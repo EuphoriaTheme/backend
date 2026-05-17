@@ -210,9 +210,9 @@ LICENSE_API_V2_TOKEN=optional-bearer-token-for-v2
 
 ```json
 {
-	"productId": "my-product-id",
-	"licenseKey": "ABCD-EFGH-IJKL-MNOP",
-	"hwid": "pc-main-rig-01",
-	"ip": "203.0.113.10"
+  "productId": "my-product-id",
+  "licenseKey": "ABCD-EFGH-IJKL-MNOP",
+  "hwid": "pc-main-rig-01",
+  "ip": "203.0.113.10"
 }
 ```

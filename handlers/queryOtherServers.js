@@ -1,9 +1,9 @@
-import { GameDig } from 'gamedig';
+import { GameDig } from "gamedig";
 import {
   GAMEQUERY_ATTEMPT_TIMEOUT_MS,
   GAMEQUERY_MAX_RETRIES,
   GAMEQUERY_SOCKET_TIMEOUT_MS,
-} from '../config/gameQueryLimits.js';
+} from "../config/gameQueryLimits.js";
 
 function normalizePlayers(players) {
   if (!Array.isArray(players)) {
@@ -11,9 +11,9 @@ function normalizePlayers(players) {
   }
 
   return players.map((player, index) => {
-    if (player && typeof player === 'object') {
+    if (player && typeof player === "object") {
       const fallbackName =
-        typeof player.name === 'string' && player.name.trim() !== ''
+        typeof player.name === "string" && player.name.trim() !== ""
           ? player.name
           : `Player ${index + 1}`;
 
@@ -23,7 +23,7 @@ function normalizePlayers(players) {
       };
     }
 
-    if (typeof player === 'string') {
+    if (typeof player === "string") {
       return { name: player, raw: null };
     }
 
@@ -43,16 +43,22 @@ export default async function queryOtherServers(game, ip, port) {
     });
     // Extract players, numplayers, maxplayers, and ping from the response
     const players = normalizePlayers(data.players);
-    const numplayers = typeof data.numplayers === 'number' ? data.numplayers : (players ? players.length : 0);
-    const maxplayers = typeof data.maxplayers === 'number' ? data.maxplayers : null;
+    const numplayers =
+      typeof data.numplayers === "number"
+        ? data.numplayers
+        : players
+          ? players.length
+          : 0;
+    const maxplayers =
+      typeof data.maxplayers === "number" ? data.maxplayers : null;
     const ping = data.ping || null;
     return { success: true, data: { players, numplayers, maxplayers, ping } };
   } catch (error) {
-    if (game === 'hytale') {
+    if (game === "hytale") {
       return {
         success: false,
         error:
-          'Hytale query failed. GameDig requires a Hytale query plugin/mod on the server (for example hytale-plugin-query) with query permissions enabled.',
+          "Hytale query failed. GameDig requires a Hytale query plugin/mod on the server (for example hytale-plugin-query) with query permissions enabled.",
       };
     }
 

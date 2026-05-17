@@ -1,12 +1,14 @@
-const CONTACT_EMAIL = process.env.API_CONTACT_EMAIL || 'support@euphoriadevelopment.uk';
-const API_TITLE = process.env.API_TITLE || 'ED API';
-const API_DESCRIPTION = process.env.API_DESCRIPTION
-  || 'Public API for licensing, game server querying, translations, metadata, and RCON utilities.';
-const API_VERSION = process.env.API_VERSION || '1.0.0';
+const CONTACT_EMAIL =
+  process.env.API_CONTACT_EMAIL || "support@euphoriadevelopment.uk";
+const API_TITLE = process.env.API_TITLE || "ED API";
+const API_DESCRIPTION =
+  process.env.API_DESCRIPTION ||
+  "Public API for licensing, game server querying, translations, metadata, and RCON utilities.";
+const API_VERSION = process.env.API_VERSION || "1.0.0";
 
 export function createOpenApiDocument(baseUrl) {
   return {
-    openapi: '3.1.0',
+    openapi: "3.1.0",
     info: {
       title: API_TITLE,
       version: API_VERSION,
@@ -21,114 +23,114 @@ export function createOpenApiDocument(baseUrl) {
       },
     ],
     tags: [
-      { name: 'System' },
-      { name: 'Stats' },
-      { name: 'License' },
-      { name: 'Games' },
-      { name: 'Translations' },
-      { name: 'Products' },
-      { name: 'Contributors' },
-      { name: 'Donators' },
-      { name: 'Versions' },
-      { name: 'RCON' },
+      { name: "System" },
+      { name: "Stats" },
+      { name: "License" },
+      { name: "Games" },
+      { name: "Translations" },
+      { name: "Products" },
+      { name: "Contributors" },
+      { name: "Donators" },
+      { name: "Versions" },
+      { name: "RCON" },
     ],
     paths: {
-      '/': {
+      "/": {
         get: {
-          tags: ['System'],
-          summary: 'API entry point',
+          tags: ["System"],
+          summary: "API entry point",
           responses: {
             200: {
-              description: 'Service metadata',
+              description: "Service metadata",
             },
           },
         },
       },
-      '/health': {
+      "/health": {
         get: {
-          tags: ['System'],
-          summary: 'Service health',
+          tags: ["System"],
+          summary: "Service health",
           responses: {
             200: {
-              description: 'Service is healthy',
+              description: "Service is healthy",
             },
           },
         },
       },
-      '/stats': {
+      "/stats": {
         get: {
-          tags: ['Stats'],
-          summary: 'Usage and blueprint stats',
+          tags: ["Stats"],
+          summary: "Usage and blueprint stats",
           responses: {
             200: {
-              description: 'Current API stats',
+              description: "Current API stats",
             },
           },
         },
       },
-      '/products': {
+      "/products": {
         get: {
-          tags: ['Products'],
-          summary: 'List products',
+          tags: ["Products"],
+          summary: "List products",
           responses: {
             200: {
-              description: 'Products list',
+              description: "Products list",
             },
           },
         },
       },
-      '/donators': {
+      "/donators": {
         get: {
-          tags: ['Donators'],
-          summary: 'List donators',
+          tags: ["Donators"],
+          summary: "List donators",
           responses: {
             200: {
-              description: 'Donators list',
+              description: "Donators list",
             },
           },
         },
       },
-      '/contributors': {
+      "/contributors": {
         get: {
-          tags: ['Contributors'],
-          summary: 'List contributors',
+          tags: ["Contributors"],
+          summary: "List contributors",
           responses: {
             200: {
-              description: 'Contributors list',
+              description: "Contributors list",
             },
           },
         },
       },
-      '/translations': {
+      "/translations": {
         get: {
-          tags: ['Translations'],
-          summary: 'List available translation languages',
+          tags: ["Translations"],
+          summary: "List available translation languages",
           responses: {
             200: {
-              description: 'Languages list',
+              description: "Languages list",
             },
           },
         },
       },
-      '/translations/translate/bulk': {
+      "/translations/translate/bulk": {
         post: {
-          tags: ['Translations'],
-          summary: 'Bulk translate keys/texts by language map',
+          tags: ["Translations"],
+          summary: "Bulk translate keys/texts by language map",
           requestBody: {
             required: true,
             content: {
-              'application/json': {
+              "application/json": {
                 schema: {
-                  type: 'object',
-                  required: ['texts', 'targetLang'],
+                  type: "object",
+                  required: ["texts", "targetLang"],
                   properties: {
                     texts: {
-                      type: 'array',
-                      items: { type: 'string' },
+                      type: "array",
+                      items: { type: "string" },
                     },
                     targetLang: {
-                      type: 'string',
-                      example: 'de',
+                      type: "string",
+                      example: "de",
                     },
                   },
                 },
@@ -137,68 +139,68 @@ export function createOpenApiDocument(baseUrl) {
           },
           responses: {
             200: {
-              description: 'Translated key-value map',
+              description: "Translated key-value map",
             },
           },
         },
       },
-      '/gameapi': {
+      "/gameapi": {
         get: {
-          tags: ['Games'],
-          summary: 'List supported games',
+          tags: ["Games"],
+          summary: "List supported games",
           responses: {
             200: {
-              description: 'Games list',
+              description: "Games list",
             },
           },
         },
       },
-      '/gameapi/{game}/ip={ip}&port={port}': {
+      "/gameapi/{game}/ip={ip}&port={port}": {
         get: {
-          tags: ['Games'],
-          summary: 'Query a game server by game id, host, and port',
+          tags: ["Games"],
+          summary: "Query a game server by game id, host, and port",
           parameters: [
             {
-              name: 'game',
-              in: 'path',
+              name: "game",
+              in: "path",
               required: true,
-              schema: { type: 'string' },
+              schema: { type: "string" },
             },
             {
-              name: 'ip',
-              in: 'path',
+              name: "ip",
+              in: "path",
               required: true,
-              schema: { type: 'string' },
+              schema: { type: "string" },
             },
             {
-              name: 'port',
-              in: 'path',
+              name: "port",
+              in: "path",
               required: true,
-              schema: { type: 'integer', minimum: 1, maximum: 65535 },
+              schema: { type: "integer", minimum: 1, maximum: 65535 },
             },
           ],
           responses: {
             200: {
-              description: 'Server query result',
+              description: "Server query result",
             },
           },
         },
       },
-      '/license/verify-license': {
+      "/license/verify-license": {
         post: {
-          tags: ['License'],
-          summary: 'Verify license using v1 provider flow',
+          tags: ["License"],
+          summary: "Verify license using v1 provider flow",
           requestBody: {
             required: true,
             content: {
-              'application/json': {
+              "application/json": {
                 schema: {
-                  type: 'object',
-                  required: ['licenseKey', 'productId', 'hwid'],
+                  type: "object",
+                  required: ["licenseKey", "productId", "hwid"],
                   properties: {
-                    licenseKey: { type: 'string' },
-                    productId: { type: 'string' },
-                    hwid: { type: 'string' },
+                    licenseKey: { type: "string" },
+                    productId: { type: "string" },
+                    hwid: { type: "string" },
                   },
                 },
               },
@@ -206,27 +208,30 @@ export function createOpenApiDocument(baseUrl) {
           },
           responses: {
             200: {
-              description: 'License accepted',
+              description: "License accepted",
             },
           },
         },
       },
-      '/license/v2/verify-license': {
+      "/license/v2/verify-license": {
         post: {
-          tags: ['License'],
-          summary: 'Verify license using v2 provider flow',
+          tags: ["License"],
+          summary: "Verify license using v2 provider flow",
           requestBody: {
             required: true,
             content: {
-              'application/json': {
+              "application/json": {
                 schema: {
-                  type: 'object',
-                  required: ['licenseKey', 'productId', 'hwid'],
+                  type: "object",
+                  required: ["licenseKey", "productId", "hwid"],
                   properties: {
-                    licenseKey: { type: 'string' },
-                    productId: { type: 'string' },
-                    hwid: { type: 'string' },
-                    ip: { type: 'string', description: 'Optional; defaults to resolved client IP' },
+                    licenseKey: { type: "string" },
+                    productId: { type: "string" },
+                    hwid: { type: "string" },
+                    ip: {
+                      type: "string",
+                      description: "Optional; defaults to resolved client IP",
+                    },
                   },
                 },
               },
@@ -234,55 +239,70 @@ export function createOpenApiDocument(baseUrl) {
           },
           responses: {
             200: {
-              description: 'License accepted',
+              description: "License accepted",
             },
           },
         },
       },
-      '/versions': {
+      "/versions": {
         get: {
-          tags: ['Versions'],
-          summary: 'Get versions list (requires license query params)',
+          tags: ["Versions"],
+          summary: "Get versions list (requires license query params)",
           parameters: [
-            { name: 'auth', in: 'query', required: true, schema: { type: 'string' } },
-            { name: 'productId', in: 'query', required: true, schema: { type: 'string' } },
-            { name: 'hwid', in: 'query', required: true, schema: { type: 'string' } },
+            {
+              name: "auth",
+              in: "query",
+              required: true,
+              schema: { type: "string" },
+            },
+            {
+              name: "productId",
+              in: "query",
+              required: true,
+              schema: { type: "string" },
+            },
+            {
+              name: "hwid",
+              in: "query",
+              required: true,
+              schema: { type: "string" },
+            },
           ],
           responses: {
             200: {
-              description: 'Versions list',
+              description: "Versions list",
             },
           },
         },
       },
-      '/rcon/health': {
+      "/rcon/health": {
         get: {
-          tags: ['RCON'],
-          summary: 'RCON route health',
+          tags: ["RCON"],
+          summary: "RCON route health",
           responses: {
             200: {
-              description: 'RCON service health',
+              description: "RCON service health",
             },
           },
         },
       },
-      '/rcon/variables': {
+      "/rcon/variables": {
         post: {
-          tags: ['RCON'],
-          summary: 'Execute RCON command and parse variable-like lines',
+          tags: ["RCON"],
+          summary: "Execute RCON command and parse variable-like lines",
           requestBody: {
             required: true,
             content: {
-              'application/json': {
+              "application/json": {
                 schema: {
-                  type: 'object',
-                  required: ['host', 'password', 'port'],
+                  type: "object",
+                  required: ["host", "password", "port"],
                   properties: {
-                    host: { type: 'string' },
-                    password: { type: 'string' },
-                    port: { type: 'integer', minimum: 1, maximum: 65535 },
-                    type: { type: 'string', enum: ['source', 'minecraft'] },
-                    command: { type: 'string' },
+                    host: { type: "string" },
+                    password: { type: "string" },
+                    port: { type: "integer", minimum: 1, maximum: 65535 },
+                    type: { type: "string", enum: ["source", "minecraft"] },
+                    command: { type: "string" },
                   },
                 },
               },
@@ -290,31 +310,31 @@ export function createOpenApiDocument(baseUrl) {
           },
           responses: {
             200: {
-              description: 'RCON command result',
+              description: "RCON command result",
             },
           },
         },
       },
-      '/rcon/players': {
+      "/rcon/players": {
         post: {
-          tags: ['RCON'],
-          summary: 'Fetch and normalize online player data via RCON',
+          tags: ["RCON"],
+          summary: "Fetch and normalize online player data via RCON",
           requestBody: {
             required: true,
             content: {
-              'application/json': {
+              "application/json": {
                 schema: {
-                  type: 'object',
-                  required: ['host', 'password', 'port'],
+                  type: "object",
+                  required: ["host", "password", "port"],
                   properties: {
-                    host: { type: 'string' },
-                    password: { type: 'string' },
-                    port: { type: 'integer', minimum: 1, maximum: 65535 },
-                    type: { type: 'string', enum: ['source', 'minecraft'] },
-                    game: { type: 'string' },
-                    command: { type: 'string' },
-                    count_command: { type: 'string' },
-                    maxplayers_fallback: { type: 'integer', minimum: 1 },
+                    host: { type: "string" },
+                    password: { type: "string" },
+                    port: { type: "integer", minimum: 1, maximum: 65535 },
+                    type: { type: "string", enum: ["source", "minecraft"] },
+                    game: { type: "string" },
+                    command: { type: "string" },
+                    count_command: { type: "string" },
+                    maxplayers_fallback: { type: "integer", minimum: 1 },
                   },
                 },
               },
@@ -322,7 +342,7 @@ export function createOpenApiDocument(baseUrl) {
           },
           responses: {
             200: {
-              description: 'Normalized player response',
+              description: "Normalized player response",
             },
           },
         },
@@ -331,7 +351,7 @@ export function createOpenApiDocument(baseUrl) {
   };
 }
 
-export function renderScalarHtml({ specUrl, pageTitle = 'ED API Docs' }) {
+export function renderScalarHtml({ specUrl, pageTitle = "ED API Docs" }) {
   return `<!doctype html>
 <html>
   <head>

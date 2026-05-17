@@ -1,13 +1,19 @@
-import { Rcon as MinecraftRcon } from 'rcon-client';
-import * as RconSrcdsModule from 'rcon-srcds';
-import { createRequire } from 'module';
-import net from 'net';
+import { Rcon as MinecraftRcon } from "rcon-client";
+import * as RconSrcdsModule from "rcon-srcds";
+import { createRequire } from "module";
+import net from "net";
 
 const require = createRequire(import.meta.url);
 
-const toSafeString = (value) => (typeof value === 'string' ? value.trim() : '');
-const MAX_RCON_HOST_LENGTH = Number.parseInt(process.env.MAX_RCON_HOST_LENGTH || '255', 10);
-const MAX_RCON_COMMAND_LENGTH = Number.parseInt(process.env.MAX_RCON_COMMAND_LENGTH || '256', 10);
+const toSafeString = (value) => (typeof value === "string" ? value.trim() : "");
+const MAX_RCON_HOST_LENGTH = Number.parseInt(
+  process.env.MAX_RCON_HOST_LENGTH || "255",
+  10,
+);
+const MAX_RCON_COMMAND_LENGTH = Number.parseInt(
+  process.env.MAX_RCON_COMMAND_LENGTH || "256",
+  10,
+);
 
 const isValidHost = (host) => {
   if (!host || host.length > MAX_RCON_HOST_LENGTH) return false;
@@ -16,7 +22,7 @@ const isValidHost = (host) => {
   return /^[a-zA-Z0-9.:\-]+$/.test(host);
 };
 
-const isValidType = (type) => ['source', 'minecraft'].includes(type);
+const isValidType = (type) => ["source", "minecraft"].includes(type);
 
 const isValidCommand = (command) => {
   return Boolean(command) && command.length <= MAX_RCON_COMMAND_LENGTH;
@@ -47,13 +53,13 @@ const measureTcpPing = (host, port, timeoutMs = 2500) => {
 
     socket.setTimeout(timeoutMs);
 
-    socket.once('connect', () => {
+    socket.once("connect", () => {
       const latency = Date.now() - startedAt;
       finalize(Number.isFinite(latency) && latency >= 0 ? latency : null);
     });
 
-    socket.once('timeout', () => finalize(null));
-    socket.once('error', () => finalize(null));
+    socket.once("timeout", () => finalize(null));
+    socket.once("error", () => finalize(null));
 
     try {
       socket.connect(port, host);
@@ -80,31 +86,31 @@ const withTimeout = async (promise, timeoutMs, errorMessage) => {
 };
 
 const normalizeRconError = (error) => {
-  const rawMessage = String(error?.message || '').trim();
+  const rawMessage = String(error?.message || "").trim();
 
   if (/The "string" argument must be of type string/i.test(rawMessage)) {
-    return 'RCON command payload was invalid. Ensure a valid command string is being sent.';
+    return "RCON command payload was invalid. Ensure a valid command string is being sent.";
   }
 
   if (/failed all\s+\d+\s+attempts/i.test(rawMessage)) {
-    return 'RCON authentication/connection failed after retries. Verify host, port, password, RCON type, and firewall rules allowing the API server IP.';
+    return "RCON authentication/connection failed after retries. Verify host, port, password, RCON type, and firewall rules allowing the API server IP.";
   }
 
   if (/timed out|i\/o timeout|etimedout/i.test(rawMessage)) {
-    return 'RCON connection timed out. Verify the RCON port is open and reachable from the API server host.';
+    return "RCON connection timed out. Verify the RCON port is open and reachable from the API server host.";
   }
 
   if (/auth|authenticate|password|login/i.test(rawMessage)) {
-    return 'RCON authentication failed. Verify the RCON password and type.';
+    return "RCON authentication failed. Verify the RCON password and type.";
   }
 
-  return rawMessage || 'RCON request failed.';
+  return rawMessage || "RCON request failed.";
 };
 
 const resolveSourceRconCandidates = () => {
   let requiredModule = null;
   try {
-    requiredModule = require('rcon-srcds');
+    requiredModule = require("rcon-srcds");
   } catch {
     // ignore and continue probing import-based module
   }
@@ -123,9 +129,11 @@ const resolveSourceRconCandidates = () => {
 };
 
 const isValidSourceClient = (client) => {
-  return Boolean(client)
-    && typeof client.authenticate === 'function'
-    && typeof client.execute === 'function';
+  return (
+    Boolean(client) &&
+    typeof client.authenticate === "function" &&
+    typeof client.execute === "function"
+  );
 };
 
 const createSourceRconClient = (options) => {
@@ -133,7 +141,7 @@ const createSourceRconClient = (options) => {
   const errors = [];
 
   for (const candidate of candidates) {
-    if (typeof candidate !== 'function') continue;
+    if (typeof candidate !== "function") continue;
 
     try {
       const constructed = new candidate(options);
@@ -154,19 +162,21 @@ const createSourceRconClient = (options) => {
     }
   }
 
-  throw new Error(`Failed to initialize rcon-srcds client. ${errors.find(Boolean) || 'No valid export found.'}`);
+  throw new Error(
+    `Failed to initialize rcon-srcds client. ${errors.find(Boolean) || "No valid export found."}`,
+  );
 };
 
 const parseVariableLines = (output) => {
   const variables = {};
 
-  String(output || '')
+  String(output || "")
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
     .forEach((line) => {
-      const equalsIndex = line.indexOf('=');
-      const colonIndex = line.indexOf(':');
+      const equalsIndex = line.indexOf("=");
+      const colonIndex = line.indexOf(":");
 
       if (equalsIndex > 0) {
         const key = line.slice(0, equalsIndex).trim();
@@ -190,22 +200,23 @@ const normalizeGameId = (value) => toSafeString(value).toLowerCase();
 const defaultPlayerCommandForGame = (gameId) => {
   const normalized = normalizeGameId(gameId);
 
-  if (['rust'].includes(normalized)) return 'players';
-  if (['asa', 'ase', 'ark', 'arksa', 'arkse'].includes(normalized)) return 'ListPlayers';
-  if (['sdtd', '7dtd', '7daystodie'].includes(normalized)) return 'listplayers';
+  if (["rust"].includes(normalized)) return "players";
+  if (["asa", "ase", "ark", "arksa", "arkse"].includes(normalized))
+    return "ListPlayers";
+  if (["sdtd", "7dtd", "7daystodie"].includes(normalized)) return "listplayers";
 
-  return 'status';
+  return "status";
 };
 
 const parseIntegerFromValue = (value) => {
-  const match = String(value ?? '').match(/-?\d+/);
+  const match = String(value ?? "").match(/-?\d+/);
   if (!match) return null;
   const parsed = Number.parseInt(match[0], 10);
   return Number.isFinite(parsed) ? parsed : null;
 };
 
 const parseRatioFromValue = (value) => {
-  const match = String(value ?? '').match(/(\d+)\s*[\/|]\s*(\d+)/);
+  const match = String(value ?? "").match(/(\d+)\s*[\/|]\s*(\d+)/);
   if (!match) return null;
 
   const current = Number.parseInt(match[1], 10);
@@ -215,11 +226,16 @@ const parseRatioFromValue = (value) => {
   return { current, max };
 };
 
-const deriveCountsFromVariables = (variables, rawOutput = '') => {
+const deriveCountsFromVariables = (variables, rawOutput = "") => {
   const entries = Object.entries(variables || {});
-  const normalizedMap = new Map(entries.map(([key, value]) => [String(key).toLowerCase(), String(value ?? '')]));
+  const normalizedMap = new Map(
+    entries.map(([key, value]) => [
+      String(key).toLowerCase(),
+      String(value ?? ""),
+    ]),
+  );
 
-  const ratioKeys = ['players', 'playercount', 'numplayers'];
+  const ratioKeys = ["players", "playercount", "numplayers"];
   for (const key of ratioKeys) {
     const ratio = parseRatioFromValue(normalizedMap.get(key));
     if (ratio) {
@@ -230,8 +246,20 @@ const deriveCountsFromVariables = (variables, rawOutput = '') => {
     }
   }
 
-  const currentKeys = ['numplayers', 'playercount', 'players', 'currentplayers', 'onlineplayers'];
-  const maxKeys = ['maxplayers', 'maxplayercount', 'maxclients', 'sv_maxplayers', 'max_players'];
+  const currentKeys = [
+    "numplayers",
+    "playercount",
+    "players",
+    "currentplayers",
+    "onlineplayers",
+  ];
+  const maxKeys = [
+    "maxplayers",
+    "maxplayercount",
+    "maxclients",
+    "sv_maxplayers",
+    "max_players",
+  ];
 
   let current = null;
   let max = null;
@@ -261,13 +289,15 @@ const deriveCountsFromVariables = (variables, rawOutput = '') => {
     return result;
   }
 
-  const lines = String(rawOutput || '')
+  const lines = String(rawOutput || "")
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
 
   for (const line of lines) {
-    const connectedRatio = line.match(/connected\s+players?\D+(\d+)\s*[\/|]\s*(\d+)/i);
+    const connectedRatio = line.match(
+      /connected\s+players?\D+(\d+)\s*[\/|]\s*(\d+)/i,
+    );
     if (connectedRatio) {
       return {
         numplayers: Number.parseInt(connectedRatio[1], 10),
@@ -291,7 +321,9 @@ const deriveCountsFromVariables = (variables, rawOutput = '') => {
     }
 
     if (result.numplayers === null) {
-      const currentPlayersMatch = line.match(/(?:current|online|connected)\s*players?\D+(\d+)/i);
+      const currentPlayersMatch = line.match(
+        /(?:current|online|connected)\s*players?\D+(\d+)/i,
+      );
       if (currentPlayersMatch) {
         result.numplayers = Number.parseInt(currentPlayersMatch[1], 10);
       }
@@ -303,16 +335,28 @@ const deriveCountsFromVariables = (variables, rawOutput = '') => {
 
 const shouldPreferVariableCounts = (gameId) => {
   const normalized = normalizeGameId(gameId);
-  return ['asa', 'ase', 'ark', 'arksa', 'arkse', 'rust', 'sdtd', '7dtd', '7daystodie'].includes(normalized);
+  return [
+    "asa",
+    "ase",
+    "ark",
+    "arksa",
+    "arkse",
+    "rust",
+    "sdtd",
+    "7dtd",
+    "7daystodie",
+  ].includes(normalized);
 };
 
 const parseSourceStatusPlayers = (output) => {
   const players = [];
 
-  String(output || '')
+  String(output || "")
     .split(/\r?\n/)
     .forEach((line) => {
-      const match = line.match(/^\s*#\s*\d+\s+"([^"]+)"\s+([^\s]+)\s+(\d+)\s+([\d:]+)\s+(\d+)\s+(\d+)/);
+      const match = line.match(
+        /^\s*#\s*\d+\s+"([^"]+)"\s+([^\s]+)\s+(\d+)\s+([\d:]+)\s+(\d+)\s+(\d+)/,
+      );
       if (!match) return;
 
       players.push({
@@ -328,7 +372,7 @@ const parseSourceStatusPlayers = (output) => {
 const parseRustPlayers = (output) => {
   const players = [];
 
-  String(output || '')
+  String(output || "")
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
@@ -359,13 +403,15 @@ const parseRustPlayers = (output) => {
 const parseArkPlayers = (output) => {
   const players = [];
 
-  String(output || '')
+  String(output || "")
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
     .forEach((line) => {
       // Format seen in ARK/ASA: "0. PlayerName, 00029b3b6e9543d2914afd4691adcde7"
-      const indexedNameUuidMatch = line.match(/^\d+\.\s*(.+?)\s*,\s*([a-fA-F0-9]{32,36})\s*$/);
+      const indexedNameUuidMatch = line.match(
+        /^\d+\.\s*(.+?)\s*,\s*([a-fA-F0-9]{32,36})\s*$/,
+      );
       if (indexedNameUuidMatch) {
         players.push({
           name: indexedNameUuidMatch[1].trim(),
@@ -392,7 +438,7 @@ const parseArkPlayers = (output) => {
 const parseGenericPlayers = (output) => {
   const players = [];
 
-  String(output || '')
+  String(output || "")
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
@@ -420,11 +466,14 @@ const parsePlayersByGame = ({ gameId, command, output }) => {
   const normalizedGame = normalizeGameId(gameId);
   const normalizedCommand = toSafeString(command).toLowerCase();
 
-  if (normalizedGame === 'rust' || normalizedCommand === 'players') {
+  if (normalizedGame === "rust" || normalizedCommand === "players") {
     return parseRustPlayers(output);
   }
 
-  if (['asa', 'ase', 'ark', 'arksa', 'arkse'].includes(normalizedGame) || normalizedCommand === 'listplayers') {
+  if (
+    ["asa", "ase", "ark", "arksa", "arkse"].includes(normalizedGame) ||
+    normalizedCommand === "listplayers"
+  ) {
     return parseArkPlayers(output);
   }
 
@@ -438,11 +487,12 @@ const parsePlayersByGame = ({ gameId, command, output }) => {
 
 const getPlayerCommandCandidates = (gameId, requestedCommand) => {
   const normalizedGame = normalizeGameId(gameId);
-  const primary = toSafeString(requestedCommand) || defaultPlayerCommandForGame(gameId);
+  const primary =
+    toSafeString(requestedCommand) || defaultPlayerCommandForGame(gameId);
   const candidates = [primary];
 
-  if (['asa', 'ase', 'ark', 'arksa', 'arkse'].includes(normalizedGame)) {
-    candidates.push('ListPlayers', 'listplayers');
+  if (["asa", "ase", "ark", "arksa", "arkse"].includes(normalizedGame)) {
+    candidates.push("ListPlayers", "listplayers");
   }
 
   const unique = [];
@@ -463,7 +513,7 @@ const getPlayerCommandCandidates = (gameId, requestedCommand) => {
 const callMinecraftRcon = async ({ host, port, password, command }) => {
   const safeCommand = toSafeString(command);
   if (!safeCommand) {
-    throw new Error('RCON command is required.');
+    throw new Error("RCON command is required.");
   }
 
   const client = await withTimeout(
@@ -474,14 +524,14 @@ const callMinecraftRcon = async ({ host, port, password, command }) => {
       timeout: 8000,
     }),
     9000,
-    'RCON connection timed out.'
+    "RCON connection timed out.",
   );
 
   try {
     const response = await withTimeout(
       client.send(safeCommand),
       9000,
-      'RCON command timed out.'
+      "RCON command timed out.",
     );
     return response;
   } finally {
@@ -496,13 +546,13 @@ const callMinecraftRcon = async ({ host, port, password, command }) => {
 const callSourceRcon = async ({ host, port, password, command }) => {
   const safeCommand = toSafeString(command);
   if (!safeCommand) {
-    throw new Error('RCON command is required.');
+    throw new Error("RCON command is required.");
   }
 
   const client = createSourceRconClient({
     host,
     port,
-    encoding: 'utf8',
+    encoding: "utf8",
     timeout: 8000,
   });
 
@@ -510,22 +560,22 @@ const callSourceRcon = async ({ host, port, password, command }) => {
     await withTimeout(
       client.authenticate(password),
       9000,
-      'RCON authentication timed out.'
+      "RCON authentication timed out.",
     );
 
     const response = await withTimeout(
       client.execute(safeCommand),
       9000,
-      'RCON command timed out.'
+      "RCON command timed out.",
     );
     return response;
   } finally {
     try {
-      if (typeof client.disconnect === 'function') {
+      if (typeof client.disconnect === "function") {
         await client.disconnect();
-      } else if (typeof client.end === 'function') {
+      } else if (typeof client.end === "function") {
         await client.end();
-      } else if (typeof client.close === 'function') {
+      } else if (typeof client.close === "function") {
         await client.close();
       }
     } catch {
@@ -535,45 +585,58 @@ const callSourceRcon = async ({ host, port, password, command }) => {
 };
 
 export default async function registerRconRoutes(app) {
-  app.get('/health', async () => {
+  app.get("/health", async () => {
     return {
       success: true,
-      service: 'rcon',
+      service: "rcon",
       time: new Date().toISOString(),
     };
   });
 
-  app.post('/variables', async (request, reply) => {
+  app.post("/variables", async (request, reply) => {
     const host = toSafeString(request.body?.host);
     const password = toSafeString(request.body?.password);
     const port = normalizePort(request.body?.port);
-    const type = toSafeString(request.body?.type).toLowerCase() || 'source';
-    const command = toSafeString(request.body?.command) || 'status';
+    const type = toSafeString(request.body?.type).toLowerCase() || "source";
+    const command = toSafeString(request.body?.command) || "status";
 
     if (!isValidHost(host)) {
-      return reply.code(400).send({ success: false, error: 'Host is required.' });
+      return reply
+        .code(400)
+        .send({ success: false, error: "Host is required." });
     }
 
     if (!password) {
-      return reply.code(400).send({ success: false, error: 'Password is required.' });
+      return reply
+        .code(400)
+        .send({ success: false, error: "Password is required." });
     }
 
     if (!port) {
-      return reply.code(400).send({ success: false, error: 'A valid port is required.' });
+      return reply
+        .code(400)
+        .send({ success: false, error: "A valid port is required." });
     }
 
     if (!isValidType(type)) {
-      return reply.code(400).send({ success: false, error: 'type must be either "source" or "minecraft".' });
+      return reply.code(400).send({
+        success: false,
+        error: 'type must be either "source" or "minecraft".',
+      });
     }
 
     if (!isValidCommand(command)) {
-      return reply.code(400).send({ success: false, error: `command is required and must be <= ${MAX_RCON_COMMAND_LENGTH} characters.` });
+      return reply.code(400).send({
+        success: false,
+        error: `command is required and must be <= ${MAX_RCON_COMMAND_LENGTH} characters.`,
+      });
     }
 
     try {
-      const output = type === 'minecraft'
-        ? await callMinecraftRcon({ host, port, password, command })
-        : await callSourceRcon({ host, port, password, command });
+      const output =
+        type === "minecraft"
+          ? await callMinecraftRcon({ host, port, password, command })
+          : await callSourceRcon({ host, port, password, command });
 
       const variables = parseVariableLines(output);
 
@@ -588,45 +651,63 @@ export default async function registerRconRoutes(app) {
       return reply.code(502).send({
         success: false,
         error: normalizeRconError(error),
-        detail: String(error?.message || ''),
-        code: 'RCON_REQUEST_FAILED',
+        detail: String(error?.message || ""),
+        code: "RCON_REQUEST_FAILED",
       });
     }
   });
 
-  app.post('/players', async (request, reply) => {
+  app.post("/players", async (request, reply) => {
     const host = toSafeString(request.body?.host);
     const password = toSafeString(request.body?.password);
     const port = normalizePort(request.body?.port);
-    const type = toSafeString(request.body?.type).toLowerCase() || 'source';
+    const type = toSafeString(request.body?.type).toLowerCase() || "source";
     const game = normalizeGameId(request.body?.game);
     const requestedCommand = toSafeString(request.body?.command);
-    const countCommand = toSafeString(request.body?.count_command) || 'status';
-    const requestedMaxPlayersFallback = Number.parseInt(String(request.body?.maxplayers_fallback ?? ''), 10);
-    const maxPlayersFallback = Number.isFinite(requestedMaxPlayersFallback) && requestedMaxPlayersFallback > 0
-      ? requestedMaxPlayersFallback
-      : null;
+    const countCommand = toSafeString(request.body?.count_command) || "status";
+    const requestedMaxPlayersFallback = Number.parseInt(
+      String(request.body?.maxplayers_fallback ?? ""),
+      10,
+    );
+    const maxPlayersFallback =
+      Number.isFinite(requestedMaxPlayersFallback) &&
+      requestedMaxPlayersFallback > 0
+        ? requestedMaxPlayersFallback
+        : null;
 
     if (!isValidHost(host)) {
-      return reply.code(400).send({ success: false, error: 'Host is required.' });
+      return reply
+        .code(400)
+        .send({ success: false, error: "Host is required." });
     }
 
     if (!password) {
-      return reply.code(400).send({ success: false, error: 'Password is required.' });
+      return reply
+        .code(400)
+        .send({ success: false, error: "Password is required." });
     }
 
     if (!port) {
-      return reply.code(400).send({ success: false, error: 'A valid port is required.' });
+      return reply
+        .code(400)
+        .send({ success: false, error: "A valid port is required." });
     }
 
     if (!isValidType(type)) {
-      return reply.code(400).send({ success: false, error: 'type must be either "source" or "minecraft".' });
+      return reply.code(400).send({
+        success: false,
+        error: 'type must be either "source" or "minecraft".',
+      });
     }
 
     try {
-      const commandCandidates = getPlayerCommandCandidates(game, requestedCommand);
-      let output = '';
-      let commandUsed = commandCandidates[0] || defaultPlayerCommandForGame(game);
+      const commandCandidates = getPlayerCommandCandidates(
+        game,
+        requestedCommand,
+      );
+      let output = "";
+      let commandUsed =
+        commandCandidates[0] || defaultPlayerCommandForGame(game);
       let players = [];
       let derivedNumPlayers = null;
       let derivedMaxPlayers = null;
@@ -635,9 +716,20 @@ export default async function registerRconRoutes(app) {
         const safeCommand = toSafeString(commandToRun);
         if (!safeCommand) return { numplayers: null, maxplayers: null };
 
-        const countOutput = type === 'minecraft'
-          ? await callMinecraftRcon({ host, port, password, command: safeCommand })
-          : await callSourceRcon({ host, port, password, command: safeCommand });
+        const countOutput =
+          type === "minecraft"
+            ? await callMinecraftRcon({
+                host,
+                port,
+                password,
+                command: safeCommand,
+              })
+            : await callSourceRcon({
+                host,
+                port,
+                password,
+                command: safeCommand,
+              });
 
         const variables = parseVariableLines(countOutput);
         return deriveCountsFromVariables(variables, countOutput);
@@ -647,12 +739,27 @@ export default async function registerRconRoutes(app) {
         const candidateCommand = toSafeString(candidate);
         if (!candidateCommand) continue;
 
-        const candidateOutput = type === 'minecraft'
-          ? await callMinecraftRcon({ host, port, password, command: candidateCommand })
-          : await callSourceRcon({ host, port, password, command: candidateCommand });
+        const candidateOutput =
+          type === "minecraft"
+            ? await callMinecraftRcon({
+                host,
+                port,
+                password,
+                command: candidateCommand,
+              })
+            : await callSourceRcon({
+                host,
+                port,
+                password,
+                command: candidateCommand,
+              });
 
-        const parsedPlayers = parsePlayersByGame({ gameId: game, command: candidateCommand, output: candidateOutput });
-        const normalizedOutput = String(candidateOutput || '').trim();
+        const parsedPlayers = parsePlayersByGame({
+          gameId: game,
+          command: candidateCommand,
+          output: candidateOutput,
+        });
+        const normalizedOutput = String(candidateOutput || "").trim();
         const isKeepAliveOnly = /^keep\s+alive$/i.test(normalizedOutput);
 
         output = candidateOutput;
@@ -669,15 +776,24 @@ export default async function registerRconRoutes(app) {
         derivedNumPlayers = primaryCounts.numplayers;
         derivedMaxPlayers = primaryCounts.maxplayers;
 
-        const shouldRetryWithStatus = toSafeString(countCommand).toLowerCase() !== 'status'
-          && (derivedNumPlayers === null || derivedMaxPlayers === null || derivedMaxPlayers <= 0);
+        const shouldRetryWithStatus =
+          toSafeString(countCommand).toLowerCase() !== "status" &&
+          (derivedNumPlayers === null ||
+            derivedMaxPlayers === null ||
+            derivedMaxPlayers <= 0);
 
         if (shouldRetryWithStatus) {
-          const fallbackCounts = await deriveCountsFromCommand('status');
-          if (fallbackCounts.numplayers !== null && (derivedNumPlayers === null || derivedNumPlayers <= 0)) {
+          const fallbackCounts = await deriveCountsFromCommand("status");
+          if (
+            fallbackCounts.numplayers !== null &&
+            (derivedNumPlayers === null || derivedNumPlayers <= 0)
+          ) {
             derivedNumPlayers = fallbackCounts.numplayers;
           }
-          if (fallbackCounts.maxplayers !== null && (derivedMaxPlayers === null || derivedMaxPlayers <= 0)) {
+          if (
+            fallbackCounts.maxplayers !== null &&
+            (derivedMaxPlayers === null || derivedMaxPlayers <= 0)
+          ) {
             derivedMaxPlayers = fallbackCounts.maxplayers;
           }
         }
@@ -686,19 +802,25 @@ export default async function registerRconRoutes(app) {
       }
 
       if (!commandUsed) {
-        throw new Error('No valid RCON command candidate was available.');
+        throw new Error("No valid RCON command candidate was available.");
       }
 
       const parsedPlayersCount = Array.isArray(players) ? players.length : 0;
-      const normalizedDerivedNumPlayers = Number.isFinite(derivedNumPlayers) ? derivedNumPlayers : null;
-      const normalizedDerivedMaxPlayers = Number.isFinite(derivedMaxPlayers) && derivedMaxPlayers > 0
-        ? derivedMaxPlayers
+      const normalizedDerivedNumPlayers = Number.isFinite(derivedNumPlayers)
+        ? derivedNumPlayers
         : null;
+      const normalizedDerivedMaxPlayers =
+        Number.isFinite(derivedMaxPlayers) && derivedMaxPlayers > 0
+          ? derivedMaxPlayers
+          : null;
       const resolvedNumPlayers =
         normalizedDerivedNumPlayers !== null && normalizedDerivedNumPlayers > 0
           ? normalizedDerivedNumPlayers
-          : (parsedPlayersCount > 0 ? parsedPlayersCount : (normalizedDerivedNumPlayers ?? 0));
-      const resolvedMaxPlayers = normalizedDerivedMaxPlayers ?? maxPlayersFallback ?? 0;
+          : parsedPlayersCount > 0
+            ? parsedPlayersCount
+            : (normalizedDerivedNumPlayers ?? 0);
+      const resolvedMaxPlayers =
+        normalizedDerivedMaxPlayers ?? maxPlayersFallback ?? 0;
       const ping = await measureTcpPing(host, port);
 
       return {
@@ -718,8 +840,8 @@ export default async function registerRconRoutes(app) {
       return reply.code(502).send({
         success: false,
         error: normalizeRconError(error),
-        detail: String(error?.message || ''),
-        code: 'RCON_REQUEST_FAILED',
+        detail: String(error?.message || ""),
+        code: "RCON_REQUEST_FAILED",
       });
     }
   });

@@ -1,23 +1,32 @@
-import fs from 'fs';
-import path from 'path';
-import axios from 'axios';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import axios from "axios";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const TRANSLATIONS_DIR = path.resolve(__dirname, '..', 'public', 'translations');
-const DEFAULT_OWNER = process.env.TRANSLATIONS_REPO_OWNER || 'EuphoriaTheme';
-const DEFAULT_REPO = process.env.TRANSLATIONS_REPO_NAME || 'blueprint-translations';
-const DEFAULT_REF = process.env.TRANSLATIONS_REPO_REF || 'main';
-const DEFAULT_INTERVAL_MS = Number(process.env.TRANSLATIONS_SYNC_INTERVAL_MS) || 24 * 60 * 60 * 1000;
-const DEFAULT_TIMEOUT_MS = Number(process.env.TRANSLATIONS_SYNC_TIMEOUT_MS) || 20000;
-const GITHUB_TOKEN = process.env.TRANSLATIONS_SYNC_GITHUB_TOKEN || process.env.GITHUB_TOKEN || '';
+const TRANSLATIONS_DIR = path.resolve(
+  __dirname,
+  "..",
+  "public",
+  "translations",
+);
+const DEFAULT_OWNER = process.env.TRANSLATIONS_REPO_OWNER || "EuphoriaTheme";
+const DEFAULT_REPO =
+  process.env.TRANSLATIONS_REPO_NAME || "blueprint-translations";
+const DEFAULT_REF = process.env.TRANSLATIONS_REPO_REF || "main";
+const DEFAULT_INTERVAL_MS =
+  Number(process.env.TRANSLATIONS_SYNC_INTERVAL_MS) || 24 * 60 * 60 * 1000;
+const DEFAULT_TIMEOUT_MS =
+  Number(process.env.TRANSLATIONS_SYNC_TIMEOUT_MS) || 20000;
+const GITHUB_TOKEN =
+  process.env.TRANSLATIONS_SYNC_GITHUB_TOKEN || process.env.GITHUB_TOKEN || "";
 
 function buildGithubHeaders() {
   const headers = {
-    Accept: 'application/vnd.github+json',
-    'User-Agent': 'ED-api-translation-sync'
+    Accept: "application/vnd.github+json",
+    "User-Agent": "ED-api-translation-sync",
   };
 
   if (GITHUB_TOKEN) {
@@ -28,11 +37,13 @@ function buildGithubHeaders() {
 }
 
 function isTranslationFile(entry) {
-  return entry?.type === 'file'
-    && typeof entry.name === 'string'
-    && entry.name.endsWith('.json')
-    && !entry.name.startsWith('example-')
-    && Boolean(entry.download_url);
+  return (
+    entry?.type === "file" &&
+    typeof entry.name === "string" &&
+    entry.name.endsWith(".json") &&
+    !entry.name.startsWith("example-") &&
+    Boolean(entry.download_url)
+  );
 }
 
 function normalizeJson(rawContent, fileName) {
@@ -51,11 +62,11 @@ async function fetchRepoTranslationEntries({ owner, repo, ref, timeoutMs }) {
     params: { ref },
     timeout: timeoutMs,
     headers: buildGithubHeaders(),
-    validateStatus: (status) => status >= 200 && status < 300
+    validateStatus: (status) => status >= 200 && status < 300,
   });
 
   if (!Array.isArray(response.data)) {
-    throw new Error('GitHub API did not return a directory listing.');
+    throw new Error("GitHub API did not return a directory listing.");
   }
 
   return response.data
@@ -66,13 +77,13 @@ async function fetchRepoTranslationEntries({ owner, repo, ref, timeoutMs }) {
 async function fetchRawFile(downloadUrl, timeoutMs) {
   const response = await axios.get(downloadUrl, {
     timeout: timeoutMs,
-    headers: { 'User-Agent': 'ED-api-translation-sync' },
-    responseType: 'text',
+    headers: { "User-Agent": "ED-api-translation-sync" },
+    responseType: "text",
     transformResponse: [(data) => data],
-    validateStatus: (status) => status >= 200 && status < 300
+    validateStatus: (status) => status >= 200 && status < 300,
   });
 
-  if (typeof response.data !== 'string') {
+  if (typeof response.data !== "string") {
     return JSON.stringify(response.data);
   }
 
@@ -86,12 +97,17 @@ export async function syncTranslations(options = {}) {
     repo = DEFAULT_REPO,
     ref = DEFAULT_REF,
     timeoutMs = DEFAULT_TIMEOUT_MS,
-    outputDir = TRANSLATIONS_DIR
+    outputDir = TRANSLATIONS_DIR,
   } = options;
 
   fs.mkdirSync(outputDir, { recursive: true });
 
-  const entries = await fetchRepoTranslationEntries({ owner, repo, ref, timeoutMs });
+  const entries = await fetchRepoTranslationEntries({
+    owner,
+    repo,
+    ref,
+    timeoutMs,
+  });
   let added = 0;
   let updated = 0;
   let unchanged = 0;
@@ -106,7 +122,7 @@ export async function syncTranslations(options = {}) {
       const exists = fs.existsSync(targetPath);
 
       if (exists) {
-        const current = fs.readFileSync(targetPath, 'utf8');
+        const current = fs.readFileSync(targetPath, "utf8");
         if (current === normalized) {
           unchanged += 1;
           continue;
@@ -114,7 +130,7 @@ export async function syncTranslations(options = {}) {
       }
 
       if (!dryRun) {
-        fs.writeFileSync(targetPath, normalized, 'utf8');
+        fs.writeFileSync(targetPath, normalized, "utf8");
       }
 
       if (exists) {
@@ -123,10 +139,14 @@ export async function syncTranslations(options = {}) {
         added += 1;
       }
 
-      console.log(`[translation-sync] ${dryRun ? 'Would sync' : 'Synced'} ${entry.name}`);
+      console.log(
+        `[translation-sync] ${dryRun ? "Would sync" : "Synced"} ${entry.name}`,
+      );
     } catch (error) {
       failed += 1;
-      console.error(`[translation-sync] Failed ${entry.name}: ${error.message}`);
+      console.error(
+        `[translation-sync] Failed ${entry.name}: ${error.message}`,
+      );
     }
   }
 
@@ -140,11 +160,12 @@ export async function syncTranslations(options = {}) {
     owner,
     repo,
     ref,
-    outputDir
+    outputDir,
   };
 
-  const summary = `[translation-sync] Completed${failed ? ' with errors' : ''}: `
-    + `${added} added, ${updated} updated, ${unchanged} unchanged, ${failed} failed (total ${entries.length}).`;
+  const summary =
+    `[translation-sync] Completed${failed ? " with errors" : ""}: ` +
+    `${added} added, ${updated} updated, ${unchanged} unchanged, ${failed} failed (total ${entries.length}).`;
 
   if (failed) {
     console.warn(summary);
@@ -160,7 +181,9 @@ export function startTranslationSyncJob(intervalMs = DEFAULT_INTERVAL_MS) {
 
   const run = async () => {
     if (isRunning) {
-      console.warn('[translation-sync] Previous sync still running, skipping this cycle.');
+      console.warn(
+        "[translation-sync] Previous sync still running, skipping this cycle.",
+      );
       return;
     }
 
@@ -178,9 +201,10 @@ export function startTranslationSyncJob(intervalMs = DEFAULT_INTERVAL_MS) {
   return setInterval(run, intervalMs);
 }
 
-const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === __filename;
+const isDirectRun =
+  process.argv[1] && path.resolve(process.argv[1]) === __filename;
 if (isDirectRun) {
-  const dryRun = process.argv.includes('--dry-run');
+  const dryRun = process.argv.includes("--dry-run");
 
   syncTranslations({ dryRun })
     .then((result) => {

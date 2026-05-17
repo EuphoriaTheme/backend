@@ -20,7 +20,7 @@
 # Free Addons/Themes/Web Applications
 - Name: Euphoria Paste Free
   Identifier: EuphoriaPasteFree
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/euphoria-paste-free
@@ -29,7 +29,7 @@
 
 - Name: Refresh Theme
   Identifier: RefreshTheme
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/refresh-theme
@@ -38,7 +38,7 @@
 
 - Name: Player Listing
   Identifier: PlayerListing
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/player-listing
@@ -47,7 +47,7 @@
 
 - Name: MC Logs
   Identifier: MCLogs
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/mc-logs
@@ -56,7 +56,7 @@
 
 - Name: Server Backgrounds
   Identifier: ServerBackgrounds
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/server-backgrounds
@@ -65,7 +65,7 @@
 
 - Name: Resource Alerts
   Identifier: ResourceAlerts
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/resource-alerts
@@ -74,7 +74,7 @@
 
 - Name: Translations
   Identifier: Translations
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/translations
@@ -83,7 +83,7 @@
 
 - Name: Laravel Logs
   Identifier: LaravelLogs
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/laravel-logs
@@ -92,7 +92,7 @@
 
 - Name: Resource Manager
   Identifier: ResourceManager
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/resource-manager
@@ -101,7 +101,7 @@
 
 - Name: Console Logs
   Identifier: ConsoleLogs
-  InternalId: 
+  InternalId:
   Price: 0
   URLs:
     - https://example.com/console-logs

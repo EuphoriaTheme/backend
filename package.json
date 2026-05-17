@@ -1,11 +1,24 @@
 {
-  "name": "ED-api",
+  "name": "ed-api",
   "version": "1.0.0",
   "type": "module",
   "main": "server.js",
   "repository": "https://github.com/EuphoriaTheme/ED-API.git",
   "author": "Rep Graphics <support@euphoriadevelopment.uk>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --watch . --ext js,json,yml,yaml --exec \"node server.js\"",
+    "build": "echo \"No build step required for Fastify runtime\"",
+    "start": "node server.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "update:games": "node ./scripts/updateGamesYml.js",
+    "fetch:gameicons": "node ./scripts/fetchGameIcons.js",
+    "sync:translations": "node ./scripts/syncTranslations.js",
+    "sync:blueprint": "node ./scripts/syncBlueprintExtensions.js"
+  },
   "dependencies": {
     "@fastify/cors": "^11.1.0",
     "@fastify/rate-limit": "^10.3.0",
@@ -19,15 +32,13 @@
     "rcon-srcds": "^2.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.8.3"
   },
-  "scripts": {
-    "dev": "nodemon --watch . --ext js,json,yml,yaml --exec \"node server.js\"",
-    "build": "echo \"No build step required for Fastify runtime\"",
-    "start": "node server.js",
-    "update:games": "node ./scripts/updateGamesYml.js",
-    "fetch:gameicons": "node ./scripts/fetchGameIcons.js",
-    "sync:translations": "node ./scripts/syncTranslations.js",
-    "sync:blueprint": "node ./scripts/syncBlueprintExtensions.js"
+  "overrides": {
+    "fast-xml-parser": ">=5.6.0"
   }
 }

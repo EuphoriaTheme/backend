@@ -1,14 +1,14 @@
-import { GameDig } from 'gamedig';
+import { GameDig } from "gamedig";
 import {
   GAMEQUERY_ATTEMPT_TIMEOUT_MS,
   GAMEQUERY_MAX_RETRIES,
   GAMEQUERY_SOCKET_TIMEOUT_MS,
-} from '../config/gameQueryLimits.js';
+} from "../config/gameQueryLimits.js";
 
 export default async function queryMinecraftServer(ip, port) {
   try {
     const data = await GameDig.query({
-      type: 'minecraft',
+      type: "minecraft",
       host: ip,
       port: parseInt(port, 10),
       requestRules: true,
@@ -19,8 +19,14 @@ export default async function queryMinecraftServer(ip, port) {
     });
     // Extract players, numplayers, maxplayers, and ping from the response
     const players = data.players || [];
-    const numplayers = typeof data.numplayers === 'number' ? data.numplayers : (players ? players.length : 0);
-    const maxplayers = typeof data.maxplayers === 'number' ? data.maxplayers : null;
+    const numplayers =
+      typeof data.numplayers === "number"
+        ? data.numplayers
+        : players
+          ? players.length
+          : 0;
+    const maxplayers =
+      typeof data.maxplayers === "number" ? data.maxplayers : null;
     const ping = data.ping || null;
     return { success: true, data: { players, numplayers, maxplayers, ping } };
   } catch (error) {

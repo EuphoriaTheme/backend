@@ -2,33 +2,13 @@
   "version": 1,
   "updatedAt": "2026-03-16T00:00:00Z",
   "notes": "Copy this file to config/banlist.json and edit values for your environment.",
-  "ipAddresses": [
-    "203.0.113.10",
-    "198.51.100.24"
-  ],
-  "cidrBlocks": [
-    "203.0.113.0/24",
-    "198.51.100.0/24"
-  ],
-  "userAgents": [
-    "BadBot/1.0",
-    "curl/7.0"
-  ],
-  "countries": [
-    "XX"
-  ],
-  "paths": [
-    "/admin",
-    "/wp-login.php"
-  ],
-  "emails": [
-    "abuse@example.com"
-  ],
-  "licenseKeys": [
-    "XXXX-XXXX-XXXX-XXXX"
-  ],
-  "hardwareIds": [
-    "HWID-EXAMPLE-001"
-  ],
+  "ipAddresses": ["203.0.113.10", "198.51.100.24"],
+  "cidrBlocks": ["203.0.113.0/24", "198.51.100.0/24"],
+  "userAgents": ["BadBot/1.0", "curl/7.0"],
+  "countries": ["XX"],
+  "paths": ["/admin", "/wp-login.php"],
+  "emails": ["abuse@example.com"],
+  "licenseKeys": ["XXXX-XXXX-XXXX-XXXX"],
+  "hardwareIds": ["HWID-EXAMPLE-001"],
   "enabled": true
 }

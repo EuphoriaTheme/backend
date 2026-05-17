@@ -1,59 +1,99 @@
-import fs from 'fs';
-import yaml from 'js-yaml';
-import path from 'path';
-import net from 'net';
-import dns from 'node:dns/promises';
-import { fileURLToPath } from 'url';
-import queryFiveMServer from '../handlers/queryFiveMServer.js';
-import queryBeamMPServer from '../handlers/queryBeamMPServer.js';
-import queryMinecraftServer from '../handlers/queryMinecraftServer.js';
-import handleDefaultGame from '../handlers/defaultGameHandler.js';
+import fs from "fs";
+import yaml from "js-yaml";
+import path from "path";
+import net from "net";
+import dns from "node:dns/promises";
+import { fileURLToPath } from "url";
+import queryFiveMServer from "../handlers/queryFiveMServer.js";
+import queryBeamMPServer from "../handlers/queryBeamMPServer.js";
+import queryMinecraftServer from "../handlers/queryMinecraftServer.js";
+import handleDefaultGame from "../handlers/defaultGameHandler.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const gamesPath = path.join(__dirname, '../public/games.yml');
-const gameImagesDir = path.join(__dirname, '../public/games');
+const gamesPath = path.join(__dirname, "../public/games.yml");
+const gameImagesDir = path.join(__dirname, "../public/games");
 
 const PRIVATE_TARGET_BLOCKLIST = new net.BlockList();
-PRIVATE_TARGET_BLOCKLIST.addSubnet('0.0.0.0', 8, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('10.0.0.0', 8, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('100.64.0.0', 10, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('127.0.0.0', 8, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('169.254.0.0', 16, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('172.16.0.0', 12, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('192.0.0.0', 24, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('192.0.2.0', 24, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('192.168.0.0', 16, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('198.18.0.0', 15, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('198.51.100.0', 24, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('203.0.113.0', 24, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('224.0.0.0', 4, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('240.0.0.0', 4, 'ipv4');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('::', 128, 'ipv6');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('::1', 128, 'ipv6');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('fc00::', 7, 'ipv6');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('fe80::', 10, 'ipv6');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('ff00::', 8, 'ipv6');
-PRIVATE_TARGET_BLOCKLIST.addSubnet('2001:db8::', 32, 'ipv6');
+PRIVATE_TARGET_BLOCKLIST.addSubnet("0.0.0.0", 8, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("10.0.0.0", 8, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("100.64.0.0", 10, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("127.0.0.0", 8, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("169.254.0.0", 16, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("172.16.0.0", 12, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("192.0.0.0", 24, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("192.0.2.0", 24, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("192.168.0.0", 16, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("198.18.0.0", 15, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("198.51.100.0", 24, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("203.0.113.0", 24, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("224.0.0.0", 4, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("240.0.0.0", 4, "ipv4");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("::", 128, "ipv6");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("::1", 128, "ipv6");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("fc00::", 7, "ipv6");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("fe80::", 10, "ipv6");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("ff00::", 8, "ipv6");
+PRIVATE_TARGET_BLOCKLIST.addSubnet("2001:db8::", 32, "ipv6");
 
-const DEFAULT_SPECIAL_GAME_IDS = ['fivem', 'gta5f', 'beammp', 'minecraft'];
-const DEFAULT_BLOCKED_HOSTNAMES = ['localhost', 'localhost.localdomain', 'ip6-localhost', 'broadcasthost'];
-const imageExtensions = ['png', 'jpg', 'jpeg', 'webp'];
-const DNS_HOSTNAME_PATTERN = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\.(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?))*\.?$/i;
+const DEFAULT_SPECIAL_GAME_IDS = ["fivem", "gta5f", "beammp", "minecraft"];
+const DEFAULT_BLOCKED_HOSTNAMES = [
+  "localhost",
+  "localhost.localdomain",
+  "ip6-localhost",
+  "broadcasthost",
+];
+const imageExtensions = ["png", "jpg", "jpeg", "webp"];
+const DNS_HOSTNAME_PATTERN =
+  /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\.(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?))*\.?$/i;
 
-const GAMEAPI_RATE_LIMIT_MAX = parseEnvInt(process.env.GAMEAPI_RATE_LIMIT_MAX, 30, { min: 1 });
-const GAMEAPI_RATE_LIMIT_TIME_WINDOW = process.env.GAMEAPI_RATE_LIMIT_TIME_WINDOW || '1 minute';
-const GAMEAPI_MAX_CONCURRENT_REQUESTS = parseEnvInt(process.env.GAMEAPI_MAX_CONCURRENT_REQUESTS, 50, { min: 1 });
-const GAMEAPI_CACHE_TTL_MS = parseEnvInt(process.env.GAMEAPI_CACHE_TTL_MS, 5000, { min: 0 });
-const GAMEAPI_GAMES_CACHE_TTL_MS = parseEnvInt(process.env.GAMEAPI_GAMES_CACHE_TTL_MS, 60000, { min: 0 });
-const GAMEAPI_DNS_LOOKUP_TIMEOUT_MS = parseEnvInt(process.env.GAMEAPI_DNS_LOOKUP_TIMEOUT_MS, 2500, { min: 100 });
-const GAMEAPI_BLOCK_PRIVATE_TARGETS = parseEnvBoolean(process.env.GAMEAPI_BLOCK_PRIVATE_TARGETS, true);
-const GAMEAPI_MAX_HOST_LENGTH = parseEnvInt(process.env.GAMEAPI_MAX_HOST_LENGTH, 253, { min: 1, max: 253 });
+const GAMEAPI_RATE_LIMIT_MAX = parseEnvInt(
+  process.env.GAMEAPI_RATE_LIMIT_MAX,
+  30,
+  { min: 1 },
+);
+const GAMEAPI_RATE_LIMIT_TIME_WINDOW =
+  process.env.GAMEAPI_RATE_LIMIT_TIME_WINDOW || "1 minute";
+const GAMEAPI_MAX_CONCURRENT_REQUESTS = parseEnvInt(
+  process.env.GAMEAPI_MAX_CONCURRENT_REQUESTS,
+  50,
+  { min: 1 },
+);
+const GAMEAPI_CACHE_TTL_MS = parseEnvInt(
+  process.env.GAMEAPI_CACHE_TTL_MS,
+  5000,
+  { min: 0 },
+);
+const GAMEAPI_GAMES_CACHE_TTL_MS = parseEnvInt(
+  process.env.GAMEAPI_GAMES_CACHE_TTL_MS,
+  60000,
+  { min: 0 },
+);
+const GAMEAPI_DNS_LOOKUP_TIMEOUT_MS = parseEnvInt(
+  process.env.GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
+  2500,
+  { min: 100 },
+);
+const GAMEAPI_BLOCK_PRIVATE_TARGETS = parseEnvBoolean(
+  process.env.GAMEAPI_BLOCK_PRIVATE_TARGETS,
+  true,
+);
+const GAMEAPI_MAX_HOST_LENGTH = parseEnvInt(
+  process.env.GAMEAPI_MAX_HOST_LENGTH,
+  253,
+  { min: 1, max: 253 },
+);
 const GAMEAPI_BLOCKED_HOSTNAMES = new Set(
-  parseCsvValues(process.env.GAMEAPI_BLOCKED_HOSTNAMES, DEFAULT_BLOCKED_HOSTNAMES).map((entry) => entry.toLowerCase()),
+  parseCsvValues(
+    process.env.GAMEAPI_BLOCKED_HOSTNAMES,
+    DEFAULT_BLOCKED_HOSTNAMES,
+  ).map((entry) => entry.toLowerCase()),
 );
 const GAMEAPI_SPECIAL_GAME_IDS = new Set(
-  parseCsvValues(process.env.GAMEAPI_SPECIAL_GAME_IDS, DEFAULT_SPECIAL_GAME_IDS).map((entry) => entry.toLowerCase()),
+  parseCsvValues(
+    process.env.GAMEAPI_SPECIAL_GAME_IDS,
+    DEFAULT_SPECIAL_GAME_IDS,
+  ).map((entry) => entry.toLowerCase()),
 );
 
 const queryResultCache = new Map();
@@ -68,8 +108,12 @@ let cachedGames = {
   imageNameByGameId: {},
 };
 
-function parseEnvInt(rawValue, fallbackValue, { min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) {
-  const parsed = Number.parseInt(String(rawValue ?? ''), 10);
+function parseEnvInt(
+  rawValue,
+  fallbackValue,
+  { min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {},
+) {
+  const parsed = Number.parseInt(String(rawValue ?? ""), 10);
   if (!Number.isFinite(parsed) || parsed < min || parsed > max) {
     return fallbackValue;
   }
@@ -78,16 +122,16 @@ function parseEnvInt(rawValue, fallbackValue, { min = Number.NEGATIVE_INFINITY, 
 }
 
 function parseEnvBoolean(rawValue, fallbackValue = false) {
-  if (rawValue === undefined || rawValue === null || rawValue === '') {
+  if (rawValue === undefined || rawValue === null || rawValue === "") {
     return fallbackValue;
   }
 
   const value = String(rawValue).trim().toLowerCase();
-  if (value === 'true') {
+  if (value === "true") {
     return true;
   }
 
-  if (value === 'false') {
+  if (value === "false") {
     return false;
   }
 
@@ -95,9 +139,9 @@ function parseEnvBoolean(rawValue, fallbackValue = false) {
 }
 
 function parseCsvValues(rawValue, defaults = []) {
-  const value = String(rawValue || '').trim();
+  const value = String(rawValue || "").trim();
   const entries = value
-    .split(',')
+    .split(",")
     .map((entry) => entry.trim())
     .filter(Boolean);
 
@@ -105,7 +149,7 @@ function parseCsvValues(rawValue, defaults = []) {
 }
 
 function parseAndValidatePort(value) {
-  const parsed = Number.parseInt(String(value ?? ''), 10);
+  const parsed = Number.parseInt(String(value ?? ""), 10);
   if (!Number.isInteger(parsed) || parsed < 1 || parsed > 65535) {
     return null;
   }
@@ -114,8 +158,8 @@ function parseAndValidatePort(value) {
 }
 
 function parseLegacyInlineTargetParam(value) {
-  const raw = String(value ?? '');
-  const marker = '&port=';
+  const raw = String(value ?? "");
+  const marker = "&port=";
   const markerIndex = raw.toLowerCase().lastIndexOf(marker);
 
   if (markerIndex <= 0) {
@@ -139,32 +183,49 @@ function createErrorWithStatus(message, statusCode) {
 }
 
 function isDnsNotFoundError(error) {
-  const code = String(error?.code || '').toUpperCase();
-  return code === 'ENOTFOUND' || code === 'ENODATA' || code === 'ENOENT' || code === 'ENXIO' || code === 'NXDOMAIN';
+  const code = String(error?.code || "").toUpperCase();
+  return (
+    code === "ENOTFOUND" ||
+    code === "ENODATA" ||
+    code === "ENOENT" ||
+    code === "ENXIO" ||
+    code === "NXDOMAIN"
+  );
 }
 
 function isDnsTemporaryError(error) {
-  const code = String(error?.code || '').toUpperCase();
-  return code === 'EAI_AGAIN' || code === 'ETIMEOUT' || code === 'ESERVFAIL' || code === 'ECONNREFUSED';
+  const code = String(error?.code || "").toUpperCase();
+  return (
+    code === "EAI_AGAIN" ||
+    code === "ETIMEOUT" ||
+    code === "ESERVFAIL" ||
+    code === "ECONNREFUSED"
+  );
 }
 
 function toHostResolutionError(error, host) {
-  const code = String(error?.code || '').toUpperCase();
+  const code = String(error?.code || "").toUpperCase();
 
   if (isDnsNotFoundError(error)) {
-    const notFoundError = createErrorWithStatus(`Could not resolve target host: ${host}`, 400);
-    notFoundError.code = code || 'ENOTFOUND';
+    const notFoundError = createErrorWithStatus(
+      `Could not resolve target host: ${host}`,
+      400,
+    );
+    notFoundError.code = code || "ENOTFOUND";
     return notFoundError;
   }
 
   if (isDnsTemporaryError(error)) {
-    const temporaryError = createErrorWithStatus(`DNS resolution for "${host}" failed temporarily. Please retry.`, 503);
-    temporaryError.code = code || 'EAI_AGAIN';
+    const temporaryError = createErrorWithStatus(
+      `DNS resolution for "${host}" failed temporarily. Please retry.`,
+      503,
+    );
+    temporaryError.code = code || "EAI_AGAIN";
     return temporaryError;
   }
 
-  const genericError = createErrorWithStatus('Host resolution failed.', 502);
-  genericError.code = code || 'DNS_ERROR';
+  const genericError = createErrorWithStatus("Host resolution failed.", 502);
+  genericError.code = code || "DNS_ERROR";
   return genericError;
 }
 
@@ -173,19 +234,21 @@ function selectPreferredSrvRecord(records) {
     return null;
   }
 
-  return records
-    .slice()
-    .sort((left, right) => {
-      const leftPriority = Number.isFinite(left?.priority) ? left.priority : Number.MAX_SAFE_INTEGER;
-      const rightPriority = Number.isFinite(right?.priority) ? right.priority : Number.MAX_SAFE_INTEGER;
-      if (leftPriority !== rightPriority) {
-        return leftPriority - rightPriority;
-      }
+  return records.slice().sort((left, right) => {
+    const leftPriority = Number.isFinite(left?.priority)
+      ? left.priority
+      : Number.MAX_SAFE_INTEGER;
+    const rightPriority = Number.isFinite(right?.priority)
+      ? right.priority
+      : Number.MAX_SAFE_INTEGER;
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority;
+    }
 
-      const leftWeight = Number.isFinite(left?.weight) ? left.weight : 0;
-      const rightWeight = Number.isFinite(right?.weight) ? right.weight : 0;
-      return rightWeight - leftWeight;
-    })[0];
+    const leftWeight = Number.isFinite(left?.weight) ? left.weight : 0;
+    const rightWeight = Number.isFinite(right?.weight) ? right.weight : 0;
+    return rightWeight - leftWeight;
+  })[0];
 }
 
 function withTimeout(promise, timeoutMs, timeoutMessage) {
@@ -209,14 +272,14 @@ function withTimeout(promise, timeoutMs, timeoutMessage) {
 }
 
 function normalizeHost(value) {
-  const raw = String(value ?? '').trim();
+  const raw = String(value ?? "").trim();
   if (!raw || raw.length > GAMEAPI_MAX_HOST_LENGTH) {
     return null;
   }
 
   let normalized = raw;
 
-  if (normalized.startsWith('[') && normalized.endsWith(']')) {
+  if (normalized.startsWith("[") && normalized.endsWith("]")) {
     normalized = normalized.slice(1, -1);
   }
 
@@ -226,7 +289,7 @@ function normalizeHost(value) {
     return null;
   }
 
-  if (/[\s/\\?#&%]/.test(normalized) || normalized.includes('://')) {
+  if (/[\s/\\?#&%]/.test(normalized) || normalized.includes("://")) {
     return null;
   }
 
@@ -234,22 +297,27 @@ function normalizeHost(value) {
 }
 
 function toLowerHost(host) {
-  return host.endsWith('.') ? host.slice(0, -1).toLowerCase() : host.toLowerCase();
+  return host.endsWith(".")
+    ? host.slice(0, -1).toLowerCase()
+    : host.toLowerCase();
 }
 
 function getIpv4FromMappedIpv6(ipv6Address) {
   const normalized = ipv6Address.toLowerCase();
-  if (!normalized.startsWith('::ffff:')) {
+  if (!normalized.startsWith("::ffff:")) {
     return null;
   }
 
-  const suffix = normalized.slice('::ffff:'.length);
+  const suffix = normalized.slice("::ffff:".length);
   if (net.isIP(suffix) === 4) {
     return suffix;
   }
 
-  const mappedParts = suffix.split(':');
-  if (mappedParts.length !== 2 || mappedParts.some((part) => !/^[0-9a-f]{1,4}$/i.test(part))) {
+  const mappedParts = suffix.split(":");
+  if (
+    mappedParts.length !== 2 ||
+    mappedParts.some((part) => !/^[0-9a-f]{1,4}$/i.test(part))
+  ) {
     return null;
   }
 
@@ -259,23 +327,23 @@ function getIpv4FromMappedIpv6(ipv6Address) {
 }
 
 function isBlockedIpAddress(ipAddress) {
-  const normalized = String(ipAddress || '').trim();
+  const normalized = String(ipAddress || "").trim();
   if (!normalized) {
     return true;
   }
 
   const family = net.isIP(normalized);
   if (family === 4) {
-    return PRIVATE_TARGET_BLOCKLIST.check(normalized, 'ipv4');
+    return PRIVATE_TARGET_BLOCKLIST.check(normalized, "ipv4");
   }
 
   if (family === 6) {
     const mappedIpv4 = getIpv4FromMappedIpv6(normalized);
     if (mappedIpv4) {
-      return PRIVATE_TARGET_BLOCKLIST.check(mappedIpv4, 'ipv4');
+      return PRIVATE_TARGET_BLOCKLIST.check(mappedIpv4, "ipv4");
     }
 
-    return PRIVATE_TARGET_BLOCKLIST.check(normalized, 'ipv6');
+    return PRIVATE_TARGET_BLOCKLIST.check(normalized, "ipv6");
   }
 
   return true;
@@ -283,14 +351,18 @@ function isBlockedIpAddress(ipAddress) {
 
 function loadGamesCache() {
   const now = Date.now();
-  if (cachedGames.loadedAt > 0 && GAMEAPI_GAMES_CACHE_TTL_MS > 0 && now - cachedGames.loadedAt < GAMEAPI_GAMES_CACHE_TTL_MS) {
+  if (
+    cachedGames.loadedAt > 0 &&
+    GAMEAPI_GAMES_CACHE_TTL_MS > 0 &&
+    now - cachedGames.loadedAt < GAMEAPI_GAMES_CACHE_TTL_MS
+  ) {
     return cachedGames;
   }
 
   let games = {};
   let loadedSuccessfully = false;
   try {
-    const file = fs.readFileSync(gamesPath, 'utf8');
+    const file = fs.readFileSync(gamesPath, "utf8");
     games = yaml.load(file) || {};
     loadedSuccessfully = true;
   } catch {
@@ -301,7 +373,7 @@ function loadGamesCache() {
   const imageNameByGameId = {};
 
   for (const [, id] of Object.entries(games)) {
-    if (typeof id !== 'string') {
+    if (typeof id !== "string") {
       continue;
     }
 
@@ -314,7 +386,10 @@ function loadGamesCache() {
 
     if (!imageNameByGameId[normalizedId]) {
       for (const extension of imageExtensions) {
-        const candidate = path.join(gameImagesDir, `${normalizedId}.${extension}`);
+        const candidate = path.join(
+          gameImagesDir,
+          `${normalizedId}.${extension}`,
+        );
         if (fs.existsSync(candidate)) {
           imageNameByGameId[normalizedId] = `${normalizedId}.${extension}`;
           break;
@@ -361,7 +436,9 @@ function setQueryCacheEntry(cacheKey, payload) {
 
 async function withQueryConcurrencyLimit(fn) {
   if (activeQueryCount >= GAMEAPI_MAX_CONCURRENT_REQUESTS) {
-    const error = new Error('Game API is currently at capacity. Please retry shortly.');
+    const error = new Error(
+      "Game API is currently at capacity. Please retry shortly.",
+    );
     error.statusCode = 429;
     throw error;
   }
@@ -374,11 +451,16 @@ async function withQueryConcurrencyLimit(fn) {
   }
 }
 
-async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } = {}) {
+async function resolveQueryTarget(
+  host,
+  { enableMinecraftSrvFallback = false } = {},
+) {
   const ipFamily = net.isIP(host);
   if (ipFamily !== 0) {
     if (GAMEAPI_BLOCK_PRIVATE_TARGETS && isBlockedIpAddress(host)) {
-      const error = new Error('Blocked target host. Private or reserved IP ranges are not allowed.');
+      const error = new Error(
+        "Blocked target host. Private or reserved IP ranges are not allowed.",
+      );
       error.statusCode = 400;
       throw error;
     }
@@ -387,30 +469,40 @@ async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } =
   }
 
   const loweredHost = toLowerHost(host);
-  if (!DNS_HOSTNAME_PATTERN.test(loweredHost) || loweredHost.length > GAMEAPI_MAX_HOST_LENGTH) {
-    const error = new Error('Invalid ip parameter. Expected a valid hostname or IP value.');
+  if (
+    !DNS_HOSTNAME_PATTERN.test(loweredHost) ||
+    loweredHost.length > GAMEAPI_MAX_HOST_LENGTH
+  ) {
+    const error = new Error(
+      "Invalid ip parameter. Expected a valid hostname or IP value.",
+    );
     error.statusCode = 400;
     throw error;
   }
 
   if (GAMEAPI_BLOCKED_HOSTNAMES.has(loweredHost)) {
-    const error = new Error('Blocked target host. Hostname is not allowed.');
+    const error = new Error("Blocked target host. Hostname is not allowed.");
     error.statusCode = 400;
     throw error;
   }
 
   const resolveFromLookupResults = (lookupResults) => {
     if (!Array.isArray(lookupResults) || lookupResults.length === 0) {
-      throw createErrorWithStatus(`Could not resolve target host: ${loweredHost}`, 400);
+      throw createErrorWithStatus(
+        `Could not resolve target host: ${loweredHost}`,
+        400,
+      );
     }
 
     let selectedAddress = lookupResults[0].address;
 
     if (GAMEAPI_BLOCK_PRIVATE_TARGETS) {
-      const publicAddress = lookupResults.find((result) => !isBlockedIpAddress(result.address));
+      const publicAddress = lookupResults.find(
+        (result) => !isBlockedIpAddress(result.address),
+      );
       if (!publicAddress) {
         throw createErrorWithStatus(
-          'Blocked target host. DNS only resolves to private or reserved IP addresses.',
+          "Blocked target host. DNS only resolves to private or reserved IP addresses.",
           400,
         );
       }
@@ -430,7 +522,7 @@ async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } =
       const lookupResults = await withTimeout(
         dns.lookup(hostname, { all: true, verbatim: true }),
         GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
-        'Host resolution timed out.',
+        "Host resolution timed out.",
       );
 
       return resolveFromLookupResults(lookupResults);
@@ -442,7 +534,8 @@ async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } =
   try {
     return await resolveFromHostname(loweredHost);
   } catch (error) {
-    const canTryMinecraftSrvFallback = enableMinecraftSrvFallback && isDnsNotFoundError(error);
+    const canTryMinecraftSrvFallback =
+      enableMinecraftSrvFallback && isDnsNotFoundError(error);
     if (!canTryMinecraftSrvFallback) {
       throw error;
     }
@@ -454,7 +547,7 @@ async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } =
       srvRecords = await withTimeout(
         dns.resolveSrv(srvHostname),
         GAMEAPI_DNS_LOOKUP_TIMEOUT_MS,
-        'Host SRV resolution timed out.',
+        "Host SRV resolution timed out.",
       );
     } catch (srvError) {
       throw toHostResolutionError(srvError, loweredHost);
@@ -462,16 +555,31 @@ async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } =
 
     const selectedSrvRecord = selectPreferredSrvRecord(srvRecords);
     if (!selectedSrvRecord || !selectedSrvRecord.name) {
-      throw createErrorWithStatus(`Could not resolve target host: ${loweredHost}`, 400);
+      throw createErrorWithStatus(
+        `Could not resolve target host: ${loweredHost}`,
+        400,
+      );
     }
 
-    const srvTargetHost = toLowerHost(String(selectedSrvRecord.name || '').trim());
-    if (!srvTargetHost || !DNS_HOSTNAME_PATTERN.test(srvTargetHost) || srvTargetHost.length > GAMEAPI_MAX_HOST_LENGTH) {
-      throw createErrorWithStatus(`Could not resolve target host: ${loweredHost}`, 400);
+    const srvTargetHost = toLowerHost(
+      String(selectedSrvRecord.name || "").trim(),
+    );
+    if (
+      !srvTargetHost ||
+      !DNS_HOSTNAME_PATTERN.test(srvTargetHost) ||
+      srvTargetHost.length > GAMEAPI_MAX_HOST_LENGTH
+    ) {
+      throw createErrorWithStatus(
+        `Could not resolve target host: ${loweredHost}`,
+        400,
+      );
     }
 
     if (GAMEAPI_BLOCKED_HOSTNAMES.has(srvTargetHost)) {
-      throw createErrorWithStatus('Blocked target host. Hostname is not allowed.', 400);
+      throw createErrorWithStatus(
+        "Blocked target host. Hostname is not allowed.",
+        400,
+      );
     }
 
     const srvPort = parseAndValidatePort(selectedSrvRecord.port);
@@ -487,11 +595,12 @@ async function resolveQueryTarget(host, { enableMinecraftSrvFallback = false } =
 export default async function registerGameApiRoutes(app) {
   const handleGameListRequest = async (request) => {
     const { games, imageNameByGameId } = loadGamesCache();
-    const baseUrl = `${request.protocol || 'https'}://${request.headers.host || 'localhost'}`;
+    const baseUrl = `${request.protocol || "https"}://${request.headers.host || "localhost"}`;
     const gamesWithImages = {};
 
     for (const [name, id] of Object.entries(games)) {
-      const normalizedId = typeof id === 'string' ? id.trim().toLowerCase() : '';
+      const normalizedId =
+        typeof id === "string" ? id.trim().toLowerCase() : "";
       const imageName = normalizedId ? imageNameByGameId[normalizedId] : null;
       gamesWithImages[name] = {
         id,
@@ -502,126 +611,152 @@ export default async function registerGameApiRoutes(app) {
     return gamesWithImages;
   };
 
-  app.get('/', handleGameListRequest);
-  app.get('/index', handleGameListRequest);
+  app.get("/", handleGameListRequest);
+  app.get("/index", handleGameListRequest);
 
-  app.get('/:game/ip=:ip&port=:port', {
-    config: {
-      rateLimit: {
-        max: GAMEAPI_RATE_LIMIT_MAX,
-        timeWindow: GAMEAPI_RATE_LIMIT_TIME_WINDOW,
+  app.get(
+    "/:game/ip=:ip&port=:port",
+    {
+      config: {
+        rateLimit: {
+          max: GAMEAPI_RATE_LIMIT_MAX,
+          timeWindow: GAMEAPI_RATE_LIMIT_TIME_WINDOW,
+        },
       },
-    },
-    schema: {
-      params: {
-        type: 'object',
-        required: ['game'],
-        properties: {
-          game: { type: 'string', minLength: 1, maxLength: 64 },
-          ip: { type: 'string', minLength: 1, maxLength: GAMEAPI_MAX_HOST_LENGTH + 16 },
-          port: { type: 'string', pattern: '^[0-9]{1,5}$' },
-          'ip&port=:port': { type: 'string', minLength: 1, maxLength: GAMEAPI_MAX_HOST_LENGTH + 16 },
+      schema: {
+        params: {
+          type: "object",
+          required: ["game"],
+          properties: {
+            game: { type: "string", minLength: 1, maxLength: 64 },
+            ip: {
+              type: "string",
+              minLength: 1,
+              maxLength: GAMEAPI_MAX_HOST_LENGTH + 16,
+            },
+            port: { type: "string", pattern: "^[0-9]{1,5}$" },
+            "ip&port=:port": {
+              type: "string",
+              minLength: 1,
+              maxLength: GAMEAPI_MAX_HOST_LENGTH + 16,
+            },
+          },
         },
       },
     },
-  }, async (request, reply) => {
-    const params = request.params || {};
-    const { game } = params;
-    let ip = params.ip;
-    let port = params.port;
-    const inlineLegacyTarget = params['ip&port=:port'];
+    async (request, reply) => {
+      const params = request.params || {};
+      const { game } = params;
+      let ip = params.ip;
+      let port = params.port;
+      const inlineLegacyTarget = params["ip&port=:port"];
 
-    if ((!ip || !port) && typeof inlineLegacyTarget === 'string') {
-      const parsedInlineTarget = parseLegacyInlineTargetParam(inlineLegacyTarget);
-      if (parsedInlineTarget) {
-        ip = parsedInlineTarget.ip;
-        port = parsedInlineTarget.port;
-      }
-    }
-
-    const normalizedGame = String(game || '').trim().toLowerCase();
-    const normalizedPort = parseAndValidatePort(port);
-    const normalizedHost = normalizeHost(ip);
-    let cacheKey = null;
-    let pendingOwnedByRequest = false;
-
-    if (!normalizedHost) {
-      return reply.code(400).send({
-        success: false,
-        error: 'Invalid ip parameter. Expected a non-empty hostname/IP value with valid characters.',
-      });
-    }
-
-    if (normalizedPort === null) {
-      return reply.code(400).send({
-        success: false,
-        error: 'Invalid port parameter. Expected an integer between 1 and 65535.',
-      });
-    }
-
-    const { gameIdSet, loadedSuccessfully } = loadGamesCache();
-    if (loadedSuccessfully && !gameIdSet.has(normalizedGame)) {
-      return reply.code(400).send({
-        success: false,
-        error: `Unsupported game identifier: ${normalizedGame}`,
-      });
-    }
-
-    try {
-      const { queryHost, resolvedAddress, resolvedPort } = await resolveQueryTarget(normalizedHost, {
-        enableMinecraftSrvFallback: normalizedGame === 'minecraft',
-      });
-      const effectivePort = resolvedPort ?? normalizedPort;
-      cacheKey = `${normalizedGame}|${resolvedAddress}|${effectivePort}`;
-
-      const cachedPayload = getQueryCacheEntry(cacheKey);
-      if (cachedPayload) {
-        return cachedPayload;
+      if ((!ip || !port) && typeof inlineLegacyTarget === "string") {
+        const parsedInlineTarget =
+          parseLegacyInlineTargetParam(inlineLegacyTarget);
+        if (parsedInlineTarget) {
+          ip = parsedInlineTarget.ip;
+          port = parsedInlineTarget.port;
+        }
       }
 
-      if (pendingQueryByTarget.has(cacheKey)) {
-        return await pendingQueryByTarget.get(cacheKey);
+      const normalizedGame = String(game || "")
+        .trim()
+        .toLowerCase();
+      const normalizedPort = parseAndValidatePort(port);
+      const normalizedHost = normalizeHost(ip);
+      let cacheKey = null;
+      let pendingOwnedByRequest = false;
+
+      if (!normalizedHost) {
+        return reply.code(400).send({
+          success: false,
+          error:
+            "Invalid ip parameter. Expected a non-empty hostname/IP value with valid characters.",
+        });
       }
 
-      const queryPromise = withQueryConcurrencyLimit(async () => {
-        if (['fivem', 'gta5f'].includes(normalizedGame)) {
-          return await queryFiveMServer(queryHost, effectivePort);
+      if (normalizedPort === null) {
+        return reply.code(400).send({
+          success: false,
+          error:
+            "Invalid port parameter. Expected an integer between 1 and 65535.",
+        });
+      }
+
+      const { gameIdSet, loadedSuccessfully } = loadGamesCache();
+      if (loadedSuccessfully && !gameIdSet.has(normalizedGame)) {
+        return reply.code(400).send({
+          success: false,
+          error: `Unsupported game identifier: ${normalizedGame}`,
+        });
+      }
+
+      try {
+        const { queryHost, resolvedAddress, resolvedPort } =
+          await resolveQueryTarget(normalizedHost, {
+            enableMinecraftSrvFallback: normalizedGame === "minecraft",
+          });
+        const effectivePort = resolvedPort ?? normalizedPort;
+        cacheKey = `${normalizedGame}|${resolvedAddress}|${effectivePort}`;
+
+        const cachedPayload = getQueryCacheEntry(cacheKey);
+        if (cachedPayload) {
+          return cachedPayload;
         }
 
-        if (normalizedGame === 'beammp') {
-          const result = await queryBeamMPServer(queryHost, effectivePort);
-          return { success: true, data: result };
+        if (pendingQueryByTarget.has(cacheKey)) {
+          return await pendingQueryByTarget.get(cacheKey);
         }
 
-        if (normalizedGame === 'minecraft') {
-          return await queryMinecraftServer(queryHost, effectivePort);
+        const queryPromise = withQueryConcurrencyLimit(async () => {
+          if (["fivem", "gta5f"].includes(normalizedGame)) {
+            return await queryFiveMServer(queryHost, effectivePort);
+          }
+
+          if (normalizedGame === "beammp") {
+            const result = await queryBeamMPServer(queryHost, effectivePort);
+            return { success: true, data: result };
+          }
+
+          if (normalizedGame === "minecraft") {
+            return await queryMinecraftServer(queryHost, effectivePort);
+          }
+
+          return await handleDefaultGame(
+            normalizedGame,
+            queryHost,
+            effectivePort,
+          );
+        });
+
+        pendingQueryByTarget.set(cacheKey, queryPromise);
+        pendingOwnedByRequest = true;
+        const result = await queryPromise;
+        setQueryCacheEntry(cacheKey, result);
+        return result;
+      } catch (error) {
+        const statusCode =
+          error?.statusCode && Number.isInteger(error.statusCode)
+            ? error.statusCode
+            : 500;
+
+        if (statusCode >= 500) {
+          request.log.error({ err: error }, "game query failed");
         }
 
-        return await handleDefaultGame(normalizedGame, queryHost, effectivePort);
-      });
-
-      pendingQueryByTarget.set(cacheKey, queryPromise);
-      pendingOwnedByRequest = true;
-      const result = await queryPromise;
-      setQueryCacheEntry(cacheKey, result);
-      return result;
-    } catch (error) {
-      const statusCode = error?.statusCode && Number.isInteger(error.statusCode)
-        ? error.statusCode
-        : 500;
-
-      if (statusCode >= 500) {
-        request.log.error({ err: error }, 'game query failed');
+        return reply.code(statusCode).send({
+          success: false,
+          error:
+            statusCode >= 500 && statusCode !== 503
+              ? "Failed to query game server."
+              : error.message,
+        });
+      } finally {
+        if (pendingOwnedByRequest && cacheKey) {
+          pendingQueryByTarget.delete(cacheKey);
+        }
       }
-
-      return reply.code(statusCode).send({
-        success: false,
-        error: statusCode >= 500 && statusCode !== 503 ? 'Failed to query game server.' : error.message,
-      });
-    } finally {
-      if (pendingOwnedByRequest && cacheKey) {
-        pendingQueryByTarget.delete(cacheKey);
-      }
-    }
-  });
+    },
+  );
 }
