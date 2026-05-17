@@ -5,7 +5,7 @@
   Price: 6.99
   URLs:
     - https://example.com/euphoria-paste
-  Logo: /logos/EuphoriaPaste.png
+  Logo: /logos/EuphoriaPaste.webp
   Screenshots: /screenshots/EuphoriaPaste/
 
 - Name: Euphoria Theme
@@ -14,7 +14,7 @@
   Price: 12.99
   URLs:
     - https://example.com/euphoria-theme
-  Logo: /logos/EuphoriaTheme.png
+  Logo: /logos/EuphoriaTheme.webp
   Screenshots: /screenshots/EuphoriaTheme/
 
 # Free Addons/Themes/Web Applications
@@ -24,7 +24,7 @@
   Price: 0
   URLs:
     - https://example.com/euphoria-paste-free
-  Logo: /logos/EuphoriaPasteFree.png
+  Logo: /logos/EuphoriaPasteFree.webp
   Screenshots: /screenshots/EuphoriaPasteFree/
 
 - Name: Refresh Theme
@@ -33,7 +33,7 @@
   Price: 0
   URLs:
     - https://example.com/refresh-theme
-  Logo: /logos/RefreshTheme.png
+  Logo: /logos/RefreshTheme.webp
   Screenshots: /screenshots/RefreshTheme/
 
 - Name: Player Listing
@@ -42,7 +42,7 @@
   Price: 0
   URLs:
     - https://example.com/player-listing
-  Logo: /logos/PlayerListing.png
+  Logo: /logos/PlayerListing.webp
   Screenshots: /screenshots/PlayerListing/
 
 - Name: MC Logs
@@ -51,7 +51,7 @@
   Price: 0
   URLs:
     - https://example.com/mc-logs
-  Logo: /logos/MCLogs.png
+  Logo: /logos/MCLogs.webp
   Screenshots: /screenshots/MCLogs/
 
 - Name: Server Backgrounds
@@ -60,7 +60,7 @@
   Price: 0
   URLs:
     - https://example.com/server-backgrounds
-  Logo: /logos/ServerBackgrounds.png
+  Logo: /logos/ServerBackgrounds.webp
   Screenshots: /screenshots/ServerBackgrounds/
 
 - Name: Resource Alerts
@@ -69,7 +69,7 @@
   Price: 0
   URLs:
     - https://example.com/resource-alerts
-  Logo: /logos/ResourceAlerts.png
+  Logo: /logos/ResourceAlerts.webp
   Screenshots: /screenshots/ResourceAlerts/
 
 - Name: Translations
@@ -78,7 +78,7 @@
   Price: 0
   URLs:
     - https://example.com/translations
-  Logo: /logos/Translations.png
+  Logo: /logos/Translations.webp
   Screenshots: /screenshots/Translations/
 
 - Name: Laravel Logs
@@ -87,7 +87,7 @@
   Price: 0
   URLs:
     - https://example.com/laravel-logs
-  Logo: /logos/LaravelLogs.png
+  Logo: /logos/LaravelLogs.webp
   Screenshots: /screenshots/LaravelLogs/
 
 - Name: Resource Manager
@@ -96,7 +96,7 @@
   Price: 0
   URLs:
     - https://example.com/resource-manager
-  Logo: /logos/ResourceManager.png
+  Logo: /logos/ResourceManager.webp
   Screenshots: /screenshots/ResourceManager/
 
 - Name: Console Logs
@@ -105,5 +105,5 @@
   Price: 0
   URLs:
     - https://example.com/console-logs
-  Logo: /logos/ConsoleLogs.png
+  Logo: /logos/ConsoleLogs.webp
   Screenshots: /screenshots/ConsoleLogs/
