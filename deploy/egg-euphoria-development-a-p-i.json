@@ -4,16 +4,16 @@
     "version": "PTDL_v2",
     "update_url": null
   },
-  "exported_at": "2026-09-04T17:15:36+02:00",
+  "exported_at": "2026-09-04T18:15:38+02:00",
   "name": "EuphoriaDevelopment API",
   "author": "repgraphics@euphoriadevelopment.uk",
   "description": "Runs the Euphoria backend API (Fastify).",
   "features": [],
   "docker_images": {
-    "Nodejs 24": "ghcr.io\/pterodactyl\/yolks:nodejs_24"
+    "Nodejs 24": "ghcr.io\/parkervcp\/yolks:nodejs_24"
   },
   "file_denylist": [],
-  "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == \"1\" ]]; then git pull; fi; if [ -f \/home\/container\/package.json ]; then pnpm install && pnpm run build && pnpm start; fi;",
+  "startup": "export COREPACK_ENABLE_DOWNLOAD_PROMPT=0; corepack enable; corepack prepare pnpm@11.25.0 --activate; if [[ -d .git ]] && [[ ${AUTO_UPDATE} == \"1\" ]]; then git pull; fi; if [ -f \/home\/container\/package.json ]; then pnpm install --force --config.confirmModulesPurge=false && pnpm run build && pnpm start; fi;",
   "config": {
     "files": "{}",
     "startup": "{\r\n    \"done\": [\r\n        \"Server listening at\",\r\n        \"API Running\"\r\n    ]\r\n}",
