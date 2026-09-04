@@ -2,26 +2,29 @@
   "name": "ed-api",
   "version": "1.0.0",
   "type": "module",
-  "main": "server.js",
-  "repository": "https://github.com/EuphoriaTheme/ED-API.git",
+  "repository": "https://github.com/EuphoriaTheme/backend.git",
   "author": "Rep Graphics <support@euphoriadevelopment.uk>",
+  "contributors": [
+    "KingIronMan2011 <IronMan@king-mc.de> (https://kingironman.dev)"
+  ],
   "license": "MIT",
   "packageManager": "pnpm@11.25.0",
   "engines": {
     "node": "^24"
   },
   "scripts": {
-    "dev": "nodemon --watch . --ext js,json,yml,yaml --exec \"node server.js\"",
-    "build": "echo \"No build step required for Fastify runtime\"",
-    "start": "node server.js",
+    "dev": "tsx watch server.ts",
+    "build": "tsc && node -e \"require('node:fs').cpSync('public', 'dist/public', { recursive: true })\"",
+    "start": "node dist/server.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "update:games": "node ./scripts/updateGamesYml.js",
-    "fetch:gameicons": "node ./scripts/fetchGameIcons.js",
-    "sync:translations": "node ./scripts/syncTranslations.js",
-    "sync:blueprint": "node ./scripts/syncBlueprintExtensions.js"
+    "types": "tsc --noEmit",
+    "update:games": "tsx ./scripts/updateGamesYml.ts",
+    "fetch:gameicons": "tsx ./scripts/fetchGameIcons.ts",
+    "sync:translations": "tsx ./scripts/syncTranslations.ts",
+    "sync:blueprint": "tsx ./scripts/syncBlueprintExtensions.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.3.0",
@@ -37,9 +40,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^26.4.1",
     "eslint": "^10.9.1",
     "globals": "^17.12.0",
     "nodemon": "^3.1.14",
-    "prettier": "^3.9.6"
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.13",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.69.0"
   }
 }

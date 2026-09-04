@@ -43,13 +43,11 @@ export default async function registerVersionsRoutes(app) {
         hwid,
         version: "v1",
       });
-      if (
-        !(
-          response.status >= 200 &&
-          response.status < 300 &&
-          response.data?.status === 200
-        )
-      ) {
+      if (!(
+        response.status >= 200 &&
+        response.status < 300 &&
+        response.data?.status === 200
+      )) {
         return reply
           .code(response.status >= 400 ? response.status : 403)
           .send({ error: "Error verifying License Key." });

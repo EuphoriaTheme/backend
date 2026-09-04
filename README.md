@@ -4,13 +4,14 @@ Backend API for license verification, game server querying, translations, produc
 
 ## Runtime
 
-This branch runs on Fastify.
+This branch runs on Fastify and compiles TypeScript 6 source files into `dist/`.
 
 ## Scripts
 
-- `npm run dev` - Start Fastify in watch mode
-- `npm run build` - Build placeholder (no compile step required)
-- `npm run start` - Start Fastify server
+- `pnpm run dev` - Start TypeScript Fastify source in watch mode
+- `pnpm run build` - Compile TypeScript and copy runtime assets into `dist/`
+- `pnpm run start` - Start the compiled Fastify server
+- `pnpm run typecheck` - Verify TypeScript without emitting files
 - `npm run update:games` - Update game definitions
 - `npm run fetch:gameicons` - Fetch game icons
 - `npm run sync:translations` - Sync translation files now
@@ -21,7 +22,7 @@ This branch runs on Fastify.
 1. Install dependencies:
 
 ```sh
-npm install
+pnpm install
 ```
 
 2. Configure `.env` with required credentials and optional sync settings.
@@ -29,13 +30,14 @@ npm install
 3. Start development server:
 
 ```sh
-npm run dev
+pnpm run dev
 ```
 
 4. Start production runtime:
 
 ```sh
-npm run start
+pnpm run build
+pnpm run start
 ```
 
 ## Reverse Proxy Setup (Cloudflare + Nginx)

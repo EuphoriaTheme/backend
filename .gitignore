@@ -24,6 +24,7 @@ hs_err_pid*
 replay_pid*
 .env
 node_modules
+dist
 yarn.lock
 api_stats.json
 logs
