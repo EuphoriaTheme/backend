@@ -1,0 +1,2 @@
+overrides:
+  fast-uri: ">=4.1.4"
