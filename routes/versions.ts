@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { validateLicense } from "../middleware/authenticateLicense.js";

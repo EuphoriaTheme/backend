@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
 import fastifyStatic from "@fastify/static";
 import fastifyRateLimit from "@fastify/rate-limit";
+import fastifyFormbody from "@fastify/formbody";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -150,6 +151,8 @@ if (CORS_ENABLED) {
     methods: CORS_METHODS,
   });
 }
+
+await app.register(fastifyFormbody);
 
 if (RATE_LIMIT_ENABLED) {
   await app.register(fastifyRateLimit, {

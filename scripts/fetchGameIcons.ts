@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import https from "https";
 
 const API_KEY = "475935e9d35926c5acdf0d87f3c07db4";

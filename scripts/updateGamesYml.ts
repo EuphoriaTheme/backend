@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import https from "https";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 
 const GAMES_LIST_URL =
   "https://raw.githubusercontent.com/gamedig/node-gamedig/master/GAMES_LIST.md";

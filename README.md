@@ -11,11 +11,11 @@ This branch runs on Fastify and compiles TypeScript 6 source files into `dist/`.
 - `pnpm run dev` - Start TypeScript Fastify source in watch mode
 - `pnpm run build` - Compile TypeScript and copy runtime assets into `dist/`
 - `pnpm run start` - Start the compiled Fastify server
-- `pnpm run typecheck` - Verify TypeScript without emitting files
-- `npm run update:games` - Update game definitions
-- `npm run fetch:gameicons` - Fetch game icons
-- `npm run sync:translations` - Sync translation files now
-- `npm run sync:blueprint` - Sync blueprint extensions now
+- `pnpm run types` - Verify TypeScript without emitting files
+- `pnpm run update:games` - Update game definitions
+- `pnpm run fetch:gameicons` - Fetch game icons
+- `pnpm run sync:translations` - Sync translation files now
+- `pnpm run sync:blueprint` - Sync blueprint extensions now
 
 ## Setup
 
@@ -25,15 +25,15 @@ This branch runs on Fastify and compiles TypeScript 6 source files into `dist/`.
 pnpm install
 ```
 
-2. Configure `.env` with required credentials and optional sync settings.
+1. Configure `.env` with required credentials and optional sync settings.
 
-3. Start development server:
+2. Start development server:
 
 ```sh
 pnpm run dev
 ```
 
-4. Start production runtime:
+1. Start production runtime:
 
 ```sh
 pnpm run build
@@ -56,20 +56,20 @@ Use this Nginx location block so client IP forwarding works correctly:
 
 ```nginx
 location / {
-	proxy_pass http://127.0.0.1:3000;
+ proxy_pass http://127.0.0.1:3000;
 
-	proxy_http_version 1.1;
-	proxy_set_header Host $host;
+ proxy_http_version 1.1;
+ proxy_set_header Host $host;
 
-	# Proxy chain headers
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header X-Forwarded-Proto $scheme;
-	proxy_set_header X-Forwarded-Host $host;
-	proxy_set_header X-Real-IP $remote_addr;
+ # Proxy chain headers
+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_set_header X-Forwarded-Proto $scheme;
+ proxy_set_header X-Forwarded-Host $host;
+ proxy_set_header X-Real-IP $remote_addr;
 
-	# Cloudflare origin client IP headers
-	proxy_set_header CF-Connecting-IP $http_cf_connecting_ip;
-	proxy_set_header True-Client-IP $http_true_client_ip;
+ # Cloudflare origin client IP headers
+ proxy_set_header CF-Connecting-IP $http_cf_connecting_ip;
+ proxy_set_header True-Client-IP $http_true_client_ip;
 }
 ```
 
@@ -110,6 +110,16 @@ TRANSLATIONS_SYNC_INTERVAL_MS=86400000
 TRANSLATIONS_SYNC_TIMEOUT_MS=20000
 TRANSLATIONS_SYNC_GITHUB_TOKEN=
 ```
+
+Set `TRANSLATIONS_AUTO_FETCH=false` to keep bundled translations unchanged.
+
+For a self-hosted raw source, set `TRANSLATIONS_SOURCE_BASE_URL`. The sync then
+tries `TRANSLATIONS_REMOTE_PATHS` (default: `translations,public/translations`)
+for each bundled file. `TRANSLATIONS_FILE_LIST` can limit the files synced, and
+`TRANSLATIONS_GITHUB_TREE_LOOKUP=true` enables a GitHub-tree fallback for raw
+GitHub URLs.
+
+`POST /translations/translate/bulk` accepts JSON and form-encoded request bodies.
 
 ## Main Endpoints
 

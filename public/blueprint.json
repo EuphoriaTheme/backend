@@ -27,7 +27,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 1047,
+        "downloads": 1100,
         "created": "2023-10-31T10:55:23"
       },
       {
@@ -47,7 +47,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/dbedit.jpeg"
     },
     "stats": {
-      "panels": 48
+      "panels": 43
     },
     "created": "2023-06-23T17:47:00Z"
   },
@@ -79,8 +79,8 @@
         "url": "https://www.sourcexchange.net/products/recolor",
         "price": 0,
         "currency": "USD",
-        "reviews": 3,
-        "rating": 4
+        "reviews": 4,
+        "rating": 4.25
       },
       "GITHUB": {
         "url": "https://github.com/sp11rum/recolor",
@@ -93,22 +93,22 @@
     "versions": [
       {
         "name": "1.3",
-        "downloads": 8107,
+        "downloads": 8650,
         "created": "2023-10-25T13:11:25"
       },
       {
         "name": "1.2",
-        "downloads": 383,
+        "downloads": 418,
         "created": "2023-10-24T15:13:48"
       },
       {
         "name": "1.1",
-        "downloads": 305,
+        "downloads": 340,
         "created": "2023-08-04T13:36:10"
       },
       {
         "name": "1.0",
-        "downloads": 391,
+        "downloads": 428,
         "created": "2023-08-04T10:38:23"
       }
     ],
@@ -118,7 +118,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/recolor.jpeg"
     },
     "stats": {
-      "panels": 118
+      "panels": 107
     },
     "created": "2023-08-04T09:37:57Z"
   },
@@ -157,7 +157,7 @@
     "versions": [
       {
         "name": "1.3",
-        "downloads": 300,
+        "downloads": 311,
         "created": "2024-01-18T17:16:07"
       },
       {
@@ -182,7 +182,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/cats.jpeg"
     },
     "stats": {
-      "panels": 15
+      "panels": 13
     },
     "created": "2023-08-16T10:46:19Z"
   },
@@ -207,12 +207,12 @@
         "url": "https://builtbybit.com/resources/nebula.32442",
         "price": 12.49,
         "currency": "USD",
-        "reviews": 89,
-        "rating": 4.977528095245361
+        "reviews": 90,
+        "rating": 4.97777795791626
       },
       "SOURCEXCHANGE": {
         "url": "https://www.sourcexchange.net/products/nebula",
-        "price": 12.49,
+        "price": 11.99,
         "currency": "EUR",
         "reviews": 37,
         "rating": 4.864864864864865
@@ -220,8 +220,13 @@
     },
     "versions": [
       {
+        "name": "2.2-3",
+        "downloads": 827,
+        "created": "2026-05-31T22:45:21"
+      },
+      {
         "name": "2.2-2",
-        "downloads": 870,
+        "downloads": 1005,
         "created": "2026-02-14T13:19:38"
       },
       {
@@ -316,7 +321,7 @@
       },
       {
         "name": "1.5.1",
-        "downloads": 43,
+        "downloads": 21,
         "created": "2023-12-21T18:48:33"
       },
       {
@@ -391,7 +396,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/nebula.jpeg"
     },
     "stats": {
-      "panels": 1426
+      "panels": 1375
     },
     "created": "2023-09-25T14:20:33Z"
   },
@@ -399,7 +404,7 @@
     "id": 8,
     "author": {
       "id": 3,
-      "name": "EwweKovacevic",
+      "name": "ewwepy",
       "pronouns": null,
       "support": null,
       "admin": false,
@@ -423,7 +428,7 @@
     "versions": [
       {
         "name": "1.0.2",
-        "downloads": 1005,
+        "downloads": 1083,
         "created": "2023-11-30T15:17:19"
       },
       {
@@ -443,7 +448,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/shownodeids.jpeg"
     },
     "stats": {
-      "panels": 79
+      "panels": 74
     },
     "created": "2023-11-16T00:00:00Z"
   },
@@ -489,7 +494,7 @@
     "versions": [
       {
         "name": "1.3.2",
-        "downloads": 819,
+        "downloads": 882,
         "created": "2023-11-07T18:39:26"
       },
       {
@@ -514,7 +519,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/redirect.jpeg"
     },
     "stats": {
-      "panels": 56
+      "panels": 40
     },
     "created": "2023-05-30T16:34:34Z"
   },
@@ -539,14 +544,14 @@
         "url": "https://builtbybit.com/resources/simple-favicons.36020",
         "price": 0,
         "currency": "USD",
-        "reviews": 15,
-        "rating": 4.333333492279053
+        "reviews": 16,
+        "rating": 4.125
       }
     },
     "versions": [
       {
         "name": "1.0.1",
-        "downloads": 4123,
+        "downloads": 4511,
         "created": "2023-12-07T18:26:43"
       }
     ],
@@ -556,7 +561,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/simplefavicons.jpeg"
     },
     "stats": {
-      "panels": 366
+      "panels": 316
     },
     "created": "2023-12-08T00:00:00Z"
   },
@@ -581,7 +586,7 @@
         "url": "https://builtbybit.com/resources/slate-for-pterodactyl.36101",
         "price": 9.99,
         "currency": "USD",
-        "reviews": 25,
+        "reviews": 24,
         "rating": 5
       },
       "SOURCEXCHANGE": {
@@ -595,7 +600,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 1751,
+        "downloads": 1873,
         "created": "2023-12-09T19:23:43"
       }
     ],
@@ -605,7 +610,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/slate.jpeg"
     },
     "stats": {
-      "panels": 143
+      "panels": 132
     },
     "created": "2023-12-09T18:54:51Z"
   },
@@ -637,7 +642,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 519,
+        "downloads": 608,
         "created": "2023-12-11T20:34:30"
       }
     ],
@@ -647,7 +652,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/snowflakes.jpeg"
     },
     "stats": {
-      "panels": 85
+      "panels": 80
     },
     "created": "2023-12-11T19:36:58Z"
   },
@@ -679,12 +684,12 @@
     "versions": [
       {
         "name": "2.0.3",
-        "downloads": 1000,
+        "downloads": 2073,
         "created": "2026-01-17T19:33:30"
       },
       {
         "name": "2.0.2",
-        "downloads": 3366,
+        "downloads": 3372,
         "created": "2024-09-09T02:12:10"
       },
       {
@@ -694,7 +699,7 @@
       },
       {
         "name": "2.0.0 - admin panel",
-        "downloads": 20,
+        "downloads": 21,
         "created": "2024-09-09T01:48:19"
       },
       {
@@ -709,7 +714,7 @@
       },
       {
         "name": "1.1.2",
-        "downloads": 37,
+        "downloads": 38,
         "created": "2024-02-22T18:31:32"
       },
       {
@@ -719,37 +724,37 @@
       },
       {
         "name": "1.1.0",
-        "downloads": 11,
+        "downloads": 12,
         "created": "2024-02-11T22:45:04"
       },
       {
         "name": "1.0.4-hotifx.1",
-        "downloads": 113,
+        "downloads": 115,
         "created": "2024-01-05T17:44:32"
       },
       {
         "name": "1.0.4",
-        "downloads": 5,
+        "downloads": 7,
         "created": "2024-01-05T01:26:41"
       },
       {
         "name": "1.0.3",
-        "downloads": 5,
+        "downloads": 7,
         "created": "2023-12-28T05:03:01"
       },
       {
         "name": "1.0.2",
-        "downloads": 15,
+        "downloads": 16,
         "created": "2023-12-18T20:58:35"
       },
       {
         "name": "1.0.1",
-        "downloads": 4,
+        "downloads": 5,
         "created": "2023-12-16T21:37:28"
       },
       {
         "name": "1.0.0",
-        "downloads": 10,
+        "downloads": 12,
         "created": "2023-12-15T21:15:23"
       }
     ],
@@ -840,7 +845,7 @@
     "versions": [
       {
         "name": "1.0.3",
-        "downloads": 3283,
+        "downloads": 3555,
         "created": "2023-11-30T18:52:24"
       },
       {
@@ -860,7 +865,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/simplefooters.jpeg"
     },
     "stats": {
-      "panels": 179
+      "panels": 160
     },
     "created": "2024-01-11T18:49:35Z"
   },
@@ -892,7 +897,7 @@
     "versions": [
       {
         "name": "2.0.0",
-        "downloads": 45,
+        "downloads": 47,
         "created": "2024-09-08T22:17:41"
       },
       {
@@ -917,7 +922,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/sysautomation.jpeg"
     },
     "stats": {
-      "panels": 8
+      "panels": 4
     },
     "created": "2024-01-12T00:00:00Z"
   },
@@ -971,7 +976,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/foxes.jpeg"
     },
     "stats": {
-      "panels": 1
+      "panels": 0
     },
     "created": "2024-01-22T19:58:17Z"
   },
@@ -1010,7 +1015,7 @@
     "versions": [
       {
         "name": "1.0.4",
-        "downloads": 76,
+        "downloads": 129,
         "created": "2026-01-10T13:51:31"
       },
       {
@@ -1040,7 +1045,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/customserversort.jpeg"
     },
     "stats": {
-      "panels": 93
+      "panels": 86
     },
     "created": "2024-02-14T13:46:15Z"
   },
@@ -1078,74 +1083,84 @@
     },
     "versions": [
       {
+        "name": "3.5.2",
+        "downloads": 120,
+        "created": "2026-07-27T17:22:46"
+      },
+      {
+        "name": "3.5.1",
+        "downloads": 158,
+        "created": "2026-05-31T21:01:40"
+      },
+      {
         "name": "3.5.0",
-        "downloads": 137,
-        "created": "2026-03-31T18:42:16"
+        "downloads": 184,
+        "created": "2026-04-09T17:10:59"
       },
       {
         "name": "3.4.4",
         "downloads": 163,
-        "created": "2026-02-20T13:03:57"
+        "created": "2026-02-20T13:05:27"
       },
       {
         "name": "3.4.3",
         "downloads": 218,
-        "created": "2025-12-30T14:55:38"
+        "created": "2025-12-30T15:09:42"
       },
       {
         "name": "3.4.2",
         "downloads": 468,
-        "created": "2025-07-30T16:56:13"
+        "created": "2025-07-30T16:57:04"
       },
       {
         "name": "3.4.1",
         "downloads": 153,
-        "created": "2025-06-27T10:30:07"
+        "created": "2025-06-27T10:30:30"
       },
       {
         "name": "3.3.2",
         "downloads": 490,
-        "created": "2025-01-16T19:06:26"
+        "created": "2025-01-16T19:07:28"
       },
       {
         "name": "3.3.1",
         "downloads": 69,
-        "created": "2024-12-30T15:37:15"
+        "created": "2024-12-30T15:44:43"
       },
       {
         "name": "3.3.0",
         "downloads": 12,
-        "created": "2024-12-29T18:53:45"
+        "created": "2024-12-29T20:21:07"
       },
       {
         "name": "3.2.0",
         "downloads": 91,
-        "created": "2024-11-30T09:27:01"
+        "created": "2024-11-30T09:27:41"
       },
       {
         "name": "1.1.2+1",
         "downloads": 227,
-        "created": "2024-09-01T10:36:25"
+        "created": "2024-09-01T10:43:27"
       },
       {
         "name": "1.1.2",
         "downloads": 120,
-        "created": "2024-06-26T14:30:50"
+        "created": "2024-06-26T14:32:19"
       },
       {
         "name": "1.1.1",
         "downloads": 116,
-        "created": "2024-04-15T16:13:34"
+        "created": "2024-04-15T16:14:15"
       },
       {
         "name": "1.1.0",
         "downloads": 49,
-        "created": "2024-03-03T16:08:56"
+        "created": "2024-03-03T16:08:00"
       },
       {
         "name": "1.0.0",
         "downloads": 22,
-        "created": "2024-02-24T08:42:15"
+        "created": "2024-02-24T09:42:41"
       }
     ],
     "keywords": [],
@@ -1154,7 +1169,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/modpackinstaller.jpeg"
     },
     "stats": {
-      "panels": 318
+      "panels": 284
     },
     "created": "2024-02-24T07:47:36Z"
   },
@@ -1193,7 +1208,7 @@
     "versions": [
       {
         "name": "3.1.2",
-        "downloads": 19,
+        "downloads": 51,
         "created": "2026-02-20T13:07:53"
       },
       {
@@ -1223,7 +1238,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecraftworldmanager.jpeg"
     },
     "stats": {
-      "panels": 41
+      "panels": 39
     },
     "created": "2024-02-24T13:29:20Z"
   },
@@ -1255,7 +1270,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 115,
+        "downloads": 116,
         "created": "2024-02-25T01:01:30"
       }
     ],
@@ -1351,7 +1366,7 @@
     "versions": [
       {
         "name": "2.2.1",
-        "downloads": 245,
+        "downloads": 293,
         "created": "2025-05-12T15:07:18"
       },
       {
@@ -1371,7 +1386,7 @@
       },
       {
         "name": "1.2.1",
-        "downloads": 172,
+        "downloads": 173,
         "created": "2024-04-25T20:22:51"
       },
       {
@@ -1401,7 +1416,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecraftpluginmanager.jpeg"
     },
     "stats": {
-      "panels": 143
+      "panels": 179
     },
     "created": "2024-04-01T06:05:20Z"
   },
@@ -1439,8 +1454,13 @@
     },
     "versions": [
       {
+        "name": "0.5.1",
+        "downloads": 15,
+        "created": "2026-08-24T19:04:31"
+      },
+      {
         "name": "0.5.0",
-        "downloads": 95,
+        "downloads": 201,
         "created": "2026-02-23T12:18:32"
       },
       {
@@ -1475,7 +1495,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/subdomains.jpeg"
     },
     "stats": {
-      "panels": 230
+      "panels": 202
     },
     "created": "2024-04-06T15:44:04Z"
   },
@@ -1498,7 +1518,7 @@
     "platforms": {
       "SOURCEXCHANGE": {
         "url": "https://www.sourcexchange.net/products/serverid-in-blueprint",
-        "price": 0,
+        "price": 2.5,
         "currency": "EUR",
         "reviews": 0,
         "rating": null
@@ -1507,7 +1527,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 122,
+        "downloads": 236,
         "created": "2024-04-08T19:07:10"
       }
     ],
@@ -1517,7 +1537,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/serverid.jpeg"
     },
     "stats": {
-      "panels": 17
+      "panels": 41
     },
     "created": "2024-04-13T17:46:14Z"
   },
@@ -1556,7 +1576,7 @@
     "versions": [
       {
         "name": "1.2.1",
-        "downloads": 425,
+        "downloads": 480,
         "created": "2024-11-14T11:15:28"
       },
       {
@@ -1581,7 +1601,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/pullfiles.jpeg"
     },
     "stats": {
-      "panels": 112
+      "panels": 103
     },
     "created": "2024-04-20T09:50:50Z"
   },
@@ -1620,7 +1640,7 @@
     "versions": [
       {
         "name": "1.3.2",
-        "downloads": 74,
+        "downloads": 87,
         "created": "2025-02-08T00:22:52"
       },
       {
@@ -1655,7 +1675,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/environmentvariables.jpeg"
     },
     "stats": {
-      "panels": 14
+      "panels": 11
     },
     "created": "2024-04-20T15:18:28Z"
   },
@@ -1694,7 +1714,7 @@
     "versions": [
       {
         "name": "1.3.1",
-        "downloads": 516,
+        "downloads": 615,
         "created": "2024-12-03T16:12:32"
       },
       {
@@ -1749,7 +1769,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/databaseimportexport.jpeg"
     },
     "stats": {
-      "panels": 93
+      "panels": 80
     },
     "created": "2024-04-21T07:22:17Z"
   },
@@ -1788,7 +1808,7 @@
     "versions": [
       {
         "name": "1.2.1",
-        "downloads": 76,
+        "downloads": 86,
         "created": "2025-02-07T21:06:50"
       },
       {
@@ -1813,7 +1833,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/sshkeyimporter.jpeg"
     },
     "stats": {
-      "panels": 4
+      "panels": 3
     },
     "created": "2024-04-21T13:29:40Z"
   },
@@ -1851,8 +1871,13 @@
     },
     "versions": [
       {
+        "name": "1.1.1",
+        "downloads": 17,
+        "created": "2026-07-28T22:52:49"
+      },
+      {
         "name": "1.1.0",
-        "downloads": 148,
+        "downloads": 168,
         "created": "2025-08-05T15:40:16"
       },
       {
@@ -1877,7 +1902,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/fivemutils.jpeg"
     },
     "stats": {
-      "panels": 24
+      "panels": 18
     },
     "created": "2024-05-09T06:04:50Z"
   },
@@ -1909,7 +1934,7 @@
     "versions": [
       {
         "name": "1.3",
-        "downloads": 143,
+        "downloads": 149,
         "created": "2024-08-21T14:32:20"
       },
       {
@@ -1934,7 +1959,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/simpleproperties.jpeg"
     },
     "stats": {
-      "panels": 7
+      "panels": 6
     },
     "created": "2024-06-04T00:00:00Z"
   },
@@ -1973,7 +1998,7 @@
     "versions": [
       {
         "name": "1.1.5",
-        "downloads": 1622,
+        "downloads": 2027,
         "created": "2025-03-22T11:07:27"
       },
       {
@@ -2018,7 +2043,7 @@
       },
       {
         "name": "1.0.0",
-        "downloads": 13,
+        "downloads": 14,
         "created": "2024-06-15T14:01:34"
       }
     ],
@@ -2028,7 +2053,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/versionchanger.jpeg"
     },
     "stats": {
-      "panels": 606
+      "panels": 536
     },
     "created": "2024-06-15T12:06:40Z"
   },
@@ -2066,8 +2091,13 @@
     },
     "versions": [
       {
+        "name": "1.4.4",
+        "downloads": 178,
+        "created": "2026-05-26T16:32:48"
+      },
+      {
         "name": "1.4.3",
-        "downloads": 336,
+        "downloads": 350,
         "created": "2025-12-17T22:35:34"
       },
       {
@@ -2117,7 +2147,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecraftplayermanager.jpeg"
     },
     "stats": {
-      "panels": 351
+      "panels": 336
     },
     "created": "2024-06-26T17:07:22Z"
   },
@@ -2156,7 +2186,7 @@
     "versions": [
       {
         "name": "1.1.5",
-        "downloads": 403,
+        "downloads": 538,
         "created": "2025-07-01T14:51:09"
       },
       {
@@ -2226,7 +2256,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/serversplitter.jpeg"
     },
     "stats": {
-      "panels": 154
+      "panels": 137
     },
     "created": "2024-07-07T17:33:28Z"
   },
@@ -2265,12 +2295,12 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 1951,
+        "downloads": 2173,
         "created": "2024-07-09T05:04:49"
       },
       {
         "name": "1.0",
-        "downloads": 348,
+        "downloads": 413,
         "created": "2024-07-08T17:44:47"
       }
     ],
@@ -2280,7 +2310,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/votifiertester.jpeg"
     },
     "stats": {
-      "panels": 81
+      "panels": 57
     },
     "created": "2024-07-08T00:00:00Z"
   },
@@ -2324,7 +2354,7 @@
       },
       {
         "name": "1.2",
-        "downloads": 1143,
+        "downloads": 1195,
         "created": "2024-07-22T01:25:08"
       }
     ],
@@ -2373,7 +2403,7 @@
     "versions": [
       {
         "name": "1.1.3",
-        "downloads": 97,
+        "downloads": 211,
         "created": "2026-02-28T17:46:48"
       },
       {
@@ -2403,7 +2433,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/serverimporter.jpeg"
     },
     "stats": {
-      "panels": 162
+      "panels": 148
     },
     "created": "2024-08-24T10:07:50Z"
   },
@@ -2442,7 +2472,7 @@
     "versions": [
       {
         "name": "1.0.1",
-        "downloads": 40,
+        "downloads": 45,
         "created": "2025-10-13T20:40:12"
       },
       {
@@ -2457,7 +2487,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/admin98.jpeg"
     },
     "stats": {
-      "panels": 7
+      "panels": 4
     },
     "created": "2024-09-05T19:02:57Z"
   },
@@ -2496,7 +2526,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 2465,
+        "downloads": 2693,
         "created": "2024-09-10T01:50:53"
       }
     ],
@@ -2506,7 +2536,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/nightadmin.jpeg"
     },
     "stats": {
-      "panels": 105
+      "panels": 82
     },
     "created": "2024-09-11T06:01:39Z"
   },
@@ -2531,7 +2561,7 @@
         "url": "https://builtbybit.com/resources/mc-plugins-installer-for-blueprint.52526",
         "price": 11.99,
         "currency": "USD",
-        "reviews": 12,
+        "reviews": 14,
         "rating": 5
       },
       "SOURCEXCHANGE": {
@@ -2544,24 +2574,29 @@
     },
     "versions": [
       {
+        "name": "2.1",
+        "downloads": 170,
+        "created": "2026-06-22T15:30:13"
+      },
+      {
         "name": "2.0",
-        "downloads": 246,
-        "created": "2026-02-07T18:33:01"
+        "downloads": 315,
+        "created": "2026-02-07T18:01:24"
       },
       {
         "name": "1.2",
         "downloads": 704,
-        "created": "2024-12-16T15:35:42"
+        "created": "2024-12-16T15:39:57"
       },
       {
         "name": "1.1",
         "downloads": 77,
-        "created": "2024-11-03T16:56:03"
+        "created": "2024-11-03T16:52:11"
       },
       {
         "name": "1.0",
         "downloads": 57,
-        "created": "2024-10-01T05:58:37"
+        "created": "2024-10-01T06:04:51"
       }
     ],
     "keywords": [],
@@ -2570,7 +2605,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcplugins-PYOZtJRh.jpeg"
     },
     "stats": {
-      "panels": 455
+      "panels": 343
     },
     "created": "2024-10-01T05:30:11Z"
   },
@@ -2595,7 +2630,7 @@
         "url": "https://builtbybit.com/resources/mc-mods-installer-for-blueprint.52665",
         "price": 11.99,
         "currency": "USD",
-        "reviews": 10,
+        "reviews": 11,
         "rating": 5
       },
       "SOURCEXCHANGE": {
@@ -2608,24 +2643,29 @@
     },
     "versions": [
       {
+        "name": "2.1",
+        "downloads": 108,
+        "created": "2026-06-22T15:32:46"
+      },
+      {
         "name": "2.0",
-        "downloads": 131,
-        "created": "2026-02-07T18:41:45"
+        "downloads": 179,
+        "created": "2026-02-07T18:03:43"
       },
       {
         "name": "1.2",
         "downloads": 392,
-        "created": "2024-12-17T09:02:13"
+        "created": "2024-12-17T09:05:41"
       },
       {
         "name": "1.1",
         "downloads": 68,
-        "created": "2024-11-04T06:03:28"
+        "created": "2024-11-04T06:02:00"
       },
       {
         "name": "1.0",
-        "downloads": 36,
-        "created": "2024-10-04T09:27:46"
+        "downloads": 37,
+        "created": "2024-10-04T08:39:10"
       }
     ],
     "keywords": [],
@@ -2634,7 +2674,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcmods-cnUBl3sp.jpeg"
     },
     "stats": {
-      "panels": 162
+      "panels": 152
     },
     "created": "2024-10-04T16:36:55Z"
   },
@@ -2666,7 +2706,7 @@
     "versions": [
       {
         "name": "1.2.0",
-        "downloads": 178,
+        "downloads": 506,
         "created": "2025-09-09T19:19:51"
       },
       {
@@ -2691,7 +2731,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/sociallogin.jpeg"
     },
     "stats": {
-      "panels": 92
+      "panels": 126
     },
     "created": "2024-10-12T10:56:54Z"
   },
@@ -2730,7 +2770,7 @@
     "versions": [
       {
         "name": "1.1.0",
-        "downloads": 262,
+        "downloads": 284,
         "created": "2024-12-04T12:21:13"
       },
       {
@@ -2755,7 +2795,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/eggchanger.jpeg"
     },
     "stats": {
-      "panels": 180
+      "panels": 179
     },
     "created": "2024-10-12T11:28:51Z"
   },
@@ -2794,7 +2834,7 @@
     "versions": [
       {
         "name": "1.0.1",
-        "downloads": 255,
+        "downloads": 266,
         "created": "2024-11-02T21:48:10"
       },
       {
@@ -2809,7 +2849,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecrafticonchanger.jpeg"
     },
     "stats": {
-      "panels": 56
+      "panels": 54
     },
     "created": "2024-10-19T09:44:53Z"
   },
@@ -2841,14 +2881,19 @@
         "url": "https://www.sourcexchange.net/products/euphoriatheme",
         "price": 12.99,
         "currency": "GBP",
-        "reviews": 1,
+        "reviews": 2,
         "rating": 5
       }
     },
     "versions": [
       {
+        "name": "1.7.4",
+        "downloads": 9,
+        "created": "2026-08-10T18:48:18"
+      },
+      {
         "name": "1.7.3",
-        "downloads": 22,
+        "downloads": 31,
         "created": "2026-02-24T16:09:36"
       },
       {
@@ -3048,7 +3093,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/euphoriatheme-fhzVX4ut.jpeg"
     },
     "stats": {
-      "panels": 46
+      "panels": 37
     },
     "created": "2024-10-20T17:03:19Z"
   },
@@ -3087,7 +3132,7 @@
     "versions": [
       {
         "name": "1.1.4",
-        "downloads": 32,
+        "downloads": 37,
         "created": "2025-06-28T09:31:01"
       },
       {
@@ -3132,7 +3177,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/templateinstaller.jpeg"
     },
     "stats": {
-      "panels": 12
+      "panels": 8
     },
     "created": "2024-10-31T17:38:07Z"
   },
@@ -3171,27 +3216,27 @@
     "versions": [
       {
         "name": "1.5",
-        "downloads": 131,
+        "downloads": 240,
         "created": "2026-02-08T19:30:29"
       },
       {
         "name": "1.4",
-        "downloads": 396,
+        "downloads": 437,
         "created": "2025-07-22T16:10:26"
       },
       {
         "name": "1.2",
-        "downloads": 379,
+        "downloads": 421,
         "created": "2024-11-02T12:23:45"
       },
       {
         "name": "1.1",
-        "downloads": 222,
+        "downloads": 259,
         "created": "2024-10-30T11:58:23"
       },
       {
         "name": "1.0",
-        "downloads": 173,
+        "downloads": 209,
         "created": "2024-10-20T17:03:47"
       }
     ],
@@ -3201,7 +3246,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/laravellogs.jpeg"
     },
     "stats": {
-      "panels": 107
+      "panels": 90
     },
     "created": "2024-11-06T13:17:17Z"
   },
@@ -3240,37 +3285,37 @@
     "versions": [
       {
         "name": "1.5.0",
-        "downloads": 178,
+        "downloads": 404,
         "created": "2026-02-08T20:52:03"
       },
       {
         "name": "1.4.1",
-        "downloads": 761,
+        "downloads": 822,
         "created": "2025-04-15T10:25:57"
       },
       {
         "name": "1.4.0",
-        "downloads": 215,
+        "downloads": 261,
         "created": "2025-04-02T13:57:29"
       },
       {
         "name": "1.3.1",
-        "downloads": 244,
+        "downloads": 288,
         "created": "2025-01-12T19:18:32"
       },
       {
         "name": "1.3",
-        "downloads": 221,
+        "downloads": 269,
         "created": "2025-01-12T18:28:08"
       },
       {
         "name": "1.1",
-        "downloads": 192,
+        "downloads": 239,
         "created": "2024-12-08T13:20:52"
       },
       {
         "name": "1.0",
-        "downloads": 205,
+        "downloads": 250,
         "created": "2024-11-01T09:17:17"
       }
     ],
@@ -3280,7 +3325,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/refreshtheme.jpeg"
     },
     "stats": {
-      "panels": 90
+      "panels": 93
     },
     "created": "2024-11-09T12:52:53Z"
   },
@@ -3319,72 +3364,72 @@
     "versions": [
       {
         "name": "1.7.4",
-        "downloads": 535,
+        "downloads": 1276,
         "created": "2026-02-23T23:24:50"
       },
       {
         "name": "1.7.3",
-        "downloads": 42,
+        "downloads": 83,
         "created": "2026-02-23T21:19:25"
       },
       {
         "name": "1.7.2",
-        "downloads": 38,
+        "downloads": 81,
         "created": "2026-02-23T19:04:47"
       },
       {
         "name": "1.7.1",
-        "downloads": 40,
+        "downloads": 85,
         "created": "2026-02-23T15:58:38"
       },
       {
         "name": "1.7.0",
-        "downloads": 175,
+        "downloads": 223,
         "created": "2026-02-08T22:17:52"
       },
       {
         "name": "1.6.0",
-        "downloads": 1326,
+        "downloads": 1365,
         "created": "2025-07-28T19:17:14"
       },
       {
         "name": "1.5.2",
-        "downloads": 941,
+        "downloads": 981,
         "created": "2025-04-15T11:01:25"
       },
       {
         "name": "1.5.1",
-        "downloads": 238,
+        "downloads": 277,
         "created": "2025-04-11T10:23:30"
       },
       {
         "name": "1.5.0",
-        "downloads": 173,
+        "downloads": 214,
         "created": "2025-04-02T10:49:33"
       },
       {
         "name": "1.4.2",
-        "downloads": 237,
+        "downloads": 272,
         "created": "2024-12-18T09:28:29"
       },
       {
         "name": "1.4.1",
-        "downloads": 218,
+        "downloads": 255,
         "created": "2024-12-07T21:54:49"
       },
       {
         "name": "1.4.0",
-        "downloads": 246,
+        "downloads": 283,
         "created": "2024-11-20T10:02:31"
       },
       {
         "name": "1.3.6",
-        "downloads": 255,
+        "downloads": 288,
         "created": "2024-11-08T20:40:58"
       },
       {
         "name": "1.3.5",
-        "downloads": 233,
+        "downloads": 270,
         "created": "2024-11-06T14:06:52"
       },
       {
@@ -3414,7 +3459,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/playerlisting.jpeg"
     },
     "stats": {
-      "panels": 464
+      "panels": 468
     },
     "created": "2024-11-09T13:47:36Z"
   },
@@ -3453,12 +3498,12 @@
     "versions": [
       {
         "name": "1.1",
-        "downloads": 205,
+        "downloads": 452,
         "created": "2026-02-08T20:05:47"
       },
       {
         "name": "1.0",
-        "downloads": 1009,
+        "downloads": 1053,
         "created": "2024-11-08T10:44:47"
       }
     ],
@@ -3468,7 +3513,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/consolelogs.jpeg"
     },
     "stats": {
-      "panels": 196
+      "panels": 193
     },
     "created": "2024-11-09T13:48:43Z"
   },
@@ -3493,8 +3538,8 @@
         "url": "https://builtbybit.com/resources/server-backgrounds.53917",
         "price": 0,
         "currency": "USD",
-        "reviews": 4,
-        "rating": 3
+        "reviews": 5,
+        "rating": 2.5999999046325684
       },
       "SOURCEXCHANGE": {
         "url": "https://www.sourcexchange.net/products/server-backgrounds",
@@ -3507,12 +3552,12 @@
     "versions": [
       {
         "name": "1.6.0",
-        "downloads": 430,
+        "downloads": 923,
         "created": "2026-02-08T18:49:45"
       },
       {
         "name": "1.5.1",
-        "downloads": 1468,
+        "downloads": 1518,
         "created": "2025-01-12T18:45:33"
       },
       {
@@ -3522,22 +3567,22 @@
       },
       {
         "name": "1.4.0",
-        "downloads": 180,
+        "downloads": 227,
         "created": "2024-12-07T22:13:35"
       },
       {
         "name": "1.3.6",
-        "downloads": 252,
+        "downloads": 289,
         "created": "2024-11-29T09:22:23"
       },
       {
         "name": "1.3.5",
-        "downloads": 205,
+        "downloads": 259,
         "created": "2024-11-02T13:20:15"
       },
       {
         "name": "1.3.4",
-        "downloads": 185,
+        "downloads": 235,
         "created": "2024-11-02T12:20:54"
       },
       {
@@ -3547,17 +3592,17 @@
       },
       {
         "name": "1.3.2",
-        "downloads": 227,
+        "downloads": 270,
         "created": "2024-10-31T14:55:25"
       },
       {
         "name": "1.3.1",
-        "downloads": 246,
+        "downloads": 293,
         "created": "2024-10-31T10:31:33"
       },
       {
         "name": "1.3",
-        "downloads": 233,
+        "downloads": 281,
         "created": "2024-10-31T10:18:37"
       },
       {
@@ -3567,7 +3612,7 @@
       },
       {
         "name": "1.1",
-        "downloads": 213,
+        "downloads": 266,
         "created": "2024-10-30T11:36:36"
       },
       {
@@ -3582,7 +3627,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/serverbackgrounds.jpeg"
     },
     "stats": {
-      "panels": 435
+      "panels": 385
     },
     "created": "2024-11-09T13:49:55Z"
   },
@@ -3607,7 +3652,7 @@
         "url": "https://builtbybit.com/resources/auto-allocation-manager.54674",
         "price": 8.99,
         "currency": "USD",
-        "reviews": 2,
+        "reviews": 3,
         "rating": 5
       },
       "SOURCEXCHANGE": {
@@ -3621,7 +3666,7 @@
     "versions": [
       {
         "name": "1.1.0",
-        "downloads": 75,
+        "downloads": 85,
         "created": "2025-02-08T08:51:15"
       },
       {
@@ -3646,7 +3691,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/autoallocationmanager.jpeg"
     },
     "stats": {
-      "panels": 37
+      "panels": 30
     },
     "created": "2024-11-16T10:28:20Z"
   },
@@ -3685,37 +3730,37 @@
     "versions": [
       {
         "name": "1.6",
-        "downloads": 203,
+        "downloads": 418,
         "created": "2026-02-08T20:10:11"
       },
       {
         "name": "1.5",
-        "downloads": 570,
+        "downloads": 615,
         "created": "2025-07-22T16:47:26"
       },
       {
         "name": "1.4",
-        "downloads": 538,
+        "downloads": 588,
         "created": "2024-12-14T19:14:35"
       },
       {
         "name": "1.3",
-        "downloads": 242,
+        "downloads": 287,
         "created": "2024-11-16T20:42:49"
       },
       {
         "name": "1.2",
-        "downloads": 223,
+        "downloads": 270,
         "created": "2024-11-16T09:57:49"
       },
       {
         "name": "1.1",
-        "downloads": 230,
+        "downloads": 272,
         "created": "2024-11-14T19:13:35"
       },
       {
         "name": "1.0",
-        "downloads": 240,
+        "downloads": 288,
         "created": "2024-11-14T13:53:20"
       }
     ],
@@ -3725,7 +3770,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mclogs.jpeg"
     },
     "stats": {
-      "panels": 272
+      "panels": 249
     },
     "created": "2024-11-17T08:46:56Z"
   },
@@ -3757,22 +3802,22 @@
     "versions": [
       {
         "name": "1.3",
-        "downloads": 2741,
+        "downloads": 2909,
         "created": "2024-11-22T19:28:16"
       },
       {
         "name": "1.2",
-        "downloads": 240,
+        "downloads": 277,
         "created": "2024-11-18T22:41:33"
       },
       {
         "name": "1.1",
-        "downloads": 143,
+        "downloads": 182,
         "created": "2024-11-18T21:45:27"
       },
       {
         "name": "1.0",
-        "downloads": 185,
+        "downloads": 221,
         "created": "2024-11-17T22:16:36"
       }
     ],
@@ -3782,7 +3827,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/bluetables.jpeg"
     },
     "stats": {
-      "panels": 49
+      "panels": 30
     },
     "created": "2024-11-18T20:36:09Z"
   },
@@ -3821,7 +3866,7 @@
     "versions": [
       {
         "name": "1.1.2",
-        "downloads": 178,
+        "downloads": 202,
         "created": "2025-06-17T13:06:58"
       },
       {
@@ -3851,7 +3896,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecraftmodmanager.jpeg"
     },
     "stats": {
-      "panels": 37
+      "panels": 88
     },
     "created": "2024-12-01T14:51:53.473842Z"
   },
@@ -3883,12 +3928,12 @@
     "versions": [
       {
         "name": "1.1",
-        "downloads": 5880,
+        "downloads": 6040,
         "created": "2024-12-17T20:54:09"
       },
       {
         "name": "1.0",
-        "downloads": 64,
+        "downloads": 81,
         "created": "2024-12-15T21:41:38"
       }
     ],
@@ -3898,7 +3943,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/ultradarkadmin.jpeg"
     },
     "stats": {
-      "panels": 51
+      "panels": 46
     },
     "created": "2024-12-18T18:04:35.479890Z"
   },
@@ -3937,17 +3982,17 @@
     "versions": [
       {
         "name": "1.0.2",
-        "downloads": 121,
+        "downloads": 301,
         "created": "2025-05-07T09:50:47"
       },
       {
         "name": "1.0.1",
-        "downloads": 75,
+        "downloads": 132,
         "created": "2025-01-11T14:12:56"
       },
       {
         "name": "1.0.0",
-        "downloads": 27,
+        "downloads": 31,
         "created": "2024-12-26T12:02:40"
       }
     ],
@@ -3957,7 +4002,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/minecraftconfigeditor.jpeg"
     },
     "stats": {
-      "panels": 47
+      "panels": 38
     },
     "created": "2024-12-26T12:12:17.728292Z"
   },
@@ -3996,7 +4041,7 @@
     "versions": [
       {
         "name": "9.7",
-        "downloads": 145,
+        "downloads": 243,
         "created": "2026-01-17T13:39:20"
       },
       {
@@ -4051,7 +4096,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/eggify.jpeg"
     },
     "stats": {
-      "panels": 107
+      "panels": 100
     },
     "created": "2025-01-04T14:43:24.688180Z"
   },
@@ -4090,7 +4135,7 @@
     "versions": [
       {
         "name": "1.0.3",
-        "downloads": 72,
+        "downloads": 135,
         "created": "2026-02-28T17:25:37"
       },
       {
@@ -4115,7 +4160,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/subdomainmanager.jpeg"
     },
     "stats": {
-      "panels": 88
+      "panels": 94
     },
     "created": "2025-01-25T20:46:13.031164Z"
   },
@@ -4154,7 +4199,7 @@
     "versions": [
       {
         "name": "1.0.0",
-        "downloads": 568,
+        "downloads": 648,
         "created": "2025-01-26T13:39:16"
       }
     ],
@@ -4164,7 +4209,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/filesearch.jpeg"
     },
     "stats": {
-      "panels": 93
+      "panels": 100
     },
     "created": "2025-01-26T13:50:41.463691Z"
   },
@@ -4196,7 +4241,7 @@
     "versions": [
       {
         "name": "0.2",
-        "downloads": 43,
+        "downloads": 45,
         "created": "2025-02-04T23:31:07"
       },
       {
@@ -4250,7 +4295,7 @@
     "versions": [
       {
         "name": "1.0.2",
-        "downloads": 178,
+        "downloads": 233,
         "created": "2025-04-26T09:41:11"
       },
       {
@@ -4270,7 +4315,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/advancedmovefiles.jpeg"
     },
     "stats": {
-      "panels": 52
+      "panels": 54
     },
     "created": "2025-03-13T10:20:59.875340Z"
   },
@@ -4302,7 +4347,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 208,
+        "downloads": 403,
         "created": "2026-02-08T19:24:06"
       },
       {
@@ -4327,7 +4372,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/resourcealerts.jpeg"
     },
     "stats": {
-      "panels": 154
+      "panels": 135
     },
     "created": "2025-03-27T00:10:39.991989Z"
   },
@@ -4359,12 +4404,12 @@
     "versions": [
       {
         "name": "0.6",
-        "downloads": 373,
+        "downloads": 733,
         "created": "2026-02-08T18:51:56"
       },
       {
         "name": "0.5",
-        "downloads": 949,
+        "downloads": 950,
         "created": "2025-07-28T19:09:12"
       },
       {
@@ -4429,7 +4474,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/translations.jpeg"
     },
     "stats": {
-      "panels": 190
+      "panels": 188
     },
     "created": "2025-03-27T13:40:46.577025Z"
   },
@@ -4468,7 +4513,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 922,
+        "downloads": 1130,
         "created": "2025-04-04T23:24:14"
       }
     ],
@@ -4478,7 +4523,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/sidebar.jpeg"
     },
     "stats": {
-      "panels": 39
+      "panels": 40
     },
     "created": "2025-04-05T11:00:38.739549Z"
   },
@@ -4524,12 +4569,12 @@
     "versions": [
       {
         "name": "1.1.0",
-        "downloads": 285,
+        "downloads": 563,
         "created": "2026-02-17T20:54:00"
       },
       {
         "name": "1.0",
-        "downloads": 1290,
+        "downloads": 1337,
         "created": "2025-05-05T12:24:08"
       }
     ],
@@ -4539,7 +4584,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/lyrdyannounce.jpeg"
     },
     "stats": {
-      "panels": 93
+      "panels": 94
     },
     "created": "2025-05-05T14:07:23.169833Z"
   },
@@ -4584,23 +4629,38 @@
     },
     "versions": [
       {
+        "name": "1.4.1-2",
+        "downloads": 24,
+        "created": "2026-08-03T15:31:27"
+      },
+      {
+        "name": "1.4.1",
+        "downloads": 75,
+        "created": "2026-08-03T15:23:27"
+      },
+      {
+        "name": "1.4",
+        "downloads": 34,
+        "created": "2026-07-29T17:38:21"
+      },
+      {
         "name": "1.3",
-        "downloads": 273,
+        "downloads": 539,
         "created": "2026-02-23T16:01:33"
       },
       {
         "name": "1.2",
-        "downloads": 136,
+        "downloads": 184,
         "created": "2026-02-08T22:51:29"
       },
       {
         "name": "1.1",
-        "downloads": 924,
+        "downloads": 970,
         "created": "2025-07-29T14:18:49"
       },
       {
         "name": "1.0.2",
-        "downloads": 613,
+        "downloads": 648,
         "created": "2025-04-03T08:48:02"
       },
       {
@@ -4615,7 +4675,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/resourcemanager.jpeg"
     },
     "stats": {
-      "panels": 184
+      "panels": 178
     },
     "created": "2025-05-05T14:28:15.237499Z"
   },
@@ -4701,17 +4761,17 @@
     "versions": [
       {
         "name": "1.1.0",
-        "downloads": 2465,
+        "downloads": 3199,
         "created": "2025-06-09T13:08:42"
       },
       {
         "name": "1.0.1",
-        "downloads": 243,
+        "downloads": 278,
         "created": "2025-06-01T02:41:01"
       },
       {
         "name": "1.0",
-        "downloads": 106,
+        "downloads": 142,
         "created": "2025-05-31T11:17:00"
       }
     ],
@@ -4721,7 +4781,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mctools.jpeg"
     },
     "stats": {
-      "panels": 261
+      "panels": 287
     },
     "created": "2025-05-31T13:11:53.682322Z"
   },
@@ -4746,8 +4806,8 @@
         "url": "https://builtbybit.com/resources/server-organizer.69007",
         "price": 4.99,
         "currency": "USD",
-        "reviews": 7,
-        "rating": 3.142857074737549
+        "reviews": 8,
+        "rating": 3.375
       },
       "SOURCEXCHANGE": {
         "url": "https://www.sourcexchange.net/products/server-organizer",
@@ -4760,7 +4820,7 @@
     "versions": [
       {
         "name": "1.3.2",
-        "downloads": 94,
+        "downloads": 195,
         "created": "2026-02-06T09:56:18"
       },
       {
@@ -4795,7 +4855,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/serverorganizer.jpeg"
     },
     "stats": {
-      "panels": 107
+      "panels": 110
     },
     "created": "2025-06-21T13:22:59.305032Z"
   },
@@ -4834,7 +4894,7 @@
     "versions": [
       {
         "name": "5.7",
-        "downloads": 76,
+        "downloads": 146,
         "created": "2026-02-17T15:02:00"
       },
       {
@@ -4914,7 +4974,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/rustserverwiper-yZ2MJPt1.jpeg"
     },
     "stats": {
-      "panels": 32
+      "panels": 34
     },
     "created": "2025-07-09T08:14:45.365936Z"
   },
@@ -4953,7 +5013,7 @@
     "versions": [
       {
         "name": "1.5",
-        "downloads": 24,
+        "downloads": 27,
         "created": "2025-07-08T10:54:24"
       },
       {
@@ -4988,7 +5048,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/configeditor-UT0hFJ6w.jpeg"
     },
     "stats": {
-      "panels": 18
+      "panels": 38
     },
     "created": "2025-07-09T08:14:45.365936Z"
   },
@@ -5020,7 +5080,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 1282,
+        "downloads": 1969,
         "created": "2025-08-06T23:43:28"
       },
       {
@@ -5040,7 +5100,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/pteromonaco.jpeg"
     },
     "stats": {
-      "panels": 333
+      "panels": 365
     },
     "created": "2025-07-17T16:10:02.650764Z"
   },
@@ -5072,7 +5132,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 7,
+        "downloads": 12,
         "created": "2025-10-16T02:21:01"
       }
     ],
@@ -5082,7 +5142,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/astratheme:dQn7JTq2-ulrdAL5Y.jpeg"
     },
     "stats": {
-      "panels": 0
+      "panels": 2
     },
     "created": "2025-10-19T16:16:26.112662Z"
   },
@@ -5121,7 +5181,7 @@
     "versions": [
       {
         "name": "1.0.1",
-        "downloads": 23,
+        "downloads": 24,
         "created": "2025-11-04T09:56:36"
       },
       {
@@ -5136,7 +5196,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/pwaforblueprint:V5V27Mpg-J36zQusq.jpeg"
     },
     "stats": {
-      "panels": 7
+      "panels": 4
     },
     "created": "2025-11-01T00:59:30.774313Z"
   },
@@ -5174,13 +5234,18 @@
     },
     "versions": [
       {
+        "name": "2.0",
+        "downloads": 7,
+        "created": "2026-07-12T08:43:11"
+      },
+      {
         "name": "1.6",
-        "downloads": 8,
+        "downloads": 11,
         "created": "2026-02-26T11:07:25"
       },
       {
         "name": "1.5",
-        "downloads": 13,
+        "downloads": 17,
         "created": "2026-01-24T20:04:00"
       },
       {
@@ -5190,7 +5255,7 @@
       },
       {
         "name": "1.3",
-        "downloads": 10,
+        "downloads": 11,
         "created": "2025-11-02T15:27:43"
       },
       {
@@ -5215,7 +5280,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcmod-riV1mHY7.jpeg"
     },
     "stats": {
-      "panels": 7
+      "panels": 6
     },
     "created": "2025-11-01T08:59:09.036343Z"
   },
@@ -5240,19 +5305,34 @@
         "url": "https://builtbybit.com/resources/datapack-installer-for-blueprint.81356",
         "price": 0,
         "currency": "USD",
-        "reviews": 4,
-        "rating": 4
+        "reviews": 5,
+        "rating": 4.199999809265137
       }
     },
     "versions": [
       {
+        "name": "0.3-2026-08",
+        "downloads": 44,
+        "created": "2026-08-16T19:03:40"
+      },
+      {
+        "name": "0.2.2-2026-07",
+        "downloads": 53,
+        "created": "2026-07-30T22:02:46"
+      },
+      {
+        "name": "0.2.1-2026-07",
+        "downloads": 1,
+        "created": "2026-07-30T20:16:36"
+      },
+      {
         "name": "0.1-beta-2025-12-fixed",
-        "downloads": 679,
+        "downloads": 872,
         "created": "2025-12-07T15:27:56"
       },
       {
         "name": "0.1-beta-2025-11",
-        "downloads": 340,
+        "downloads": 342,
         "created": "2025-10-26T17:44:08"
       }
     ],
@@ -5262,7 +5342,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/vanillatweaks:HEJiVAGQ-dwBEsJ7Y.jpeg"
     },
     "stats": {
-      "panels": 130
+      "panels": 77
     },
     "created": "2025-11-02T19:02:05.199658Z"
   },
@@ -5301,7 +5381,7 @@
     "versions": [
       {
         "name": "2.0.0",
-        "downloads": 29,
+        "downloads": 35,
         "created": "2025-11-03T19:29:46"
       },
       {
@@ -5316,7 +5396,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/privacyblur:zpuKJ7xv-gbiP0ePF.jpeg"
     },
     "stats": {
-      "panels": 16
+      "panels": 13
     },
     "created": "2025-11-03T19:44:59.788421Z"
   },
@@ -5348,12 +5428,12 @@
     "versions": [
       {
         "name": "1.4",
-        "downloads": 34,
+        "downloads": 47,
         "created": "2025-12-12T14:48:16"
       },
       {
         "name": "1.3",
-        "downloads": 5,
+        "downloads": 8,
         "created": "2025-12-01T18:08:46"
       },
       {
@@ -5388,7 +5468,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/lutheme:Ti792z7B-st0B2VX2.jpeg"
     },
     "stats": {
-      "panels": 1
+      "panels": 0
     },
     "created": "2025-11-04T15:38:16.400868Z"
   },
@@ -5427,7 +5507,7 @@
     "versions": [
       {
         "name": "2.2",
-        "downloads": 12,
+        "downloads": 22,
         "created": "2026-01-26T18:22:37"
       },
       {
@@ -5497,7 +5577,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcplayermanager:bGJY8BuC-JmfQoPfS.jpeg"
     },
     "stats": {
-      "panels": 2
+      "panels": 5
     },
     "created": "2025-11-05T16:29:29.768506Z"
   },
@@ -5536,7 +5616,7 @@
     "versions": [
       {
         "name": "1.3",
-        "downloads": 10,
+        "downloads": 15,
         "created": "2025-11-06T15:56:19"
       },
       {
@@ -5561,7 +5641,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/rustplayermanager:je4cRIrH-ryvNttby.jpeg"
     },
     "stats": {
-      "panels": 4
+      "panels": 8
     },
     "created": "2025-11-06T15:59:54.638096Z"
   },
@@ -5600,7 +5680,7 @@
     "versions": [
       {
         "name": "2.2",
-        "downloads": 59,
+        "downloads": 79,
         "created": "2025-11-07T14:24:35"
       },
       {
@@ -5670,7 +5750,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/rustplugininstaller:Cb8vm4QS-0ifY2sBT.jpeg"
     },
     "stats": {
-      "panels": 4
+      "panels": 8
     },
     "created": "2025-11-07T14:29:02.946382Z"
   },
@@ -5702,7 +5782,7 @@
     "versions": [
       {
         "name": "1.1",
-        "downloads": 6,
+        "downloads": 7,
         "created": "2025-11-29T15:40:50"
       },
       {
@@ -5759,7 +5839,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/lememtheme:BqYbCdqz-VJiux55A.jpeg"
     },
     "stats": {
-      "panels": 18
+      "panels": 21
     },
     "created": "2025-12-02T15:40:46.568071Z"
   },
@@ -5790,8 +5870,38 @@
     },
     "versions": [
       {
-        "name": "2026-22-3-v2-1",
+        "name": "a1.2.2",
+        "downloads": 4,
+        "created": "2026-08-26T23:33:47"
+      },
+      {
+        "name": "a1.2.1",
+        "downloads": 25,
+        "created": "2026-07-21T12:39:42"
+      },
+      {
+        "name": "a1.2.0",
+        "downloads": 3,
+        "created": "2026-07-20T12:16:04"
+      },
+      {
+        "name": "a1.1.1",
+        "downloads": 3,
+        "created": "2026-07-19T23:44:00"
+      },
+      {
+        "name": "a1.1.0",
+        "downloads": 2,
+        "created": "2026-07-19T12:15:10"
+      },
+      {
+        "name": "a1.0.0",
         "downloads": 31,
+        "created": "2026-06-01T19:01:18"
+      },
+      {
+        "name": "2026-22-3-v2-1",
+        "downloads": 38,
         "created": "2026-03-22T20:36:44"
       },
       {
@@ -5871,64 +5981,64 @@
         "url": "https://builtbybit.com/resources/player-manager.72012",
         "price": 9.99,
         "currency": "USD",
-        "reviews": 17,
+        "reviews": 18,
         "rating": 5
       }
     },
     "versions": [
       {
         "name": "2.9 - hytale update",
-        "downloads": 4,
+        "downloads": 0,
         "created": "2026-01-26T15:47:57"
       },
       {
         "name": "2.8.1",
-        "downloads": 36,
+        "downloads": 0,
         "created": "2026-01-04T10:48:59"
       },
       {
         "name": "2.8",
-        "downloads": 2,
+        "downloads": 0,
         "created": "2026-01-03T19:38:45"
       },
       {
         "name": "2.7",
-        "downloads": 4,
+        "downloads": 0,
         "created": "2026-01-01T22:09:01"
       },
       {
         "name": "2.6.2",
-        "downloads": 3,
+        "downloads": 0,
         "created": "2025-12-31T15:39:42"
       },
       {
         "name": "2.6.1",
-        "downloads": 1,
+        "downloads": 0,
         "created": "2025-12-31T00:50:33"
       },
       {
         "name": "2.6",
-        "downloads": 6,
+        "downloads": 0,
         "created": "2025-12-28T18:45:35"
       },
       {
         "name": "2.5.5",
-        "downloads": 6,
+        "downloads": 0,
         "created": "2025-12-19T17:00:13"
       },
       {
         "name": "2.5.1",
-        "downloads": 11,
+        "downloads": 0,
         "created": "2025-12-03T20:24:57"
       },
       {
         "name": "2.5",
-        "downloads": 2,
+        "downloads": 0,
         "created": "2025-12-03T18:33:49"
       },
       {
         "name": "2",
-        "downloads": 12,
+        "downloads": 0,
         "created": "2025-11-30T20:07:19"
       },
       {
@@ -5983,7 +6093,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/tmxplayersmanager:KDZDJOwb-WVCit19S.jpeg"
     },
     "stats": {
-      "panels": 29
+      "panels": 42
     },
     "created": "2025-12-03T21:02:25.164760Z"
   },
@@ -6037,7 +6147,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/pstatistics-h28OLDYq.jpeg"
     },
     "stats": {
-      "panels": 8
+      "panels": 6
     },
     "created": "2025-12-17T17:25:47.706828Z"
   },
@@ -6055,36 +6165,41 @@
     "type": "extension",
     "name": "Startup Editor",
     "identifier": "startupeditor",
-    "summary": " Let users edit startup commands with optional malicious pattern blocking and memory restrictions. ",
+    "summary": "Let users edit startup commands with optional malicious pattern blocking and memory restrictions. ",
     "description": "# Startup Editor for Pterodactyl\n\n**Give users the power they need. Keep the control you require.**\n\nStandard Pterodactyl limits users to editing individual startup variables—a frustrating constraint for power users who need precise control over their server configurations. Startup Editor removes that limitation, exposing the full startup command template while protecting your infrastructure from abuse.\n\n---\n\n## The Problem\n\nPterodactyl's default variable system works for basic use cases, but falls short when users need to fine-tune JVM flags, add custom parameters, or configure advanced server arguments. Workarounds typically involve either granting excessive permissions or manually editing configurations for every request.\n\n## The Solution\n\nStartup Editor gives users direct access to their complete startup command while enforcing configurable security boundaries. Admins maintain full control over which protections apply to which nodes—enable strict memory restrictions on shared hosting while allowing freedom on dedicated instances.\n\n---\n\n## Features\n\n### Full Command Editing\n\nUsers edit the complete startup command template, not just predefined variables. Ideal for optimizing JVM garbage collection, adding mod loader arguments, or configuring custom server parameters without admin intervention.\n\n### Memory Flag Protection\n\nPrevent RAM overallocation by blocking modification of `-Xms` and `-Xmx` flags on designated nodes. Users can adjust other JVM parameters freely while memory limits remain enforced—no more crashed shared hosting nodes from a single user maxing out allocations.\n\n### Malicious Pattern Detection\n\nA built-in blocklist catches 25+ dangerous patterns before they execute:\n\n- Download-and-execute chains (`curl | bash`, `wget -O - | sh`)\n- Destructive operations (`rm -rf`, filesystem wipes)\n- System path access and environment manipulation\n- Network backdoors and reverse shells\n- Privilege escalation attempts\n\n### Per-Node Configuration\n\nNot every node needs the same restrictions. A visual node grid with real-time status badges lets you enable memory protection and security filtering exactly where needed—strict rules for shared hosting, relaxed policies for VPS customers.\n\n### Custom Pattern Support\n\nAdd organization-specific blocked patterns for compliance requirements or internal policies. Toggle any built-in pattern on or off with a single click to match your operational needs.\n\n### Full Audit Trail\n\nEvery startup command modification logs a complete before/after snapshot directly into Pterodactyl's activity system. Review changes, investigate issues, and maintain compliance documentation without additional tooling.\n\n---\n\n## Installation\n\nTwo installation paths available:\n\n| Method | Best For |\n|--------|----------|\n| **Blueprint Framework** | Easy installation and updates, managed alongside other Blueprint extensions |\n| **Standalone** | Pure Pterodactyl installations without Blueprint dependency |\n\nBoth methods provide identical functionality—choose based on your existing setup.\n\n---\n\n## Requirements\n\n- Pterodactyl Panel 1.x\n- PHP 8.1+\n- For Blueprint installation: Blueprint Framework installed",
     "platforms": {
       "BUILTBYBIT": {
         "url": "https://builtbybit.com/resources/startup-editor.85455",
         "price": 9.99,
         "currency": "USD",
-        "reviews": 1,
+        "reviews": 2,
         "rating": 5
       }
     },
     "versions": [
       {
+        "name": "2.2",
+        "downloads": 0,
+        "created": "2026-05-24T22:45:56"
+      },
+      {
         "name": "2.1",
         "downloads": 28,
-        "created": "2026-01-10T04:10:46"
+        "created": "2026-05-24T08:02:49"
       },
       {
         "name": "2.0",
-        "downloads": 2,
+        "downloads": 0,
         "created": "2026-01-06T06:00:58"
       },
       {
         "name": "1.5",
-        "downloads": 6,
+        "downloads": 0,
         "created": "2025-12-09T02:01:14"
       },
       {
         "name": "1.4",
-        "downloads": 2,
+        "downloads": 0,
         "created": "2025-12-07T23:09:09"
       },
       {
@@ -6094,17 +6209,17 @@
       },
       {
         "name": "1.2",
-        "downloads": 1,
+        "downloads": 0,
         "created": "2025-12-07T19:58:46"
       },
       {
         "name": "1.1",
-        "downloads": 1,
+        "downloads": 0,
         "created": "2025-12-07T19:34:22"
       },
       {
         "name": "1.0",
-        "downloads": 2,
+        "downloads": 0,
         "created": "2025-12-07T18:43:09"
       }
     ],
@@ -6114,7 +6229,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/startupeditor:IrqOjOsP-0dMgLllt.jpeg"
     },
     "stats": {
-      "panels": 12
+      "panels": 13
     },
     "created": "2025-12-23T08:29:00.735061Z"
   },
@@ -6156,7 +6271,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/ptheme:RzMrTaxH-ud1i4pYS.jpeg"
     },
     "stats": {
-      "panels": 0
+      "panels": 1
     },
     "created": "2025-12-28T21:21:59.448543Z"
   },
@@ -6188,7 +6303,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 2,
+        "downloads": 3,
         "created": "2026-01-17T22:24:21"
       }
     ],
@@ -6198,7 +6313,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/poweractionconfirm:NDnOzFN5-c8yBE9t7.jpeg"
     },
     "stats": {
-      "panels": 1
+      "panels": 2
     },
     "created": "2026-01-17T21:58:22.172895Z"
   },
@@ -6221,13 +6336,33 @@
     "platforms": {
       "BUILTBYBIT": {
         "url": "https://builtbybit.com/resources/project-zomboid-mod-installer.91362",
-        "price": 8,
+        "price": 9.99,
         "currency": "USD",
         "reviews": 1,
         "rating": 2
       }
     },
     "versions": [
+      {
+        "name": "2.2",
+        "downloads": 3,
+        "created": "2026-08-24T19:53:50"
+      },
+      {
+        "name": "2.1.0",
+        "downloads": 4,
+        "created": "2026-08-10T21:35:42"
+      },
+      {
+        "name": "2.0.1",
+        "downloads": 3,
+        "created": "2026-08-07T19:09:41"
+      },
+      {
+        "name": "2",
+        "downloads": 9,
+        "created": "2026-06-11T21:58:24"
+      },
       {
         "name": "1.1",
         "downloads": 2,
@@ -6245,7 +6380,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/pzmod:VfvL2mVL-7VUyixlV.jpeg"
     },
     "stats": {
-      "panels": 0
+      "panels": 3
     },
     "created": "2026-01-25T10:30:23.685488Z"
   },
@@ -6277,7 +6412,7 @@
     "versions": [
       {
         "name": "1.0.1",
-        "downloads": 5,
+        "downloads": 9,
         "created": "2026-02-10T06:06:19"
       },
       {
@@ -6292,7 +6427,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/passkey:SAQGVrRL-GxzkR8Oj.jpeg"
     },
     "stats": {
-      "panels": 2
+      "panels": 3
     },
     "created": "2026-02-09T20:39:49.635920Z"
   },
@@ -6331,7 +6466,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 9,
+        "downloads": 21,
         "created": "2026-04-14T12:24:41"
       },
       {
@@ -6390,7 +6525,7 @@
     "versions": [
       {
         "name": "1.2",
-        "downloads": 4,
+        "downloads": 9,
         "created": "2026-04-14T12:26:06"
       },
       {
@@ -6410,7 +6545,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/hytaleprefabmanager:SMFz8oP0-6e3LJZtV.jpeg"
     },
     "stats": {
-      "panels": 3
+      "panels": 4
     },
     "created": "2026-02-14T17:34:24.731828Z"
   },
@@ -6441,69 +6576,64 @@
     },
     "versions": [
       {
-        "name": "3.5",
-        "downloads": 34,
-        "created": "2026-04-30T20:53:24"
+        "name": "a1.23.3",
+        "downloads": 10,
+        "created": "2026-08-26T23:27:31"
       },
       {
-        "name": "2026-23-3-v3",
-        "downloads": 55,
-        "created": "2026-03-23T14:29:26"
-      },
-      {
-        "name": "3.3.0",
-        "downloads": 30,
-        "created": "2026-02-24T15:37:24"
-      },
-      {
-        "name": "3.2",
-        "downloads": 2,
-        "created": "2026-02-23T16:31:49"
-      },
-      {
-        "name": "3.1.5",
+        "name": "a1.23.2",
         "downloads": 15,
-        "created": "2026-02-17T18:21:33"
+        "created": "2026-08-14T19:42:43"
       },
       {
-        "name": "3.1.0",
-        "downloads": 9,
-        "created": "2026-02-15T21:26:04"
+        "name": "a1.23.1",
+        "downloads": 36,
+        "created": "2026-08-03T19:31:36"
       },
       {
-        "name": "3.1.0.1",
-        "downloads": 3,
-        "created": "2026-02-15T20:20:18"
-      },
-      {
-        "name": "3.1.0",
-        "downloads": 3,
-        "created": "2026-02-14T22:27:16"
-      },
-      {
-        "name": "3.0.0",
-        "downloads": 3,
-        "created": "2026-02-07T20:07:43"
-      },
-      {
-        "name": "2.6.1",
-        "downloads": 2,
-        "created": "2026-01-28T12:53:35"
-      },
-      {
-        "name": "2.6",
+        "name": "a1.23.0",
         "downloads": 0,
-        "created": "2026-01-27T22:32:22"
+        "created": "2026-08-03T18:40:22"
       },
       {
-        "name": "2.5.5",
-        "downloads": 8,
-        "created": "2026-01-17T12:03:47"
+        "name": "a1.22.0",
+        "downloads": 11,
+        "created": "2026-07-25T15:53:42"
       },
       {
-        "name": "2.5.0",
+        "name": "a1.20.1",
+        "downloads": 17,
+        "created": "2026-07-13T12:20:50"
+      },
+      {
+        "name": "a1.20.0",
         "downloads": 3,
-        "created": "2026-01-11T22:35:33"
+        "created": "2026-07-11T16:08:33"
+      },
+      {
+        "name": "a.1.20.0",
+        "downloads": 2,
+        "created": "2026-07-11T15:48:10"
+      },
+      {
+        "name": "a1.18.0",
+        "downloads": 7,
+        "created": "2026-07-08T13:17:36"
+      },
+      {
+        "name": "a1.17.8",
+        "downloads": 4,
+        "created": "2026-07-05T22:50:56"
+      },
+      {
+        "name": "a1.17.7",
+        "downloads": 4,
+        "created": "2026-06-29T12:43:32"
+      },
+      {
+        "name": "a1.17.6",
+        "downloads": 0,
+        "created": "2026-06-28T20:56:35"
       }
     ],
     "keywords": [],
@@ -6512,7 +6642,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/betterfilesmanager:jbU3X15A-INVabjRS.jpeg"
     },
     "stats": {
-      "panels": 28
+      "panels": 49
     },
     "created": "2026-02-14T20:37:44.425163Z"
   },
@@ -6544,7 +6674,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 101,
+        "downloads": 163,
         "created": "2026-02-18T09:10:33"
       }
     ],
@@ -6554,7 +6684,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/paneladdressoverride:w0xFFsWA-nvcbAIgc.jpeg"
     },
     "stats": {
-      "panels": 25
+      "panels": 23
     },
     "created": "2026-02-18T08:24:29.710576Z"
   },
@@ -6591,22 +6721,22 @@
       },
       {
         "name": "2.0.0",
-        "downloads": 1,
+        "downloads": 0,
         "created": "2026-03-06T20:20:16"
       },
       {
         "name": "1.0.2",
-        "downloads": 2,
+        "downloads": 0,
         "created": "2026-02-18T13:06:20"
       },
       {
         "name": "1.0.1",
-        "downloads": 3,
+        "downloads": 0,
         "created": "2026-02-12T19:50:12"
       },
       {
         "name": "1.0",
-        "downloads": 24,
+        "downloads": 0,
         "created": "2024-12-11T23:54:17"
       }
     ],
@@ -6616,7 +6746,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/shootingstars:G2nLxBI6-TEwDT8Rt.jpeg"
     },
     "stats": {
-      "panels": 1
+      "panels": 3
     },
     "created": "2026-02-18T21:46:51.238928Z"
   },
@@ -6632,17 +6762,17 @@
       "created": "2026-03-03T12:01:58.587766Z"
     },
     "type": "extension",
-    "name": "Discord OAuth",
+    "name": "MultiAuth - Pterodactyl SSO & Passkeys",
     "identifier": "discordauth",
     "summary": "Guild access, trusted devices, 2FA checks, GeoIP, admin logs, and future providers",
     "description": "DiscordAuth 2.0.0 turns Discord login for Pterodactyl into a full authentication addon with OAuth login, account linking, trusted devices, login verification, guild and role restrictions, Discord notifications, offline GeoIP/ASN details, localization, and a rebuilt admin panel\n\nUsers can log in or link their account with Discord while your panel keeps the normal Pterodactyl login flow available\n\n## Built for More Than Discord\nThis release lays the foundation for more authentication providers in the future.\n\nPlanned providers include Google, GitHub, Steam, Telegram, and more. Each provider may get its own verification rules, notification options, trusted-session logic, and admin controls, so server owners can shape the login flow around their community instead of being locked into one method\n\nDiscordAuth 2.0.0 starts with Discord, but the long-term goal is a flexible authentication hub for Pterodactyl\n\n# Discord Login & Account Linking\n- Login with Discord OAuth\n- Link or unlink Discord from the account page\n- Existing users must explicitly link Discord instead of being silently matched by email\n- New registrations require a verified Discord email\n- Traditional panel login can stay available\n\n## Login Verification\n- Require password verification\n- Require panel 2FA verification\n- Require password + 2FA\n- Let users choose password or 2FA when available\n- Verification can be required always, never, or only for untrusted sessions\n- Supports panel 2FA recovery codes\n\n##Trusted Devices & Locations\n- Trusted-device support for smoother repeat logins\n- Approve or deny new login attempts from an existing trusted session\n- Users can manage and revoke trusted devices from the account page\n- Trusted-location details can show city, region, country, provider, network type, and ASN when available\n- Local/offline GeoIP support, no external GeoIP lookup needed during login\n\n## Discord Guild & Role Access\n- Restrict login/registration to members of selected Discord servers\n- Require specific Discord roles\n- Access checks run during login and while users continue using the panel\n- Incomplete bot configuration fails closed instead of silently allowing access\n\n## Automation\n- Auto-join users to your Discord server after successful auth\n- Auto-assign Discord roles after successful auth\n- Discord permissions are requested only when needed for configured features\n\n## Admin Panel\n- Rebuilt DiscordAuth admin UI\n- Discord server picker\n- Role picker with role colors and assignability checks\n- Grouped channel picker for notification channels\n- Bot diagnostics and guild restriction health checks\n- Local DiscordAuth event logs with filters, pagination, avatars, details, and auto-refresh\n- GeoIP database status and refresh controls\n- Safer secret replacement flow for client secret and bot token\n\n## Localization\nAdmin and user-facing translations included for:\n- English\n- Russian\n- Ukrainian\n- German\n- Turkish\n- Italian\n- French\n\n## Security\n- Discord OAuth tokens and addon credentials are encrypted at rest\n- Client secret and bot token are hidden after saving\n- OAuth state records are stored safely and consumed after use\n- No automatic email-based linking to existing panel accounts\n- New registrations require a verified Discord email\n- Open redirect protection for post-login redirects\n- Rate limiting on important public auth routes\n- Admin actions require admin authentication, CSRF protection, and safe request handling\n- Sensitive values are redacted from local admin logs\n\n## FAQ\nQ: Does this replace the default Pterodactyl login?\n\nA: No. The normal Pterodactyl login remains available unless you configure your panel/login page differently\n\nQ: Can I restrict access to only my Discord server?\n\nA: Yes. You can require users to be members of selected Discord servers, and optionally require specific roles\n\nQ: What happens if the bot is not configured correctly?\n\nA: If guild restrictions are enabled, DiscordAuth fails closed and blocks login until the bot configuration is fixed\n\nQ: Can users unlink Discord?\n\nA: Yes. Linked users can manage and unlink Discord from their account page\n\nQ: Does DiscordAuth store Discord tokens?\n\nA: Yes, when needed for account linking and Discord actions. Tokens are encrypted at rest\n\nQ: Does it support multiple languages?\n\nA: Yes. DiscordAuth includes English, Russian, Ukrainian, German, Turkish, Italian, and French translations\nScreenshots\n\n**These screenshots are from an earlier demo build. Updated DiscordAuth 2.0.0 screenshots will be added soon**\n![](https://s3.blueprint.zip/extensions/images/222/PUWSg4VL.webp)\n![](https://s3.blueprint.zip/extensions/images/222/f1q1lS14.webp)\n\n![](https://s3.blueprint.zip/extensions/images/222/6qsmMxJT.webp)\n![](https://s3.blueprint.zip/extensions/images/222/UN7xj4Kv.webp)",
     "platforms": {
       "BUILTBYBIT": {
-        "url": "https://builtbybit.com/resources/discord-auth-secure-oauth-login.94406",
-        "price": 9.9,
+        "url": "https://builtbybit.com/resources/multiauth-pterodactyl-sso-passkeys.94406",
+        "price": 15,
         "currency": "USD",
-        "reviews": 0,
-        "rating": 0
+        "reviews": 2,
+        "rating": 5
       },
       "SOURCEXCHANGE": {
         "url": "https://www.sourcexchange.net/products/discordauth",
@@ -6654,28 +6784,43 @@
     },
     "versions": [
       {
-        "name": "2",
+        "name": "2.2.1",
         "downloads": 0,
-        "created": "2026-04-25T12:08:41"
+        "created": "2026-07-30T17:14:18"
       },
       {
-        "name": "1.0.1",
+        "name": "2.2",
         "downloads": 0,
-        "created": "2026-02-20T14:52:37"
+        "created": "2026-07-07T10:17:49"
+      },
+      {
+        "name": "2.1",
+        "downloads": 0,
+        "created": "2026-04-30T18:14:40"
+      },
+      {
+        "name": "2.0",
+        "downloads": 0,
+        "created": "2026-04-25T11:24:00"
+      },
+      {
+        "name": "1.1",
+        "downloads": 0,
+        "created": "2026-02-20T08:04:31"
       },
       {
         "name": "1.0",
         "downloads": 3,
-        "created": "2026-02-16T20:45:49"
+        "created": "2026-02-17T07:21:39"
       }
     ],
     "keywords": [],
     "banner": {
-      "lowres": "https://s3.blueprint.zip/extensions/lowres/discordauth:VhOnwIhW-KyFzqW6P.jpeg",
-      "fullres": "https://s3.blueprint.zip/extensions/discordauth:VhOnwIhW-KyFzqW6P.jpeg"
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/discordauth-bxbAXUbl.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/discordauth-bxbAXUbl.jpeg"
     },
     "stats": {
-      "panels": 3
+      "panels": 5
     },
     "created": "2026-03-03T12:03:40.972437Z"
   },
@@ -6713,9 +6858,14 @@
     },
     "versions": [
       {
-        "name": "1.0.0",
-        "downloads": 2,
-        "created": "2026-03-03T19:28:13"
+        "name": "1.1.0",
+        "downloads": 3,
+        "created": "2026-07-03T13:29:04"
+      },
+      {
+        "name": "1.0",
+        "downloads": 0,
+        "created": "2026-03-03T18:41:28"
       }
     ],
     "keywords": [],
@@ -6724,7 +6874,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/vikingsso:TWjUcPUQ-kShUb9Fj.jpeg"
     },
     "stats": {
-      "panels": 1
+      "panels": 5
     },
     "created": "2026-03-03T12:32:44.425023Z"
   },
@@ -6749,7 +6899,7 @@
         "url": "https://builtbybit.com/resources/mc-modpacks-installer-for-blueprint.98478",
         "price": 16.99,
         "currency": "USD",
-        "reviews": 1,
+        "reviews": 2,
         "rating": 5
       },
       "SOURCEXCHANGE": {
@@ -6763,7 +6913,7 @@
     "versions": [
       {
         "name": "1.0",
-        "downloads": 11,
+        "downloads": 19,
         "created": "2026-03-14T15:08:26"
       }
     ],
@@ -6773,7 +6923,7 @@
       "fullres": "https://s3.blueprint.zip/extensions/mcmodpacks:Grubnu11-ZsiZwuto.jpeg"
     },
     "stats": {
-      "panels": 16
+      "panels": 33
     },
     "created": "2026-03-15T01:35:57.892591Z"
   },
@@ -6804,6 +6954,11 @@
     },
     "versions": [
       {
+        "name": "1.0.3",
+        "downloads": 0,
+        "created": "2026-06-07T19:12:18"
+      },
+      {
         "name": "1.0.2",
         "downloads": 0,
         "created": "2026-04-11T16:43:19"
@@ -6825,12 +6980,237 @@
       "fullres": "https://s3.blueprint.zip/extensions/trashbin:70gMNMez-qIxGAR01.jpeg"
     },
     "stats": {
-      "panels": 2
+      "panels": 12
     },
     "created": "2026-03-18T16:09:58.335568Z"
   },
   {
-    "id": 266,
+    "id": 272,
+    "author": {
+      "id": 79,
+      "name": "subeditor",
+      "pronouns": "he/him",
+      "support": "https://discord.gg/wmctpwXXUD",
+      "admin": false,
+      "suspended": false,
+      "created": "2025-11-01T13:21:56.207985Z"
+    },
+    "type": "extension",
+    "name": "GitClone",
+    "identifier": "gitclone",
+    "summary": "Clone any public or private Git repository directly into your server through the File Manager. No console, no SSH, works on any egg, works while the server is offline",
+    "description": "# GitClone Pterodactyl Addon\n\nClone any public or private Git repository directly into your server through the File Manager. No console, no SSH, works on any egg, works while the server is offline.\n\nA demo panel is available on the https://discord.gg/9p2DzzexSJ  join and ask for a demo.\n- Clone any public or private GitHub/GitLab repository\n- Automatically fetches releases and branches latest release pre-selected\n- Private repo support via access token (never stored)\n- Clone into any directory on your server\n- Optionally wipe target directory before cloning\n- Works on all eggs, works while the server is offline\n\nIf you need support, join the Discord: https://discord.gg/9p2DzzexSJ",
+    "platforms": {
+      "BUILTBYBIT": {
+        "url": "https://builtbybit.com/resources/gitclone-pterodactyl-for-blueprint.105671",
+        "price": 0,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": 0
+      }
+    },
+    "versions": [
+      {
+        "name": "1.0",
+        "downloads": 0,
+        "created": "2026-04-28T16:16:17"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/gitclone:u7Oexwhp-JkfBUl4M.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/gitclone:u7Oexwhp-JkfBUl4M.jpeg"
+    },
+    "stats": {
+      "panels": 21
+    },
+    "created": "2026-04-29T08:35:49.974525Z"
+  },
+  {
+    "id": 284,
+    "author": {
+      "id": 1024,
+      "name": "extm_exe",
+      "pronouns": null,
+      "support": null,
+      "admin": false,
+      "suspended": false,
+      "created": "2026-05-19T18:39:52.588111Z"
+    },
+    "type": "extension",
+    "name": "Console Chips",
+    "identifier": "consolchips",
+    "summary": "Compact command chips directly under the Pterodactyl console input with per-server local storage.",
+    "description": "# Console Chips\n\nAdd compact quick-command chips directly under the Pterodactyl console input.\n\nDesigned for administrators who frequently execute the same console commands.\n\n## Features\n\n- Quick command chips under console input\n- Add custom chip names and commands\n- One-click command execution\n- Delete saved chips instantly\n- Copy all saved commands with one click\n- Per-server saved commands\n- Local browser storage\n- Lightweight and fast\n- No database usage\n- No core file modifications\n- Compact native UI style\n- Automatic English and Russian translations\n- Blueprint compatible\n\n## Usage\n\n1. Open any server console\n2. Click `+ Add`\n3. Enter:\n   - chip name\n   - command\n4. Save and use instantly\n\n## Managing Chips\n\n- Click a chip to instantly send its command\n- Click the `×` icon on a chip to delete it\n- Click `Copy` to copy all saved commands for the current server\n- Chips are automatically saved per-server in browser localStorage\n\nDeleting a chip removes it instantly from local storage.\n\n## Reset / Remove Saved Chips\n\nSaved commands are stored in your browser localStorage.\n\nTo fully remove all saved chips:\n\n1. Press `F12`\n2. Open the `Console` tab\n3. Execute:\n\n```js\nObject.keys(localStorage)\n.filter(k => k.startsWith('consolechips'))\n.forEach(k => localStorage.removeItem(k))\n```\n\n4. Refresh the page\n\nThis removes all saved Console Chips data from the browser.\n\n## Languages\n\nConsole Chips automatically detects the panel language and switches UI labels between:\n\n- English\n- Russian\n\n## Installation\n\n```bash\nblueprint -install consolechips.blueprint\n```\n\n```bash\ncd /var/www/pterodactyl\nphp artisan view:clear && php artisan cache:clear\n```\n\n## Compatibility\n\n- Blueprint Framework\n- Pterodactyl Panel\n- All server types\n\n## Author\n\nextm.exe  \nDiscord: extm.exe",
+    "platforms": {
+      "BUILTBYBIT": {
+        "url": "https://builtbybit.com/resources/console-chips.108624",
+        "price": 7,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": 0
+      }
+    },
+    "versions": [
+      {
+        "name": "1.0",
+        "downloads": 0,
+        "created": "2026-05-19T18:58:38"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/consolchips:fw8sfilK-gKNCbBDB.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/consolchips:fw8sfilK-gKNCbBDB.jpeg"
+    },
+    "stats": {
+      "panels": 0
+    },
+    "created": "2026-05-19T18:41:15.879621Z"
+  },
+  {
+    "id": 304,
+    "author": {
+      "id": 1070,
+      "name": "g_fly",
+      "pronouns": null,
+      "support": null,
+      "admin": false,
+      "suspended": false,
+      "created": "2026-05-27T19:54:39.352041Z"
+    },
+    "type": "extension",
+    "name": "IdeFileManager",
+    "identifier": "idefilemanager",
+    "summary": "An extention to enhance file management.",
+    "description": "## Features:\n- Multiple theme\n- switch from file editor\n\n## Possible features:\n- Adding a connection/synchronization with GitHub (on both sides, optional)\n- Use of AI directly in Pterodactyl via a window, compatibility with API keys or local models\n\n### Disclaimer ! \nThe extension contains many bugs, some of which I will fix, but if you find a bug, feel free to ping me on the Blueprint Discord ([.g_fly.](https://discordapp.com/users/1154074416230178976))\n\n![](https://s3.blueprint.zip/extensions/images/304/v3b9OO95.webp)\n::card\nCredit: Blueprint, Antigravity and ^^\n::",
+    "platforms": {
+      "GITHUB": {
+        "url": "https://github.com/g-flyMC/IdleFileManager",
+        "price": 0,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": null
+      }
+    },
+    "versions": [
+      {
+        "name": "latest 1.20",
+        "downloads": 0,
+        "created": "2026-06-13T22:04:41"
+      },
+      {
+        "name": "beta-1.10",
+        "downloads": 0,
+        "created": "2026-05-31T15:39:33"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/idefilemanager:kqshb0p2-m9WdYNjJ.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/idefilemanager:kqshb0p2-m9WdYNjJ.jpeg"
+    },
+    "stats": {
+      "panels": 21
+    },
+    "created": "2026-05-27T19:58:43.353982Z"
+  },
+  {
+    "id": 322,
+    "author": {
+      "id": 1152,
+      "name": "iamsir",
+      "pronouns": null,
+      "support": "https://discord.gg/b7NuMVUt4x",
+      "admin": false,
+      "suspended": false,
+      "created": "2026-06-09T05:50:26.732253Z"
+    },
+    "type": "extension",
+    "name": "Minecraft Datapack Installer",
+    "identifier": "datapacksaddon",
+    "summary": "Browse, install, and manage thousands of datapacks straight from your panel.",
+    "description": "### Description\nAn addon which allows you to browse, install and manage thousands of datapacks straight from your panel. It supports:\n- CurseForge\n- Modrinth\n- VanillaTweaks\n\n### Features\n- ⬇️ **One-click install thousands of datapacks**, placed straight into your world's datapacks folder for you.\n- 🧩 **Smart version handling** where it automatically detects your server's Minecraft version, highlights compatible versions, and lets you pick any version from a project's full release history.\n- 🌐 **Powerful browsing**. Live search, multi-select category filters, version filters, and sorting by Popular, Relevance, Follows, Recently updates, or Newest.\n- 💡 **Rich project details**. Read full descriptions, screenshots, changelogs, supported game versions.\n- 📦 **Integrated datapack manager**. See everything you've installed in one place, update a single datapack or hit \"Update All\" when newer versions drop.\n- 🆕 **Update alerts** where installed datapacks are automatically flagged when a newer version is available.\n- ⚙️ **Admin-configurable**. Nothing is hard-coded to files or the host.\n\nIf you run into any problems or have questions regarding the resource, join our support Discord server: https://discord.gg/b7NuMVUt4x",
+    "platforms": {
+      "BUILTBYBIT": {
+        "url": "https://builtbybit.com/resources/minecraft-datapack-installer.111865",
+        "price": 14.99,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": 0
+      }
+    },
+    "versions": [
+      {
+        "name": "1.3.1",
+        "downloads": 0,
+        "created": "2026-07-30T09:43:13"
+      },
+      {
+        "name": "1.2.2",
+        "downloads": 0,
+        "created": "2026-06-09T17:58:43"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/datapacksaddon:2WMBZRky-fqbtTG59.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/datapacksaddon:2WMBZRky-fqbtTG59.jpeg"
+    },
+    "stats": {
+      "panels": 1
+    },
+    "created": "2026-06-09T17:14:26.889800Z"
+  },
+  {
+    "id": 324,
+    "author": {
+      "id": 1152,
+      "name": "iamsir",
+      "pronouns": null,
+      "support": "https://discord.gg/b7NuMVUt4x",
+      "admin": false,
+      "suspended": false,
+      "created": "2026-06-09T05:50:26.732253Z"
+    },
+    "type": "extension",
+    "name": "Minecraft Plugin Installer",
+    "identifier": "pluginsaddon",
+    "summary": "Browse, install, and manage thousands of plugins straight from your panel.",
+    "description": "### Description\nAn addon which allows you to browse, install and manage thousands of plugins straight from your panel. It supports:\n- CurseForge\n- Modrinth\n- SpigotMC\n- Hangar\n\n### Features\n- ⬇️ **One-click install**. Plugins are downloaded straight into your plugins folder.\n- 📦 **Four sources in one place**. Modrinth, Hangar, SpigotMC, and CurseForge.\n- 🧩 **Platform & Version detection** which automatically detects your server (Paper, Purpur, Spigot, Bukkit, Folia, or a proxy) and the version.\n- 🔎 **Powerful browsing**. Live search, version filtering and sorting.\n- 💡 **Rich plugin details**. Descriptions, screenshots, changelogs, supported versions, all in one place.\n- 🧩 **Integrated plugin manager**. See everything you've installed in one place, update a single plugin or update all when new versions are available.\n- 🆕 **Update alerts**. Installed plugins are automatically flagged when a newer version is available.\n- 💡 **Compatibility detector**. Warns if your server type cannot actually run plugins (e.g., vanilla or a modded server).\n- ⚙️ **Admin-configurable** where you can enable or disable any source from the admin panel. Nothing is tied to the files or the host.\n\nIf you run into any problems or have questions regarding the resource, join our support Discord server: https://discord.gg/b7NuMVUt4x",
+    "platforms": {
+      "BUILTBYBIT": {
+        "url": "https://builtbybit.com/resources/minecraft-plugin-installer.111887",
+        "price": 14.99,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": 0
+      }
+    },
+    "versions": [
+      {
+        "name": "1.2.1",
+        "downloads": 0,
+        "created": "2026-07-30T14:07:05"
+      },
+      {
+        "name": "1.1.0",
+        "downloads": 0,
+        "created": "2026-06-09T19:45:02"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/pluginsaddon:K3T9OgHA-3BM6RI5P.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/pluginsaddon:K3T9OgHA-3BM6RI5P.jpeg"
+    },
+    "stats": {
+      "panels": 1
+    },
+    "created": "2026-06-09T20:02:25.012215Z"
+  },
+  {
+    "id": 325,
     "author": {
       "id": 206,
       "name": "opti",
@@ -6841,13 +7221,20 @@
       "created": "2025-11-26T16:09:32.111258Z"
     },
     "type": "theme",
-    "name": "M3Dactyl",
-    "identifier": "mthreedactyl",
-    "summary": "Material Design 3 for Pterodactyl",
-    "description": "![This project is in beta and should not be used in a production ready environment.](https://cdn.chlorid.org/warning.png)\n![Welcome to the new era banner with the screenshot of the panel shown slightly covering the text.](https://cdn.chlorid.org/banner.jpg)\n![Features you'd like. Same consistant design you know and love; No bloatware; Free and Open-source](https://cdn.chlorid.org/p1.jpg)\n![Thats all; Made with love by Optimi(A. M.); Copyright NaChlorid 2024-2026](https://cdn.chlorid.org/p2.png)",
+    "name": "Chlorid(aka. Phosphor)",
+    "identifier": "phosphor",
+    "summary": "Chlorid is a modern Pterodactyl theme",
+    "description": "![Introducing Phosphor](https://github.com/user-attachments/assets/29ed6dc5-4b6b-4b8f-847a-75fa8ca50d9d)\n![Features youd love; Background Changer - Sometimes, you need something different. Like for example, a new background; Same consistent design; More coming soon...](https://github.com/user-attachments/assets/4b10fd4b-dd3b-43c5-9d72-0d8d106b6848)\n![Introducing - Background changer; You hate our default theme? Then change it in one click; Remember, you have unlimited possibilities; (C) NaChlorid Studios 2022-2026. This project is licensed under MIT](https://github.com/user-attachments/assets/b2dd3daa-45c4-4260-99d6-b31dc682fb61)\n",
     "platforms": {
+      "SOURCEXCHANGE": {
+        "url": "https://www.sourcexchange.net/products/phosphor",
+        "price": 0,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": null
+      },
       "GITHUB": {
-        "url": "https://github.com/nachlorid/m3dactyl",
+        "url": "https://github.com/NaChlorid/phosphor",
         "price": 0,
         "currency": "USD",
         "reviews": 0,
@@ -6856,19 +7243,329 @@
     },
     "versions": [
       {
-        "name": "first release",
-        "downloads": 70,
-        "created": "2026-04-19T17:33:08"
+        "name": "0.1",
+        "downloads": 63,
+        "created": "2026-06-13T11:43:08"
       }
     ],
     "keywords": [],
     "banner": {
-      "lowres": "https://s3.blueprint.zip/extensions/lowres/mthreedactyl:gSXPLAPo-YczVlXPZ.jpeg",
-      "fullres": "https://s3.blueprint.zip/extensions/mthreedactyl:gSXPLAPo-YczVlXPZ.jpeg"
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/phosphor:Htzt7XST-M2f43ac3.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/phosphor:Htzt7XST-M2f43ac3.jpeg"
     },
     "stats": {
       "panels": 10
     },
-    "created": "2026-04-19T15:36:09.658667Z"
+    "created": "2026-06-10T08:21:00.248516Z"
+  },
+  {
+    "id": 340,
+    "author": {
+      "id": 48,
+      "name": "Flame",
+      "pronouns": "he/him",
+      "support": "https://discord.gg/fxPUE9VcYW",
+      "admin": false,
+      "suspended": false,
+      "created": "2025-10-31T16:28:04.355434Z"
+    },
+    "type": "theme",
+    "name": "Restyle",
+    "identifier": "restyle",
+    "summary": "Give your panel a fresh new look. Choose from built-in palettes or create your own.",
+    "description": "![New look, Familiar Layout](https://s3.blueprint.zip/extensions/images/340/5ZT2RjBp.webp)\n\n![Create your own palettes](https://s3.blueprint.zip/extensions/images/340/VoG5krn9.webp)\n\n![Includes both client and admin theme](https://s3.blueprint.zip/extensions/images/340/KB6poEGF.webp)\n\n![Designed with consistency in mind](https://s3.blueprint.zip/extensions/images/340/ZSJy7ugj.webp)\n\n![Endless Possibilities](https://s3.blueprint.zip/extensions/images/340/eY5ARqwE.webp)\n",
+    "platforms": {
+      "BUILTBYBIT": {
+        "url": "https://builtbybit.com/resources/restyle.123738",
+        "price": 0,
+        "currency": "USD",
+        "reviews": null,
+        "rating": null
+      }
+    },
+    "versions": [],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/restyle-YGZzk9Cs.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/restyle-YGZzk9Cs.jpeg"
+    },
+    "stats": {
+      "panels": 0
+    },
+    "created": "2026-06-30T08:31:14.804386Z"
+  },
+  {
+    "id": 342,
+    "author": {
+      "id": 1236,
+      "name": "chichikugel",
+      "pronouns": null,
+      "support": "https://discord.com/users/688328354394275935",
+      "admin": false,
+      "suspended": false,
+      "created": "2026-06-28T06:34:15.711866Z"
+    },
+    "type": "extension",
+    "name": "Player Management",
+    "identifier": "playermanagement",
+    "summary": "Manage Minecraft players in real-time",
+    "description": "# Player Mangement\nManage your Minecraft players in real time — kick, ban, whitelist, teleport, and inspect every player without ever opening the console.\n\nThis extension connects live to your Minecraft server via RCON and gives you a full player management dashboard directly inside your Pterodactyl panel.\n\n---\n\n## Features\n\n- **Live player list** — see who's online in real time\n- **Moderation** — kick, ban, ban-IP, pardon, with a full history log (who did what, when, and why)\n- **Whitelist & OP management** — add/remove players and grant/revoke operator status in one click\n- **Player profiles** — live health, food, XP, position, dimension, and Minecraft skin render\n- **Statistics** — playtime, deaths, kills, KDR, distance traveled, mobs killed, items used/picked up/crafted, blocks mined — with in-game item icons\n- **Inventory viewer** — full inventory, armor and off-hand, including enchantment tooltips\n- **Server-wide tools** — broadcast messages, kick everyone at once\n- **Player Count widget** right on the Console page\n\nAll data is queried live from your server — no external database, no stale numbers.\n\nWorks with Vanilla, Paper, Spigot, Fabric, and Forge — anything with RCON enabled.\n\n---\n\n## Support\n\nFound a bug or need help?\n\n- Add me on Discord: ChichiKugel\n\n---\n*Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.*\n",
+    "platforms": {
+      "SOURCEXCHANGE": {
+        "url": "https://www.sourcexchange.net/products/player-management",
+        "price": 0,
+        "currency": "USD",
+        "reviews": null,
+        "rating": null
+      }
+    },
+    "versions": [],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/playermanagement:0vwSq03k-RXaSsEav.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/playermanagement:0vwSq03k-RXaSsEav.jpeg"
+    },
+    "stats": {
+      "panels": 4
+    },
+    "created": "2026-07-01T15:34:33.971520Z"
+  },
+  {
+    "id": 344,
+    "author": {
+      "id": 1254,
+      "name": "kronos_joga",
+      "pronouns": null,
+      "support": null,
+      "admin": false,
+      "suspended": false,
+      "created": "2026-07-04T00:30:19.565464Z"
+    },
+    "type": "extension",
+    "name": "Overview Plus",
+    "identifier": "overviewplus",
+    "summary": "Overview Plus - Enriches the Admin Overview screen with complete statistics and new quick panel shortcuts.",
+    "description": "# Overview Plus\n\nOverview Plus extends the Pterodactyl admin overview page with additional statistics, quick server creation shortcuts, and built-in language support.\n\n## Features\n\n### Admin Overview\n\n* Displays global statistics for active and suspended servers.\n* Shows total allocated RAM, disk space, and registered users.\n* Displays information about nodes, allocations, databases, nests, and eggs.\n* Lists API keys with their identifier and last usage date.\n* Shows the latest 5 created servers with their owner, node, and creation date.\n\n### Server Creation Shortcuts\n\n* Quick buttons to fill hardware limits such as RAM, swap, and disk space when creating a new server.\n* Automatic server name prefix configurable from the panel settings.\n\n### Language Support\n\n* Built-in English and Brazilian Portuguese translations.\n* Switch between languages directly from the panel settings without reinstalling the addon.\n\n## Information\n\n* **Author:** Kronos_Joga\n* **Version:** 1.0.0\n* **Framework:** Blueprint Framework\n\n## Installation\n\n1. Upload `overviewplus.blueprint` to the root directory of your Pterodactyl installation.\n2. Install the addon using Blueprint:\n\n```bash\nblueprint -install overviewplus\n```\n\n3. The addon will be available after the installation is complete.\n\n## Credits\n\nDeveloped and maintained by Kronos_Joga.\n",
+    "platforms": {
+      "SOURCEXCHANGE": {
+        "url": "https://www.sourcexchange.net/products/overview-plus",
+        "price": 1,
+        "currency": "USD",
+        "reviews": 1,
+        "rating": 5
+      }
+    },
+    "versions": [
+      {
+        "name": "2",
+        "downloads": 0,
+        "created": "2026-08-08T23:55:55"
+      },
+      {
+        "name": "1",
+        "downloads": 0,
+        "created": "2026-07-04T01:38:30"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/overviewplus:qs4MT3Ru-DRzEdrdO.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/overviewplus:qs4MT3Ru-DRzEdrdO.jpeg"
+    },
+    "stats": {
+      "panels": 3
+    },
+    "created": "2026-07-04T00:32:40.488396Z"
+  },
+  {
+    "id": 346,
+    "author": {
+      "id": 1272,
+      "name": "Florent",
+      "pronouns": null,
+      "support": null,
+      "admin": false,
+      "suspended": false,
+      "created": "2026-07-11T19:26:26.591974Z"
+    },
+    "type": "extension",
+    "name": "Server Bandwidth Limit",
+    "identifier": "bandwidthlimit",
+    "summary": "This plugin allows you to limit the network bandwidth of your servers.",
+    "description": "This addon lets you limit the network bandwidth used by your servers, helping you control traffic and keep performance stable. You can set separate limits for incoming and outgoing bandwidth. You can adjust the limits from each server’s build settings.\n\n\n\nCompatible Pterodactyl Versions (Tested):\n- v1.14.X\n\n\nCompatible Themes (Tested):\n- Default theme\n- Nebula\n- Slate",
+    "platforms": {
+      "SOURCEXCHANGE": {
+        "url": "https://www.sourcexchange.net/products/server-bandwidth-limit",
+        "price": 10,
+        "currency": "EUR",
+        "reviews": 0,
+        "rating": null
+      }
+    },
+    "versions": [
+      {
+        "name": "1.0",
+        "downloads": 3,
+        "created": "2026-07-11T19:08:39"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/bandwidthlimit:3XkAUGBq-0W7giT0X.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/bandwidthlimit:3XkAUGBq-0W7giT0X.jpeg"
+    },
+    "stats": {
+      "panels": 0
+    },
+    "created": "2026-07-11T19:27:23.969733Z"
+  },
+  {
+    "id": 349,
+    "author": {
+      "id": 1287,
+      "name": "PokeTri",
+      "pronouns": null,
+      "support": null,
+      "admin": false,
+      "suspended": false,
+      "created": "2026-07-16T20:04:30.738474Z"
+    },
+    "type": "extension",
+    "name": "Blueprint Discord Logger",
+    "identifier": "blueprintdiscordlogger",
+    "summary": "Mirror every Pterodactyl activity-log action to a Discord channel as clean embeds",
+    "description": "# Discord Logger — for Blueprint\n\nDiscord Logger turns your panel's built-in activity log into a live audit feed in Discord. Every login, power action, file change, backup, database operation, schedule, subuser edit and console command can be forwarded to a webhook as clean, colour-coded embeds — so you and your staff see what's happening across your servers without opening the panel. Each of the 73 supported events can be individually enabled or disabled from the admin page.\n\n## Why you'll want it\n\n- **Full coverage** — 73 activity events across 11 categories (full list below).\n- **Per-action toggles** — enable or disable every single event from the admin page.\n- **Colour-coded embeds** — each category has its own colour, and destructive or failed actions (deletes, kills, failed logins, reinstalls…) are automatically highlighted in **red**.\n- **Rich context** — every embed shows *who* did *what*, on *which server*, when — with an optional IP address.\n- **No core patches** — touches zero core panel files, so it survives panel updates. No bundled CSS means fast installs (no `yarn build`).\n- **Privacy-friendly** — IPs are opt-in, and the webhook URL is stored write-only. Master on/off switch and a \"Send test message\" button included.\n- **Rate-limit safe** — delivery is capped to stay under Discord's webhook limits; bursts are caught up over the following minutes.\n\n## Setup (under 2 minutes)\n\n1. Install with Blueprint: `blueprint -install discordlogger`\n2. Open **Admin → Extensions → Discord Logger**.\n3. Paste a **Discord webhook URL**.\n4. Tick **Enable logging**, choose which actions to forward, and **Save**.\n5. Hit **Send test message** to confirm it works.\n\n## Logged events\n\n- **Authentication:** Failed login, Successful login, Password reset, Requested a password reset, Two-factor checkpoint, Used a two-factor recovery token, Two-factor authentication, Blocked login from an unlisted IP, Failed SFTP login\n- **User account:** Created a new user, Changed account email, Changed account password, Created an API key, Deleted an API key, Added an SSH key, Removed an SSH key, Enabled two-factor authentication, Disabled two-factor authentication\n- **Power:** Started the server, Stopped the server, Restarted the server, Killed the server\n- **Backups:** Started a backup, Completed a backup, Backup failed, Downloaded a backup, Deleted a backup, Started restoring a backup, Completed a backup restore, Backup restore failed, Locked a backup, Unlocked a backup\n- **Databases:** Created a database, Rotated a database password, Deleted a database\n- **Files & SFTP:** Compressed files, Read a file, Copied a file, Created a directory, Decompressed an archive, Deleted files, Downloaded a file, Pulled a remote file, Renamed files, Wrote to a file, Started a file upload, Uploaded a file, SFTP action denied, Created files over SFTP, Modified files over SFTP, Deleted files over SFTP, Created a directory over SFTP, Renamed files over SFTP\n- **Network:** Added an allocation, Updated allocation notes, Set the primary allocation, Removed an allocation\n- **Schedules & tasks:** Created a schedule, Updated a schedule, Executed a schedule, Deleted a schedule, Created a task, Updated a task, Deleted a task\n- **Settings & startup:** Renamed the server, Changed the server description, Edited a startup variable, Changed the Docker image\n- **Subusers:** Added a subuser, Updated a subuser, Removed a subuser\n- **Server:** Reinstalled the server, Sent a console command",
+    "platforms": {
+      "SOURCEXCHANGE": {
+        "url": "https://www.sourcexchange.net/products/blueprint-discord-logger",
+        "price": 3.99,
+        "currency": "EUR",
+        "reviews": 1,
+        "rating": 5
+      }
+    },
+    "versions": [
+      {
+        "name": "1.0.1",
+        "downloads": 6,
+        "created": "2026-07-16T19:48:02"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/blueprintdiscordlogger:Z5nxbqIu-tLX20y6i.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/blueprintdiscordlogger:Z5nxbqIu-tLX20y6i.jpeg"
+    },
+    "stats": {
+      "panels": 0
+    },
+    "created": "2026-07-18T22:54:57.298510Z"
+  },
+  {
+    "id": 361,
+    "author": {
+      "id": 1033,
+      "name": "Vertex_UI",
+      "pronouns": null,
+      "support": null,
+      "admin": false,
+      "suspended": false,
+      "created": "2026-05-20T16:29:39.720839Z"
+    },
+    "type": "extension",
+    "name": "Admin Roles",
+    "identifier": "adminroles",
+    "summary": "Add custom staff roles and admin history to Pterodactyl.",
+    "description": "**Roles In Pterodactyl**\nAdding the option to give custom roles with custom permissions to users of your choice\n\n**Custom Staff Roles Suited For Your Needs**\nCreate fully custom admin roles for every member of your team. Instead of giving everyone the same level of access, you can tailor permissions around exactly what each person needs, keeping your panel cleaner, safer, and easier to manage.\n\n**Granular Permissions**\nSet detailed access rules for each role using flexible permission levels across important admin sections such as servers, users, nodes, databases, nests, locations, mounts, and more. Reducing the risk of accidental edits, and makes it much easier to trust staff with limited but useful access.\n\n**Admin Action History**\nKeep track of important staff activity with built-in admin write history that records key actions performed across the panel. This makes it easier to review who changed something, when it was changed, and what area of the panel was affected.",
+    "platforms": {
+      "BUILTBYBIT": {
+        "url": "https://builtbybit.com/resources/admin-roles.108728",
+        "price": 12.49,
+        "currency": "USD",
+        "reviews": 0,
+        "rating": 0
+      }
+    },
+    "versions": [
+      {
+        "name": "1.9.2",
+        "downloads": 3,
+        "created": "2026-08-24T17:51:07"
+      },
+      {
+        "name": "1.9.1",
+        "downloads": 2,
+        "created": "2026-08-14T21:21:55"
+      },
+      {
+        "name": "1.9",
+        "downloads": 4,
+        "created": "2026-08-03T16:18:57"
+      },
+      {
+        "name": "1.8",
+        "downloads": 0,
+        "created": "2026-07-31T13:05:07"
+      },
+      {
+        "name": "1.7",
+        "downloads": 0,
+        "created": "2026-07-28T09:13:50"
+      },
+      {
+        "name": "1.6",
+        "downloads": 1,
+        "created": "2026-07-10T15:08:20"
+      },
+      {
+        "name": "1.5",
+        "downloads": 1,
+        "created": "2026-07-09T16:45:12"
+      },
+      {
+        "name": "1.4",
+        "downloads": 1,
+        "created": "2026-07-06T17:20:00"
+      },
+      {
+        "name": "1.3",
+        "downloads": 1,
+        "created": "2026-07-03T06:24:09"
+      },
+      {
+        "name": "1.2",
+        "downloads": 0,
+        "created": "2026-06-20T14:37:40"
+      },
+      {
+        "name": "1.1.2",
+        "downloads": 0,
+        "created": "2026-06-03T20:31:14"
+      },
+      {
+        "name": "1.11",
+        "downloads": 0,
+        "created": "2026-05-24T20:39:59"
+      },
+      {
+        "name": "1.1",
+        "downloads": 0,
+        "created": "2026-05-24T11:37:18"
+      },
+      {
+        "name": "1.0",
+        "downloads": 2,
+        "created": "2026-05-20T17:58:33"
+      }
+    ],
+    "keywords": [],
+    "banner": {
+      "lowres": "https://s3.blueprint.zip/extensions/lowres/adminroles:uFsdsoUJ-Btu2NM65.jpeg",
+      "fullres": "https://s3.blueprint.zip/extensions/adminroles:uFsdsoUJ-Btu2NM65.jpeg"
+    },
+    "stats": {
+      "panels": 2
+    },
+    "created": "2026-08-03T14:12:27.591805Z"
   }
 ]
