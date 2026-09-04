@@ -1,0 +1,62 @@
+{
+  "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2026-09-04T17:15:36+02:00",
+  "name": "EuphoriaDevelopment API",
+  "author": "repgraphics@euphoriadevelopment.uk",
+  "description": "Runs the Euphoria backend API (Fastify).",
+  "features": [],
+  "docker_images": {
+    "Nodejs 24": "ghcr.io\/pterodactyl\/yolks:nodejs_24"
+  },
+  "file_denylist": [],
+  "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == \"1\" ]]; then git pull; fi; if [ -f \/home\/container\/package.json ]; then pnpm install && pnpm run build && pnpm start; fi;",
+  "config": {
+    "files": "{}",
+    "startup": "{\r\n    \"done\": [\r\n        \"Server listening at\",\r\n        \"API Running\"\r\n    ]\r\n}",
+    "logs": "{}",
+    "stop": "^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!\/bin\/bash\r\nset -e\r\n\r\necho \"========================================\"\r\necho \" [1\/5] Installing required tools...\"\r\necho \"========================================\"\r\n\r\napt update\r\napt install -y git\r\nnpm install -g pnpm@latest\r\n\r\necho \"========================================\"\r\necho \" [2\/5] Preparing server directory...\"\r\necho \"========================================\"\r\n\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\necho \"========================================\"\r\necho \" [3\/5] Downloading server files...\"\r\necho \"========================================\"\r\n\r\nif [ -d .git ]; then\r\n  ORIGIN=\"$(git config --get remote.origin.url || true)\"\r\n\r\n  if [ \"$ORIGIN\" = \"$GIT_ADDRESS\" ]; then\r\n    echo \"Pulling latest changes...\"\r\n    git pull\r\n  else\r\n    echo \"Existing Git repository uses a different remote; leaving files unchanged.\"\r\n  fi\r\nelif [ -z \"$(ls -A \/mnt\/server 2>\/dev\/null)\" ]; then\r\n  if [ -n \"$BRANCH\" ]; then\r\n    echo \"Cloning branch: $BRANCH\"\r\n    git clone --single-branch --branch \"$BRANCH\" \"$GIT_ADDRESS\" .\r\n  else\r\n    echo \"Cloning default branch...\"\r\n    git clone \"$GIT_ADDRESS\" .\r\n  fi\r\nelse\r\n  echo \"ERROR: \/mnt\/server is not empty and is not a Git repository.\"\r\n  exit 10\r\nfi\r\n\r\necho \"========================================\"\r\necho \" [4\/5] Creating environment file...\"\r\necho \"========================================\"\r\n\r\nif [ -f .env.example ] && [ ! -f .env ]; then\r\n  cp .env.example .env\r\n  echo \"Created .env from .env.example.\"\r\nelse\r\n  echo \"Keeping existing .env configuration.\"\r\nfi\r\n\r\necho \"========================================\"\r\necho \" [5\/5] Installing Node.js dependencies...\"\r\necho \"========================================\"\r\n\r\npnpm install\r\n\r\necho \"========================================\"\r\necho \" Installation complete.\"\r\necho \"========================================\"\r\n\r\nexit 0",
+      "container": "node:24-trixie-slim",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Git Repo Address",
+      "description": "GitHub Repo to clone\r\n\r\nDO NOT TOUCH IF YOU DONT KNOW WHAT YOUR DOING!",
+      "env_variable": "GIT_ADDRESS",
+      "default_value": "https:\/\/github.com\/EuphoriaTheme\/backend",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Install Branch",
+      "description": "The branch to install.\r\n\r\nDO NOT TOUCH IF YOU DONT KNOW WHAT YOUR DOING!",
+      "env_variable": "BRANCH",
+      "default_value": "main",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Auto Update",
+      "description": "Pull the latest files on startup when using a GitHub repo.",
+      "env_variable": "AUTO_UPDATE",
+      "default_value": "1",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|boolean",
+      "field_type": "text"
+    }
+  ]
+}
