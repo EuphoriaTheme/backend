@@ -14,13 +14,13 @@ export const GAMEQUERY_SOCKET_TIMEOUT_MS = parseEnvInt(
 );
 export const GAMEQUERY_ATTEMPT_TIMEOUT_MS = parseEnvInt(
   process.env.GAMEQUERY_ATTEMPT_TIMEOUT_MS,
-  7000,
+  4000,
   500,
 );
 export const GAMEQUERY_MAX_RETRIES = parseEnvInt(
   process.env.GAMEQUERY_MAX_RETRIES,
-  0,
-  0,
+  2,
+  1,
 );
 export const FIVEM_HTTP_TIMEOUT_MS = parseEnvInt(
   process.env.FIVEM_HTTP_TIMEOUT_MS,

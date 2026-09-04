@@ -83,6 +83,11 @@ const GAMEAPI_MAX_HOST_LENGTH = parseEnvInt(
   253,
   { min: 1, max: 253 },
 );
+const GAMEAPI_QUERY_BUDGET_MS = parseEnvInt(
+  process.env.GAMEAPI_QUERY_BUDGET_MS,
+  10000,
+  { min: 1000 },
+);
 const GAMEAPI_BLOCKED_HOSTNAMES = new Set(
   parseCsvValues(
     process.env.GAMEAPI_BLOCKED_HOSTNAMES,
@@ -265,7 +270,7 @@ function withTimeout(promise, timeoutMs, timeoutMessage) {
     }),
     new Promise((_, reject) => {
       timeoutHandle = setTimeout(() => {
-        reject(new Error(timeoutMessage));
+        reject(createErrorWithStatus(timeoutMessage, 504));
       }, timeoutMs);
     }),
   ]);
@@ -730,7 +735,11 @@ export default async function registerGameApiRoutes(app) {
 
         pendingQueryByTarget.set(cacheKey, queryPromise);
         pendingOwnedByRequest = true;
-        const result = await queryPromise;
+        const result = await withTimeout(
+          queryPromise,
+          GAMEAPI_QUERY_BUDGET_MS,
+          "Game server query timed out.",
+        );
         setQueryCacheEntry(cacheKey, result);
         return result;
       } catch (error) {

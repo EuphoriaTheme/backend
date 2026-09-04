@@ -37,7 +37,9 @@ export default async function queryOtherServers(game, ip, port) {
       type: game,
       host: ip,
       port: parseInt(port, 10),
-      maxRetries: GAMEQUERY_MAX_RETRIES,
+      givenPortOnly: true,
+      portCache: false,
+      maxRetries: Math.max(1, GAMEQUERY_MAX_RETRIES),
       socketTimeout: GAMEQUERY_SOCKET_TIMEOUT_MS,
       attemptTimeout: GAMEQUERY_ATTEMPT_TIMEOUT_MS,
     });
