@@ -11,6 +11,21 @@ const SEARCH_URL = "https://www.steamgriddb.com/api/v2/search/autocomplete/";
 const GRIDS_URL = "https://www.steamgriddb.com/api/v2/grids/game/";
 const STEAM_STORE_SEARCH_URL = "https://store.steampowered.com/api/storesearch/";
 const STEAM_APP_DETAILS_URL = "https://store.steampowered.com/api/appdetails";
+const CURATED_COVER_URLS = {
+  ventrilo:
+    "https://upload.wikimedia.org/wikipedia/commons/e/e9/Ventrilo_Windows_10.png",
+  aosc: "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co976f.jpg",
+  t1s: "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co2eoi.jpg",
+  mutantfactions:
+    "https://lutris.net/media/games/screenshots/mutantfactions018.jpg",
+  netpanzer:
+    "https://a.fsdn.com/con/app/proj/netpanzer.berlios/screenshots/netPanzer1.jpg/max/max/1",
+  asr08:
+    "https://cdn.gamebezz.com/games/games/cover/arca-sim-racing-08/arca-sim-racing-08-cover-gamebezz-com.jpg",
+  bas: "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co976f.jpg",
+  americasarmy:
+    "https://cdn.mobygames.com/covers/3887961-americas-army-operations-front-cover.jpg",
+};
 const GAME_ICON_FETCH_CONCURRENCY = 20;
 
 if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
@@ -53,10 +68,14 @@ async function findSteamStoreCoverUrl(name) {
   return app?.success ? app.data?.header_image || null : null;
 }
 
+function findCuratedCoverUrl(id) {
+  return CURATED_COVER_URLS[String(id).toLowerCase()] || null;
+}
+
 function downloadImageAsWebp(url, dest) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, (res) => {
+      .get(url, { headers: { "User-Agent": "ed-api-icon-fetcher/1.0" } }, (res) => {
         if (res.statusCode !== 200) {
           res.resume();
           return reject(new Error("Image not found"));
@@ -111,11 +130,21 @@ async function main() {
       }
 
       if (!imageUrl) {
-        imageUrl = await findSteamStoreCoverUrl(name);
-        source = "Steam Store";
+        try {
+          imageUrl = await findSteamStoreCoverUrl(name);
+          source = "Steam Store";
+        } catch {
+          // Curated artwork is the final fallback for delisted and freeware titles.
+        }
       }
       if (!imageUrl) {
-        throw new Error("No cover art found in SteamGridDB or Steam Store");
+        imageUrl = findCuratedCoverUrl(id);
+        source = "curated fallback";
+      }
+      if (!imageUrl) {
+        throw new Error(
+          "No cover art found in SteamGridDB, Steam Store, or curated fallbacks",
+        );
       }
 
       await downloadImageAsWebp(imageUrl, imagePath);
