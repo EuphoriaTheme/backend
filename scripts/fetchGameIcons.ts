@@ -9,6 +9,7 @@ const GAMES_YML = path.resolve("public/games.yml");
 const IMAGES_DIR = path.resolve("public/games");
 const SEARCH_URL = "https://www.steamgriddb.com/api/v2/search/autocomplete/";
 const GRIDS_URL = "https://www.steamgriddb.com/api/v2/grids/game/";
+const GAME_ICON_FETCH_CONCURRENCY = 20;
 
 if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
 
@@ -64,9 +65,14 @@ function downloadImageAsWebp(url, dest) {
 
 async function main() {
   const games = yaml.load(fs.readFileSync(GAMES_YML, "utf8"));
-  for (const [name, id] of Object.entries(games)) {
+  const pendingGames = Object.entries(games).filter(([, id]) => {
     const imagePath = path.join(IMAGES_DIR, `${id}.webp`);
-    if (fs.existsSync(imagePath)) continue;
+    return !fs.existsSync(imagePath);
+  });
+  let nextGameIndex = 0;
+
+  async function fetchGameIcon([name, id]) {
+    const imagePath = path.join(IMAGES_DIR, `${id}.webp`);
     try {
       // 1. Search for the game
       const searchUrl = `${SEARCH_URL}${encodeURIComponent(name)}`;
@@ -90,6 +96,23 @@ async function main() {
       console.log(`No cover art for ${name} (${id}): ${e.message}`);
     }
   }
+
+  async function worker() {
+    while (nextGameIndex < pendingGames.length) {
+      const game = pendingGames[nextGameIndex];
+      nextGameIndex += 1;
+      await fetchGameIcon(game);
+    }
+  }
+
+  const workerCount = Math.min(
+    GAME_ICON_FETCH_CONCURRENCY,
+    pendingGames.length,
+  );
+  console.log(
+    `Fetching ${pendingGames.length} game icons with ${workerCount} concurrent workers.`,
+  );
+  await Promise.all(Array.from({ length: workerCount }, worker));
 }
 
 main();
