@@ -288,7 +288,7 @@ function getAccessLogStreamFor(dateKey) {
 }
 
 async function logApiCall(request) {
-  if (!REQUEST_LOGGING_ENABLED) {
+  if (!REQUEST_LOGGING_ENABLED || isShuttingDown) {
     return;
   }
 
@@ -465,14 +465,16 @@ app.get("/health", async () => ({
 
 let jobsStarted = false;
 let statsInterval = null;
+let translationSyncInterval = null;
+let blueprintSyncInterval = null;
 function startJobs() {
   if (jobsStarted) {
     return;
   }
 
   jobsStarted = true;
-  startTranslationSyncJob();
-  startBlueprintSyncJob();
+  translationSyncInterval = startTranslationSyncJob();
+  blueprintSyncInterval = startBlueprintSyncJob();
 
   statsInterval = setInterval(() => {
     flushApiStats();
@@ -480,6 +482,14 @@ function startJobs() {
 
   if (statsInterval.unref) {
     statsInterval.unref();
+  }
+
+  if (translationSyncInterval.unref) {
+    translationSyncInterval.unref();
+  }
+
+  if (blueprintSyncInterval.unref) {
+    blueprintSyncInterval.unref();
   }
 }
 
@@ -499,7 +509,21 @@ async function start() {
 
 start();
 
-async function shutdown(signal) {
+async function closeAccessLogStream() {
+  const stream = activeLogStream;
+  activeLogStream = null;
+
+  if (!stream) {
+    return;
+  }
+
+  await new Promise((resolve) => {
+    stream.once("error", resolve);
+    stream.end(resolve);
+  });
+}
+
+async function shutdown(signal, exitCode = 0) {
   if (isShuttingDown) {
     return;
   }
@@ -513,15 +537,22 @@ async function shutdown(signal) {
       clearInterval(statsInterval);
       statsInterval = null;
     }
-
-    await flushApiStats();
-    if (activeLogStream) {
-      activeLogStream.end();
-      activeLogStream = null;
+    if (translationSyncInterval) {
+      clearInterval(translationSyncInterval);
+      translationSyncInterval = null;
+    }
+    if (blueprintSyncInterval) {
+      clearInterval(blueprintSyncInterval);
+      blueprintSyncInterval = null;
     }
 
+    // Stop accepting new connections and wait for in-flight requests first.
     await app.close();
-    process.exit(0);
+    await flushApiStats();
+    await closeAccessLogStream();
+
+    app.log.info("Graceful shutdown completed.");
+    process.exit(exitCode);
   } catch (error) {
     app.log.error(error);
     process.exit(1);
@@ -529,19 +560,19 @@ async function shutdown(signal) {
 }
 
 process.on("SIGINT", () => {
-  shutdown("SIGINT");
+  void shutdown("SIGINT");
 });
 
 process.on("SIGTERM", () => {
-  shutdown("SIGTERM");
+  void shutdown("SIGTERM");
 });
 
 process.on("unhandledRejection", (reason) => {
   app.log.error({ err: reason }, "unhandled promise rejection");
-  process.exit(1);
+  void shutdown("unhandledRejection", 1);
 });
 
 process.on("uncaughtException", (error) => {
   app.log.error({ err: error }, "uncaught exception");
-  process.exit(1);
+  void shutdown("uncaughtException", 1);
 });
