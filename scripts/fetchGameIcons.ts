@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import * as yaml from "js-yaml";
 import https from "https";
+import sharp from "sharp";
 
 const API_KEY = "475935e9d35926c5acdf0d87f3c07db4";
 const GAMES_YML = path.resolve("public/games.yml");
@@ -34,31 +35,37 @@ function fetchJSON(url, headers = {}) {
   });
 }
 
-function downloadImage(url, dest) {
+function downloadImageAsWebp(url, dest) {
   return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(dest);
     https
       .get(url, (res) => {
         if (res.statusCode !== 200) {
-          file.close();
-          fs.unlinkSync(dest);
+          res.resume();
           return reject(new Error("Image not found"));
         }
-        res.pipe(file);
-        file.on("finish", () => file.close(resolve));
+
+        const chunks = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", async () => {
+          try {
+            const webp = await sharp(Buffer.concat(chunks))
+              .webp({ quality: 82, effort: 4 })
+              .toBuffer();
+            fs.writeFileSync(dest, webp);
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
+        });
       })
-      .on("error", (err) => {
-        file.close();
-        fs.unlinkSync(dest);
-        reject(err);
-      });
+      .on("error", reject);
   });
 }
 
 async function main() {
   const games = yaml.load(fs.readFileSync(GAMES_YML, "utf8"));
   for (const [name, id] of Object.entries(games)) {
-    const imagePath = path.join(IMAGES_DIR, `${id}.png`);
+    const imagePath = path.join(IMAGES_DIR, `${id}.webp`);
     if (fs.existsSync(imagePath)) continue;
     try {
       // 1. Search for the game
@@ -77,8 +84,8 @@ async function main() {
       if (!gridsRes.success || !gridsRes.data.length)
         throw new Error("No cover art found");
       // 3. Download the first grid (cover art)
-      await downloadImage(gridsRes.data[0].url, imagePath);
-      console.log(`Downloaded cover art for ${name} (${id})`);
+      await downloadImageAsWebp(gridsRes.data[0].url, imagePath);
+      console.log(`Downloaded WebP cover art for ${name} (${id})`);
     } catch (e) {
       console.log(`No cover art for ${name} (${id}): ${e.message}`);
     }

@@ -43,7 +43,7 @@ const DEFAULT_BLOCKED_HOSTNAMES = [
   "ip6-localhost",
   "broadcasthost",
 ];
-const imageExtensions = ["png", "jpg", "jpeg", "webp"];
+const imageExtensions = ["webp", "png", "jpg", "jpeg"];
 const DNS_HOSTNAME_PATTERN =
   /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\.(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?))*\.?$/i;
 
