@@ -794,7 +794,7 @@ export default async function registerGameApiRoutes(app) {
             ? error.statusCode
             : 500;
 
-        if (statusCode >= 500) {
+        if (statusCode >= 500 && statusCode !== 504) {
           request.log.error({ err: error }, "game query failed");
         }
 
