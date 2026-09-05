@@ -9,6 +9,8 @@ const GAMES_YML = path.resolve("public/games.yml");
 const IMAGES_DIR = path.resolve("public/games");
 const SEARCH_URL = "https://www.steamgriddb.com/api/v2/search/autocomplete/";
 const GRIDS_URL = "https://www.steamgriddb.com/api/v2/grids/game/";
+const STEAM_STORE_SEARCH_URL = "https://store.steampowered.com/api/storesearch/";
+const STEAM_APP_DETAILS_URL = "https://store.steampowered.com/api/appdetails";
 const GAME_ICON_FETCH_CONCURRENCY = 20;
 
 if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
@@ -34,6 +36,21 @@ function fetchJSON(url, headers = {}) {
       })
       .on("error", reject);
   });
+}
+
+async function findSteamStoreCoverUrl(name) {
+  const searchUrl = `${STEAM_STORE_SEARCH_URL}?term=${encodeURIComponent(name)}&cc=us&l=en`;
+  const searchResult = await fetchJSON(searchUrl);
+  const appId = searchResult.items?.[0]?.id;
+  if (!appId) {
+    return null;
+  }
+
+  const details = await fetchJSON(
+    `${STEAM_APP_DETAILS_URL}?appids=${appId}&cc=us&l=en`,
+  );
+  const app = details[String(appId)];
+  return app?.success ? app.data?.header_image || null : null;
 }
 
 function downloadImageAsWebp(url, dest) {
@@ -74,24 +91,35 @@ async function main() {
   async function fetchGameIcon([name, id]) {
     const imagePath = path.join(IMAGES_DIR, `${id}.webp`);
     try {
-      // 1. Search for the game
-      const searchUrl = `${SEARCH_URL}${encodeURIComponent(name)}`;
-      const searchRes = await fetchJSON(searchUrl, {
-        Authorization: `Bearer ${API_KEY}`,
-      });
-      if (!searchRes.success || !searchRes.data.length)
-        throw new Error("No SGDB match");
-      const gameId = searchRes.data[0].id;
-      // 2. Get grids (cover art) for the game, prefer 600x900 portrait
-      const gridsRes = await fetchJSON(
-        `${GRIDS_URL}${gameId}?dimensions=600x900`,
-        { Authorization: `Bearer ${API_KEY}` },
-      );
-      if (!gridsRes.success || !gridsRes.data.length)
-        throw new Error("No cover art found");
-      // 3. Download the first grid (cover art)
-      await downloadImageAsWebp(gridsRes.data[0].url, imagePath);
-      console.log(`Downloaded WebP cover art for ${name} (${id})`);
+      let imageUrl = null;
+      let source = "SteamGridDB";
+      try {
+        const searchUrl = `${SEARCH_URL}${encodeURIComponent(name)}`;
+        const searchRes = await fetchJSON(searchUrl, {
+          Authorization: `Bearer ${API_KEY}`,
+        });
+        if (searchRes.success && searchRes.data.length) {
+          const gameId = searchRes.data[0].id;
+          const gridsRes = await fetchJSON(
+            `${GRIDS_URL}${gameId}?dimensions=600x900`,
+            { Authorization: `Bearer ${API_KEY}` },
+          );
+          imageUrl = gridsRes.success ? gridsRes.data[0]?.url : null;
+        }
+      } catch {
+        // Steam Store is the credential-free fallback for unavailable SGDB data.
+      }
+
+      if (!imageUrl) {
+        imageUrl = await findSteamStoreCoverUrl(name);
+        source = "Steam Store";
+      }
+      if (!imageUrl) {
+        throw new Error("No cover art found in SteamGridDB or Steam Store");
+      }
+
+      await downloadImageAsWebp(imageUrl, imagePath);
+      console.log(`Downloaded WebP cover art for ${name} (${id}) from ${source}`);
     } catch (e) {
       console.log(`No cover art for ${name} (${id}): ${e.message}`);
     }
