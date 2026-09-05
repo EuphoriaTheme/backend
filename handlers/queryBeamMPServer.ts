@@ -8,15 +8,12 @@ export default function queryBeamMPServer(ip, port, timeout = 5000) {
     client.setTimeout(timeout);
 
     client.connect(parseInt(port, 10), ip, () => {
-      console.log(`Connected to BeamMP server at ${ip}:${port}`);
       const message = Buffer.from("I", "ascii");
       client.write(message);
     });
 
     client.on("data", (data) => {
       if (responseData === "") {
-        const size = data.readInt32LE(0);
-        console.log(`Expected response size: ${size}`);
         responseData = data.slice(4).toString("ascii");
       } else {
         responseData += data.toString("ascii");
@@ -24,8 +21,6 @@ export default function queryBeamMPServer(ip, port, timeout = 5000) {
     });
 
     client.on("close", () => {
-      console.log("Connection to BeamMP server closed.");
-
       if (responseData) {
         try {
           // Replace backslashes in the response data

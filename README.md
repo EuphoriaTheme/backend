@@ -86,8 +86,8 @@ Notes:
 Optional `.env` settings:
 
 ```env
-BLUEPRINT_EXTENSIONS_URL=https://api.blueprintframe.work/api/extensions
-BLUEPRINT_EXTENSIONS_FALLBACK_URL=https://blueprint.zip/api/extensions
+BLUEPRINT_EXTENSIONS_URL=https://blueprint.zip/api/extensions
+BLUEPRINT_EXTENSIONS_FALLBACK_URL=https://api.blueprintframe.work/api/extensions
 BLUEPRINT_SYNC_COOKIE=
 BLUEPRINT_SYNC_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
 BLUEPRINT_SYNC_ORIGIN=https://blueprintframe.work

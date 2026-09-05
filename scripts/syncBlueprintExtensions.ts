@@ -14,10 +14,10 @@ const BLUEPRINT_FILE = path.resolve(
 
 const BLUEPRINT_EXTENSIONS_URL =
   process.env.BLUEPRINT_EXTENSIONS_URL ||
-  "https://api.blueprintframe.work/api/extensions";
+  "https://blueprint.zip/api/extensions";
 const BLUEPRINT_EXTENSIONS_FALLBACK_URL =
   process.env.BLUEPRINT_EXTENSIONS_FALLBACK_URL ||
-  "https://blueprint.zip/api/extensions";
+  "https://api.blueprintframe.work/api/extensions";
 const BLUEPRINT_SYNC_INTERVAL_MS =
   Number(process.env.BLUEPRINT_SYNC_INTERVAL_MS) || 24 * 60 * 60 * 1000;
 const BLUEPRINT_SYNC_USER_AGENT =
