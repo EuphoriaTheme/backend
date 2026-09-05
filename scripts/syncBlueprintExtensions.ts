@@ -59,6 +59,7 @@ export async function syncBlueprintExtensions() {
   try {
     let response;
     let sourceUrl = "";
+    const failedSources: string[] = [];
 
     for (const url of urlsToTry) {
       try {
@@ -77,14 +78,16 @@ export async function syncBlueprintExtensions() {
         const message = error?.response
           ? `HTTP ${error.response.status} ${error.response.statusText}`
           : error.message;
-        console.warn(
-          `[blueprint-sync] Source failed (${url}): ${isCloudflareChallenge ? "Cloudflare challenge" : message}`,
+        failedSources.push(
+          `${url}: ${isCloudflareChallenge ? "Cloudflare challenge" : message}`,
         );
       }
     }
 
     if (!response) {
-      throw new Error("All configured Blueprint extension sources failed");
+      throw new Error(
+        `All configured Blueprint extension sources failed: ${failedSources.join("; ")}`,
+      );
     }
 
     const contentType = String(
