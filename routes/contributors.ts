@@ -5,32 +5,47 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const CACHE_TTL_MS = 60000;
+let contributorsCache = { expiresAt: 0, contributors: [] };
+
+function loadContributors() {
+  if (Date.now() < contributorsCache.expiresAt) {
+    return contributorsCache.contributors;
+  }
+
+  const contributorsPath = path.join(__dirname, "../public/contributors.yml");
+  const contributorsDir = path.join(__dirname, "../public/contributors");
+  const contributors = (
+    yaml.load(fs.readFileSync(contributorsPath, "utf8")) || []
+  ).map((contributor) => {
+    const imageName = path.basename(contributor.Image || "");
+    return {
+      ...contributor,
+      localImageName:
+        imageName && fs.existsSync(path.join(contributorsDir, imageName))
+          ? imageName
+          : null,
+    };
+  });
+
+  contributorsCache = {
+    contributors,
+    expiresAt: Date.now() + CACHE_TTL_MS,
+  };
+  return contributors;
+}
 
 export default async function registerContributorsRoutes(app) {
   const handleContributorsRequest = async (request, reply) => {
-    const contributorsPath = path.join(__dirname, "../public/contributors.yml");
-    const contributorsDir = path.join(__dirname, "../public/contributors");
     const baseUrl = `https://${request.headers.host || ""}`;
 
     try {
-      const file = fs.readFileSync(contributorsPath, "utf8");
-      let contributors = yaml.load(file) || [];
-      contributors = contributors.map((contributor) => {
-        let imagePath = contributor.Image;
-        if (imagePath) {
-          const absPath = path.join(contributorsDir, path.basename(imagePath));
-          if (fs.existsSync(absPath)) {
-            imagePath = `${baseUrl}/public/contributors/${path.basename(imagePath)}`;
-          } else {
-            imagePath = `https://ui-avatars.com/api/?name=${encodeURIComponent(contributor.Name)}&background=random&size=256`;
-          }
-        } else {
-          imagePath = `https://ui-avatars.com/api/?name=${encodeURIComponent(contributor.Name)}&background=random&size=256`;
-        }
+      return loadContributors().map(({ localImageName, ...contributor }) => {
+        const imagePath = localImageName
+          ? `${baseUrl}/public/contributors/${localImageName}`
+          : `https://ui-avatars.com/api/?name=${encodeURIComponent(contributor.Name)}&background=random&size=256`;
         return { ...contributor, Image: imagePath };
       });
-
-      return contributors;
     } catch {
       return reply.code(500).send({ error: "Failed to load contributors." });
     }

@@ -9,7 +9,8 @@ const GAMES_YML = path.resolve("public/games.yml");
 const IMAGES_DIR = path.resolve("public/games");
 const SEARCH_URL = "https://www.steamgriddb.com/api/v2/search/autocomplete/";
 const GRIDS_URL = "https://www.steamgriddb.com/api/v2/grids/game/";
-const STEAM_STORE_SEARCH_URL = "https://store.steampowered.com/api/storesearch/";
+const STEAM_STORE_SEARCH_URL =
+  "https://store.steampowered.com/api/storesearch/";
 const STEAM_APP_DETAILS_URL = "https://store.steampowered.com/api/appdetails";
 const CURATED_COVER_URLS = {
   ventrilo:
@@ -75,26 +76,30 @@ function findCuratedCoverUrl(id) {
 function downloadImageAsWebp(url, dest) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { "User-Agent": "ed-api-icon-fetcher/1.0" } }, (res) => {
-        if (res.statusCode !== 200) {
-          res.resume();
-          return reject(new Error("Image not found"));
-        }
-
-        const chunks = [];
-        res.on("data", (chunk) => chunks.push(chunk));
-        res.on("end", async () => {
-          try {
-            const webp = await sharp(Buffer.concat(chunks))
-              .webp({ quality: 82, effort: 4 })
-              .toBuffer();
-            fs.writeFileSync(dest, webp);
-            resolve();
-          } catch (error) {
-            reject(error);
+      .get(
+        url,
+        { headers: { "User-Agent": "ed-api-icon-fetcher/1.0" } },
+        (res) => {
+          if (res.statusCode !== 200) {
+            res.resume();
+            return reject(new Error("Image not found"));
           }
-        });
-      })
+
+          const chunks = [];
+          res.on("data", (chunk) => chunks.push(chunk));
+          res.on("end", async () => {
+            try {
+              const webp = await sharp(Buffer.concat(chunks))
+                .webp({ quality: 82, effort: 4 })
+                .toBuffer();
+              fs.writeFileSync(dest, webp);
+              resolve();
+            } catch (error) {
+              reject(error);
+            }
+          });
+        },
+      )
       .on("error", reject);
   });
 }
@@ -148,7 +153,9 @@ async function main() {
       }
 
       await downloadImageAsWebp(imageUrl, imagePath);
-      console.log(`Downloaded WebP cover art for ${name} (${id}) from ${source}`);
+      console.log(
+        `Downloaded WebP cover art for ${name} (${id}) from ${source}`,
+      );
     } catch (e) {
       console.log(`No cover art for ${name} (${id}): ${e.message}`);
     }

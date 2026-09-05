@@ -2,36 +2,46 @@ import path from "path";
 import fs from "fs";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { getRuntimeMetrics } from "../config/runtimeMetrics.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const BLUEPRINT_CACHE_TTL_MS = 60000;
+let blueprintStatsCache = { expiresAt: 0, extensions: [], installs: 0 };
+
+function loadBlueprintStats() {
+  if (Date.now() < blueprintStatsCache.expiresAt) {
+    return blueprintStatsCache;
+  }
+
+  const blueprintPath = path.join(__dirname, "../public/blueprint.json");
+  const data = JSON.parse(fs.readFileSync(blueprintPath, "utf8"));
+  const extensions = Array.isArray(data)
+    ? data.filter((item) => item.author?.name === "repgraphics")
+    : [];
+  const installs = extensions.reduce(
+    (sum, ext) => sum + (ext.stats?.panels || 0),
+    0,
+  );
+
+  blueprintStatsCache = {
+    expiresAt: Date.now() + BLUEPRINT_CACHE_TTL_MS,
+    extensions,
+    installs,
+  };
+  return blueprintStatsCache;
+}
 
 export default async function registerStatsRoutes(app) {
   const handleStatsRequest = async () => {
-    const statsPath = path.join(__dirname, "../api_stats.json");
-    let count = 0;
-    if (fs.existsSync(statsPath)) {
-      try {
-        const stats = JSON.parse(fs.readFileSync(statsPath, "utf8"));
-        count = stats.count || 0;
-      } catch {
-        count = 0;
-      }
-    }
+    const count = app.getApiRequestCount?.() || 0;
 
     try {
-      const blueprintPath = path.join(__dirname, "../public/blueprint.json");
-      const data = JSON.parse(fs.readFileSync(blueprintPath, "utf8"));
-      const filtered = Array.isArray(data)
-        ? data.filter((item) => item.author?.name === "repgraphics")
-        : [];
-      const installs = filtered.reduce(
-        (sum, ext) => sum + (ext.stats?.panels || 0),
-        0,
-      );
+      const blueprintStats = loadBlueprintStats();
       return {
         totalApiCalls: count,
-        blueprintExtensions: filtered,
-        totalInstalls: installs,
+        blueprintExtensions: blueprintStats.extensions,
+        totalInstalls: blueprintStats.installs,
+        runtime: getRuntimeMetrics(),
       };
     } catch {
       return {

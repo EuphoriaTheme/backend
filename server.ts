@@ -1,4 +1,4 @@
-import Fastify from "fastify";
+import Fastify, { LogController } from "fastify";
 import fastifyCors from "@fastify/cors";
 import fastifyStatic from "@fastify/static";
 import fastifyRateLimit from "@fastify/rate-limit";
@@ -8,6 +8,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import { createOpenApiDocument, renderScalarHtml } from "./config/apiDocs.js";
+import { recordRequestDuration } from "./config/runtimeMetrics.js";
 import { startTranslationSyncJob } from "./scripts/syncTranslations.js";
 import { startBlueprintSyncJob } from "./scripts/syncBlueprintExtensions.js";
 import licenseRoutes from "./routes/license.js";
@@ -69,6 +70,13 @@ const RATE_LIMIT_ALLOW_LIST = String(process.env.RATE_LIMIT_ALLOW_LIST || "")
 const API_DOCS_ENABLED = process.env.API_DOCS_ENABLED !== "false";
 const API_DOCS_PATH = process.env.API_DOCS_PATH || "/docs";
 const OPENAPI_JSON_PATH = process.env.OPENAPI_JSON_PATH || "/openapi.json";
+const STATIC_IMAGE_CACHE_CONTROL =
+  "public, max-age=86400, stale-while-revalidate=604800";
+const STATIC_IMAGE_PATTERN = /\.(?:avif|gif|ico|jpe?g|png|svg|webp)$/i;
+const DEFAULT_CONTENT_SECURITY_POLICY =
+  "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests";
+const DOCS_CONTENT_SECURITY_POLICY =
+  "default-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:; worker-src 'self' blob:; upgrade-insecure-requests";
 const PROXY_MODE = String(process.env.PROXY_MODE || "direct").toLowerCase();
 const TRUST_PROXY_HOPS = Number.parseInt(
   process.env.TRUST_PROXY_HOPS || "1",
@@ -134,7 +142,9 @@ function resolvePublicBaseUrl(request) {
 
 const app = Fastify({
   logger: { level: FASTIFY_LOG_LEVEL },
-  disableRequestLogging: FASTIFY_DISABLE_REQUEST_LOGGING,
+  logController: new LogController({
+    disableRequestLogging: FASTIFY_DISABLE_REQUEST_LOGGING,
+  }),
   trustProxy: TRUST_PROXY ? TRUST_PROXY_HOPS : false,
   bodyLimit: REQUEST_BODY_LIMIT_BYTES,
   requestTimeout: REQUEST_TIMEOUT_MS,
@@ -167,6 +177,11 @@ if (RATE_LIMIT_ENABLED) {
 await app.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
   prefix: "/public/",
+  setHeaders: (reply, filePath) => {
+    if (STATIC_IMAGE_PATTERN.test(filePath)) {
+      reply.header("Cache-Control", STATIC_IMAGE_CACHE_CONTROL);
+    }
+  },
 });
 
 function readInitialApiCount() {
@@ -189,6 +204,8 @@ let statsFlushInFlight = false;
 let activeLogDate = "";
 let activeLogStream = null;
 let isShuttingDown = false;
+
+app.decorate("getApiRequestCount", () => apiRequestCount);
 
 // Serialize access log stream rotation across concurrent requests.
 let accessLogMutex = Promise.resolve();
@@ -299,18 +316,37 @@ async function logApiCall(request) {
 }
 
 app.addHook("onRequest", async (request) => {
+  request.metricsStartedAt = performance.now();
   request.clientIp = resolveClientIp(request);
   incrementApiCounter();
   await logApiCall(request);
+});
+
+app.addHook("onResponse", async (request) => {
+  const startedAt = request.metricsStartedAt;
+  if (typeof startedAt === "number") {
+    recordRequestDuration(performance.now() - startedAt);
+  }
 });
 
 app.addHook("onSend", async (request, reply, payload) => {
   reply.header("X-Content-Type-Options", "nosniff");
   reply.header("X-Frame-Options", "DENY");
   reply.header("Referrer-Policy", "no-referrer");
+  reply.header("X-DNS-Prefetch-Control", "off");
+  reply.header("X-Permitted-Cross-Domain-Policies", "none");
+  reply.header("Cross-Origin-Opener-Policy", "same-origin");
+  reply.header("Origin-Agent-Cluster", "?1");
   reply.header(
     "Permissions-Policy",
-    "geolocation=(), microphone=(), camera=()",
+    "accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()",
+  );
+  const requestPath = String(request.url || "").split("?", 1)[0];
+  reply.header(
+    "Content-Security-Policy",
+    requestPath === API_DOCS_PATH
+      ? DOCS_CONTENT_SECURITY_POLICY
+      : DEFAULT_CONTENT_SECURITY_POLICY,
   );
 
   const forwardedProto = String(

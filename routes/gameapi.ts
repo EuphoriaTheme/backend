@@ -8,6 +8,12 @@ import queryFiveMServer from "../handlers/queryFiveMServer.js";
 import queryBeamMPServer from "../handlers/queryBeamMPServer.js";
 import queryMinecraftServer from "../handlers/queryMinecraftServer.js";
 import handleDefaultGame from "../handlers/defaultGameHandler.js";
+import {
+  recordGameCacheHit,
+  recordGameCacheMiss,
+  recordGameQueryDuration,
+  setActiveGameQueries,
+} from "../config/runtimeMetrics.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,6 +69,11 @@ const GAMEAPI_CACHE_TTL_MS = parseEnvInt(
   process.env.GAMEAPI_CACHE_TTL_MS,
   5000,
   { min: 0 },
+);
+const GAMEAPI_CACHE_MAX_ENTRIES = parseEnvInt(
+  process.env.GAMEAPI_CACHE_MAX_ENTRIES,
+  500,
+  { min: 1 },
 );
 const GAMEAPI_GAMES_CACHE_TTL_MS = parseEnvInt(
   process.env.GAMEAPI_GAMES_CACHE_TTL_MS,
@@ -425,7 +436,24 @@ function getQueryCacheEntry(cacheKey) {
     return null;
   }
 
+  // Move cache hits to the end of the Map so eviction removes the least
+  // recently used entry first.
+  queryResultCache.delete(cacheKey);
+  queryResultCache.set(cacheKey, cached);
   return cached.payload;
+}
+
+function pruneQueryResultCache(now) {
+  for (const [key, entry] of queryResultCache) {
+    if (entry.expiresAt <= now) {
+      queryResultCache.delete(key);
+    }
+  }
+
+  while (queryResultCache.size >= GAMEAPI_CACHE_MAX_ENTRIES) {
+    const oldestKey = queryResultCache.keys().next().value;
+    queryResultCache.delete(oldestKey);
+  }
 }
 
 function setQueryCacheEntry(cacheKey, payload) {
@@ -433,9 +461,12 @@ function setQueryCacheEntry(cacheKey, payload) {
     return;
   }
 
+  const now = Date.now();
+  queryResultCache.delete(cacheKey);
+  pruneQueryResultCache(now);
   queryResultCache.set(cacheKey, {
     payload,
-    expiresAt: Date.now() + GAMEAPI_CACHE_TTL_MS,
+    expiresAt: now + GAMEAPI_CACHE_TTL_MS,
   });
 }
 
@@ -449,10 +480,12 @@ async function withQueryConcurrencyLimit(fn) {
   }
 
   activeQueryCount += 1;
+  setActiveGameQueries(activeQueryCount);
   try {
     return await fn();
   } finally {
     activeQueryCount -= 1;
+    setActiveGameQueries(activeQueryCount);
   }
 }
 
@@ -669,7 +702,6 @@ export default async function registerGameApiRoutes(app) {
       const normalizedPort = parseAndValidatePort(port);
       const normalizedHost = normalizeHost(ip);
       let cacheKey = null;
-      let pendingOwnedByRequest = false;
 
       if (!normalizedHost) {
         return reply.code(400).send({
@@ -705,13 +737,20 @@ export default async function registerGameApiRoutes(app) {
 
         const cachedPayload = getQueryCacheEntry(cacheKey);
         if (cachedPayload) {
+          recordGameCacheHit();
           return cachedPayload;
         }
+        recordGameCacheMiss();
 
         if (pendingQueryByTarget.has(cacheKey)) {
-          return await pendingQueryByTarget.get(cacheKey);
+          return await withTimeout(
+            pendingQueryByTarget.get(cacheKey),
+            GAMEAPI_QUERY_BUDGET_MS,
+            "Game server query timed out.",
+          );
         }
 
+        const queryStartedAt = performance.now();
         const queryPromise = withQueryConcurrencyLimit(async () => {
           if (["fivem", "gta5f"].includes(normalizedGame)) {
             return await queryFiveMServer(queryHost, effectivePort);
@@ -733,14 +772,21 @@ export default async function registerGameApiRoutes(app) {
           );
         });
 
-        pendingQueryByTarget.set(cacheKey, queryPromise);
-        pendingOwnedByRequest = true;
+        const pendingQuery = queryPromise
+          .then((result) => {
+            setQueryCacheEntry(cacheKey, result);
+            return result;
+          })
+          .finally(() => {
+            recordGameQueryDuration(performance.now() - queryStartedAt);
+            pendingQueryByTarget.delete(cacheKey);
+          });
+        pendingQueryByTarget.set(cacheKey, pendingQuery);
         const result = await withTimeout(
-          queryPromise,
+          pendingQuery,
           GAMEAPI_QUERY_BUDGET_MS,
           "Game server query timed out.",
         );
-        setQueryCacheEntry(cacheKey, result);
         return result;
       } catch (error) {
         const statusCode =
@@ -759,10 +805,6 @@ export default async function registerGameApiRoutes(app) {
               ? "Failed to query game server."
               : error.message,
         });
-      } finally {
-        if (pendingOwnedByRequest && cacheKey) {
-          pendingQueryByTarget.delete(cacheKey);
-        }
       }
     },
   );
