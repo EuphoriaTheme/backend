@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import { createClient } from "redis";
 import { createOpenApiDocument, renderScalarHtml } from "./config/apiDocs.js";
 import { recordRequestDuration } from "./config/runtimeMetrics.js";
 import { startTranslationSyncJob } from "./scripts/syncTranslations.js";
@@ -26,7 +27,6 @@ dotenv.config({ quiet: true });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const statsFile = path.join(__dirname, "api_stats.json");
 const logsDir = path.join(__dirname, "logs");
 
 const REQUEST_BODY_LIMIT_BYTES = Number.parseInt(
@@ -49,6 +49,8 @@ const API_STATS_FLUSH_INTERVAL_MS = Number.parseInt(
   process.env.API_STATS_FLUSH_INTERVAL_MS || "5000",
   10,
 );
+const REDIS_URL = process.env.REDIS_URL;
+const API_REQUEST_COUNT_KEY = "stats:api-request-count";
 const REQUEST_LOGGING_ENABLED = process.env.REQUEST_LOGGING_ENABLED === "true";
 const FASTIFY_LOG_LEVEL = process.env.FASTIFY_LOG_LEVEL || "info";
 const FASTIFY_DISABLE_REQUEST_LOGGING =
@@ -156,6 +158,19 @@ const app = Fastify({
   },
 });
 
+if (!REDIS_URL) {
+  throw new Error("REDIS_URL must be configured.");
+}
+
+const redis = createClient({
+  url: REDIS_URL,
+  disableOfflineQueue: true,
+});
+
+redis.on("error", (error) => {
+  app.log.error({ err: error }, "Redis connection error");
+});
+
 if (CORS_ENABLED) {
   await app.register(fastifyCors, {
     origin: CORS_ORIGIN,
@@ -185,22 +200,8 @@ await app.register(fastifyStatic, {
   },
 });
 
-function readInitialApiCount() {
-  if (!fs.existsSync(statsFile)) {
-    return 0;
-  }
-
-  try {
-    const stats = JSON.parse(fs.readFileSync(statsFile, "utf8"));
-    return Number(stats.count) || 0;
-  } catch (error) {
-    app.log.error({ err: error }, "failed to read initial api stats");
-    return 0;
-  }
-}
-
-let apiRequestCount = readInitialApiCount();
-let statsDirty = false;
+let apiRequestCount = 0;
+let pendingApiRequestCount = 0;
 let statsFlushInFlight = false;
 let activeLogDate = "";
 let activeLogStream = null;
@@ -227,20 +228,18 @@ function withAccessLogLock(fn) {
 }
 
 async function flushApiStats() {
-  if (!statsDirty || statsFlushInFlight) {
+  if (pendingApiRequestCount === 0 || statsFlushInFlight) {
     return;
   }
 
+  const countToFlush = pendingApiRequestCount;
+  pendingApiRequestCount = 0;
   statsFlushInFlight = true;
   try {
-    await fs.promises.writeFile(
-      statsFile,
-      JSON.stringify({ count: apiRequestCount }),
-      "utf8",
-    );
-    statsDirty = false;
+    await redis.incrBy(API_REQUEST_COUNT_KEY, countToFlush);
   } catch (error) {
-    app.log.error({ err: error }, "failed to flush api stats");
+    pendingApiRequestCount += countToFlush;
+    app.log.error({ err: error }, "failed to flush API stats to Redis");
   } finally {
     statsFlushInFlight = false;
   }
@@ -248,7 +247,7 @@ async function flushApiStats() {
 
 function incrementApiCounter() {
   apiRequestCount += 1;
-  statsDirty = true;
+  pendingApiRequestCount += 1;
 }
 
 function getAccessLogStreamFor(dateKey) {
@@ -500,6 +499,8 @@ const HOST = process.env.HOST || "0.0.0.0";
 
 async function start() {
   try {
+    await redis.connect();
+    apiRequestCount = Number((await redis.get(API_REQUEST_COUNT_KEY)) || 0);
     await app.listen({ port: PORT, host: HOST });
     app.log.info(`Fastify server running on ${HOST}:${PORT}`);
     startJobs();
@@ -551,6 +552,7 @@ async function shutdown(signal, exitCode = 0) {
     // Stop accepting new connections and wait for in-flight requests first.
     await app.close();
     await flushApiStats();
+    await redis.close();
     await closeAccessLogStream();
 
     app.log.info("Graceful shutdown completed.");

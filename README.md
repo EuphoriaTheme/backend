@@ -25,7 +25,8 @@ This branch runs on Fastify and compiles TypeScript 6 source files into `dist/`.
 pnpm install
 ```
 
-1. Configure `.env` with required credentials and optional sync settings.
+1. Configure `.env` with required credentials, including `REDIS_URL` for API
+   stats storage, and optional sync settings.
 
 2. Start development server:
 
