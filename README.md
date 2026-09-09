@@ -132,6 +132,7 @@ GitHub URLs.
 - `GET /products`
 - `GET /donators`
 - `GET /contributors`
+- `GET /team`
 - `GET /translations`
 - `POST /translations/translate/bulk`
 - `GET /gameapi`

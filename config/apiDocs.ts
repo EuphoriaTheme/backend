@@ -101,6 +101,17 @@ export function createOpenApiDocument(baseUrl) {
           },
         },
       },
+      "/team": {
+        get: {
+          tags: ["Team"],
+          summary: "List team members",
+          responses: {
+            200: {
+              description: "Team members list",
+            },
+          },
+        },
+      },
       "/translations": {
         get: {
           tags: ["Translations"],
