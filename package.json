@@ -8,10 +8,10 @@
     "KingIronMan2011 <IronMan@king-mc.de> (https://kingironman.dev)"
   ],
   "license": "MIT",
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@11.25.0",
   "engines": {
     "node": "^24",
-    "pnpm": "12.3.4"
+    "pnpm": "11.25.0"
   },
   "scripts": {
     "dev": "tsx watch server.ts",
