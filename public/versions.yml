@@ -1,11 +1,11 @@
 # Versions Template
 - ProductName: Euphoria Paste
   InternalId: EuphoriaPaste
-  Version: 2.3.0
+  Version: 2.3.5
 
 - ProductName: Euphoria Theme
   InternalId: EuphoriaTheme
-  Version: 1.7.1
+  Version: 1.7.4
 
 - ProductName: Euphoria Licensing
   InternalId: EuphoriaLicensing
